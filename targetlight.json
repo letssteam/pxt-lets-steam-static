@@ -1,0 +1,182 @@
+{
+    "id": "lets-steam",
+    "platformid": "codal",
+    "nickname": "lets-steam",
+    "name": "MakeCode Let's STEAM",
+    "title": "MakeCode Let's STEAM - Blocks / Javascript editor",
+    "description": "A Blocks / JavaScript code editor for the Let's STEAM project",
+    "corepkg": "core",
+    "cloud": {
+        "workspace": false,
+        "packages": true,
+        "sharing": true,
+        "thumbnails": true,
+        "publishing": true,
+        "importing": true,
+        "preferredPackages": [],
+        "githubPackages": true,
+        "cloudProviders": {
+            "github": {}
+        }
+    },
+    "serial": {
+        "nameFilter": "^(mbed Serial Port|DAPLink CMSIS-DAP)",
+        "useHF2": false,
+        "useEditor": true,
+        "log": true,
+        "editorTheme": {
+            "graphBackground": "#d9d9d9",
+            "lineColors": [
+                "#CC2936",
+                "#FFC914",
+                "#2EB7ED",
+                "#FB48C7",
+                "#08415C",
+                "#C200C0"
+            ]
+        },
+        "vendorId": "0x0d28",
+        "productId": "0x0204",
+        "rawHID": true
+    },
+    "simulator": {
+        "autoRun": true,
+        "streams": false,
+        "aspectRatio": 1,
+        "parts": true,
+        "partsAspectRatio": 0.69,
+        "dynamicBoardDefinition": true,
+        "messageSimulators": {
+            "jacdac": {
+                "url": "https://microsoft.github.io/jacdac-docs/tools/makecode-sim?webusb=0&parentOrigin=$PARENT_ORIGIN$",
+                "localHostUrl": "http://localhost:8000/tools/makecode-sim?webusb=0&parentOrigin=$PARENT_ORIGIN$",
+                "aspectRatio": 0.89,
+                "permanent": true
+            }
+        }
+    },
+    "runtime": {
+        "mathBlocks": true,
+        "loopsBlocks": true,
+        "logicBlocks": true,
+        "variablesBlocks": true,
+        "textBlocks": true,
+        "listsBlocks": true,
+        "functionBlocks": true,
+        "functionsOptions": {
+            "useNewFunctions": true,
+            "extraFunctionEditorTypes": []
+        },
+        "onStartNamespace": "loops",
+        "onStartColor": "#40bf4a",
+        "onStartWeight": 100,
+        "pauseUntilBlock": {},
+        "breakBlock": true,
+        "continueBlock": true
+    },
+    "compile": {
+        "isNative": false,
+        "useUF2": false,
+        "webUSB": true,
+        "hasHex": true,
+        "deployDrives": ".*",
+        "deployFileMarker": "MBED.HTM",
+        "driveName": "DIS_L4IOT",
+        "openocdScript": "source [find interface/cmsis-dap.cfg]; source [find target/stm32l4x.cfg]",
+        "flashCodeAlign": 1024,
+        "flashChecksumAddr": 0,
+        "gc": false,
+        "utf8": false,
+        "floatingPoint": true,
+        "taggedInts": true,
+        "nativeType": "thumb",
+        "switches": {},
+        "jsRefCounting": false,
+        "noSourceInFlash": true
+    },
+    "compileService": {
+        "buildEngine": "codal",
+        "codalTarget": {
+            "name": "codal-stm32-DISCO_L475VG_IOT",
+            "url": "https://github.com/letssteam/codal-stm32-DISCO_L475VG_IOT",
+            "branch": "v1.0.5",
+            "type": "git",
+            "dev": true
+        },
+        "codalBinary": "STM32",
+        "githubCorePackage": "lancaster-university/codal",
+        "gittag": "v0.8.0",
+        "serviceId": "codal2stm32",
+        "dockerImage": "pext/yotta:latest"
+    },
+    "variants": {
+        "stm32-DISCO_L475VG_IOT": {
+            "compile": {
+                "hasHex": true,
+                "deployFileMarker": "MBED.HTM",
+                "driveName": "DIS_L4IOT",
+                "openocdScript": "source [find interface/cmsis-dap.cfg]; source [find target/stm32l4x.cfg]"
+            },
+            "compileService": {
+                "codalTarget": {
+                    "name": "codal-stm32-DISCO_L475VG_IOT",
+                    "url": "https://github.com/letssteam/codal-stm32-DISCO_L475VG_IOT",
+                    "branch": "v1.0.5",
+                    "type": "git",
+                    "dev": true
+                },
+                "codalBinary": "STM32",
+                "serviceId": "codal2stm32",
+                "dockerImage": "pext/yotta:latest"
+            }
+        }
+    },
+    "ignoreDocsErrors": true,
+    "uploadDocs": false,
+    "versions": {
+        "branch": "main",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/3c510be0e947834fdcdefcccf697ae5d44ecbe12",
+        "target": "0.0.56",
+        "pxt": "7.4.12"
+    },
+    "blocksprj": {
+        "id": "blocksprj",
+        "config": {
+            "name": "{0} block",
+            "dependencies": {
+                "core": "*"
+            },
+            "description": "",
+            "files": [
+                "main.blocks",
+                "main.ts",
+                "README.md"
+            ],
+            "additionalFilePaths": []
+        },
+        "files": {
+            "README.md": "",
+            "main.blocks": "<xml xmlns=\"http://www.w3.org/1999/xhtml\">\n  <block type=\"pxt-on-start\"></block>\n  <block type=\"forever\"></block>\n</xml>\n",
+            "main.ts": "\n"
+        }
+    },
+    "tsprj": {
+        "id": "tsprj",
+        "config": {
+            "name": "{0} block",
+            "dependencies": {
+                "core": "*"
+            },
+            "description": "",
+            "files": [
+                "main.ts",
+                "README.md"
+            ],
+            "additionalFilePaths": []
+        },
+        "files": {
+            "README.md": "",
+            "main.ts": "\n"
+        }
+    }
+}
