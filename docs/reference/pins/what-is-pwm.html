@@ -575,7 +575,7 @@ many times per second, other circuits detect that the pin is giving 1.65 volts. 
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
                 if (typeof pxtConfig === "undefined" || !pxtConfig) {
-                    telemetryItem.properties["target"] = "lets-steam";
+                    telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
                 telemetryItem.properties["target"] = pxtConfig.targetId;

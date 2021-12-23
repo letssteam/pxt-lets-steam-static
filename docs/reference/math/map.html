@@ -561,7 +561,7 @@ let peoplesAge = Math.map(dogsAge, 1, 16, 15, 87) </code></pre>
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
                 if (typeof pxtConfig === "undefined" || !pxtConfig) {
-                    telemetryItem.properties["target"] = "lets-steam";
+                    telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
                 telemetryItem.properties["target"] = pxtConfig.targetId;

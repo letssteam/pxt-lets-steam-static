@@ -552,7 +552,7 @@ You don’t need to know anything special beyond what you’ve already learned i
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
                 if (typeof pxtConfig === "undefined" || !pxtConfig) {
-                    telemetryItem.properties["target"] = "lets-steam";
+                    telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
                 telemetryItem.properties["target"] = pxtConfig.targetId;

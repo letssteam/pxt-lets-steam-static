@@ -622,7 +622,7 @@ Also note that <code>v0</code> and <code>v1</code> here refer to an old version 
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
                 if (typeof pxtConfig === "undefined" || !pxtConfig) {
-                    telemetryItem.properties["target"] = "lets-steam";
+                    telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
                 telemetryItem.properties["target"] = pxtConfig.targetId;

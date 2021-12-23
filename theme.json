@@ -407,7 +407,7 @@
         }
     ],
     "embedUrl": "http://www.lets-steam.eu/",
-    "id": "lets-steam",
+    "id": "stm32iotnode",
     "title": "MakeCode Let's STEAM - Blocks / Javascript editor",
     "name": "MakeCode Let's STEAM",
     "description": "A Blocks / JavaScript code editor for the Let's STEAM project",

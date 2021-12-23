@@ -1,5 +1,5 @@
 var pxtTargetBundle = {
-    "id": "lets-steam",
+    "id": "stm32iotnode",
     "platformid": "codal",
     "nickname": "lets-steam",
     "name": "MakeCode Let's STEAM",
@@ -553,7 +553,7 @@ var pxtTargetBundle = {
             }
         ],
         "embedUrl": "http://www.lets-steam.eu/",
-        "id": "lets-steam",
+        "id": "stm32iotnode",
         "title": "MakeCode Let's STEAM - Blocks / Javascript editor",
         "name": "MakeCode Let's STEAM",
         "description": "A Blocks / JavaScript code editor for the Let's STEAM project",
@@ -563,7 +563,7 @@ var pxtTargetBundle = {
     "uploadDocs": false,
     "versions": {
         "branch": "main",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/5c8dd94c98bb3f48c954b51309e7df669fd8c5dd",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/8c41dc8efcbd97854a6a7c0b3877fb69cdbd9b88",
         "target": "0.0.57",
         "pxt": "7.4.12"
     },
