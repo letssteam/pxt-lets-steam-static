@@ -8,13 +8,12 @@
     "corepkg": "core",
     "cloud": {
         "workspace": false,
-        "packages": true,
         "sharing": true,
         "thumbnails": true,
-        "publishing": true,
         "importing": true,
+        "packages": true,
+        "publishing": true,
         "preferredPackages": [],
-        "githubPackages": true,
         "cloudProviders": {
             "github": {}
         }
@@ -135,8 +134,8 @@
     "uploadDocs": false,
     "versions": {
         "branch": "main",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/8c41dc8efcbd97854a6a7c0b3877fb69cdbd9b88",
-        "target": "0.0.57",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/a1eb89906acbd5faee793a72cdde8bb7fa01b950",
+        "target": "0.0.58",
         "pxt": "7.4.12"
     },
     "blocksprj": {
