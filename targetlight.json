@@ -66,8 +66,6 @@
             "useNewFunctions": true,
             "extraFunctionEditorTypes": []
         },
-        "onStartNamespace": "loops",
-        "onStartColor": "#40bf4a",
         "onStartWeight": 100,
         "pauseUntilBlock": {},
         "breakBlock": true,
@@ -131,11 +129,11 @@
         }
     },
     "ignoreDocsErrors": true,
-    "uploadDocs": false,
+    "uploadDocs": true,
     "versions": {
         "branch": "main",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/910de57ca2a840acaa965ad156c12005c3abb6d6",
-        "target": "0.0.59",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/d8009258a67de5f77d73520a2d964519a8037909",
+        "target": "0.0.60",
         "pxt": "7.4.12"
     },
     "blocksprj": {
