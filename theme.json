@@ -100,12 +100,22 @@
     "addNewTypeScriptFile": true,
     "nameProjectFirst": true,
     "showProjectSettings": true,
-    "selectLanguage": false,
     "tutorialBlocksDiff": true,
     "tutorialExplicitHints": true,
     "chooseLanguageRestrictionOnNewProject": true,
     "openProjectNewTab": true,
     "errorList": true,
+    "crowdinProject": "kindscript",
+    "selectLanguage": true,
+    "availableLocales": [
+        "en",
+        "fr",
+        "it",
+        "gr",
+        "nl",
+        "es-ES",
+        "bg"
+    ],
     "TOC": [
         {
             "name": "About",

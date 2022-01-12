@@ -25,6 +25,7 @@
     "The base library": "The base library",
     "The core library for Codal-based targets": "The core library for Codal-based targets",
     "The music library": "The music library",
+    "Tiny data logging framework": "Tiny data logging framework",
     "UART communication": "UART communication",
     "Uploading": "Uploading",
     "Your program is uploading to your target, please wait.": "Your program is uploading to your target, please wait."
