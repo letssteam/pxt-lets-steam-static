@@ -21,9 +21,11 @@
     "Ok": "Ok",
     "Reference": "Reference",
     "SSD1306 Driver": "SSD1306 Driver",
+    "Settings storage in internal flash": "Settings storage in internal flash",
     "The accelerometer library": "The accelerometer library",
     "The base library": "The base library",
     "The core library for Codal-based targets": "The core library for Codal-based targets",
+    "The music library": "The music library",
     "Uploading": "Uploading",
     "Your program is uploading to your target, please wait.": "Your program is uploading to your target, please wait."
 }
