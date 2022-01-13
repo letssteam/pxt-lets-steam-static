@@ -112,6 +112,7 @@
                 "hasHex": true,
                 "deployFileMarker": "MBED.HTM",
                 "driveName": "DIS_L4IOT",
+                "uf2Family": "0x57755a57",
                 "openocdScript": "source [find interface/cmsis-dap.cfg]; source [find target/stm32l4x.cfg]"
             },
             "compileService": {
@@ -132,7 +133,7 @@
     "uploadDocs": true,
     "versions": {
         "branch": "main",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/bdfeffb98be824c14b087ae656b330e76a0305b6",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/b07169cbd7b0e074c1f89c9250263aee3f81901f",
         "target": "0.0.60",
         "pxt": "7.4.12"
     },
