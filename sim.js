@@ -297,8 +297,8 @@ var pxsim;
 })(pxsim || (pxsim = {}));
 var pxsim;
 (function (pxsim) {
-    var screen;
-    (function (screen) {
+    var oled;
+    (function (oled) {
         const BLACK_COLOR_SVG = "#00435E";
         const WHITE_COLOR_SVG = "#FFFFFF";
         function printString(str, color, x, y) {
@@ -311,7 +311,7 @@ var pxsim;
             state.drawingList.push(elem);
             pxsim.runtime.queueDisplayUpdate();
         }
-        screen.printString = printString;
+        oled.printString = printString;
         function fillRect(x, y, width, height, color) {
             let state = pxsim.ssd1306State();
             let elem = new pxsim.SSD1306DrawElement();
@@ -323,23 +323,23 @@ var pxsim;
             state.drawingList.push(elem);
             pxsim.runtime.queueDisplayUpdate();
         }
-        screen.fillRect = fillRect;
+        oled.fillRect = fillRect;
         function fillScreen(color) {
             let state = pxsim.ssd1306State();
             state.drawingList = [];
             fillRect(0, 0, state.getWidth(), state.getHeight(), color);
         }
-        screen.fillScreen = fillScreen;
+        oled.fillScreen = fillScreen;
         function clearScreen() {
             let state = pxsim.ssd1306State();
             state.isInvert = false;
             fillScreen(0 /* Black */);
         }
-        screen.clearScreen = clearScreen;
+        oled.clearScreen = clearScreen;
         function setPixel(x, y, color) {
             fillRect(x, y, 1, 1, color);
         }
-        screen.setPixel = setPixel;
+        oled.setPixel = setPixel;
         function invertScreen(invert) {
             let state = pxsim.ssd1306State();
             if (state.isInvert != invert) {
@@ -356,7 +356,7 @@ var pxsim;
             }
             state.isInvert = invert;
         }
-        screen.invertScreen = invertScreen;
+        oled.invertScreen = invertScreen;
         function getSVGColor(state, color) {
             if (color == 0 /* Black */) {
                 return state.isInvert ? WHITE_COLOR_SVG : BLACK_COLOR_SVG;
@@ -365,7 +365,7 @@ var pxsim;
                 return state.isInvert ? BLACK_COLOR_SVG : WHITE_COLOR_SVG;
             }
         }
-    })(screen = pxsim.screen || (pxsim.screen = {}));
+    })(oled = pxsim.oled || (pxsim.oled = {}));
 })(pxsim || (pxsim = {}));
 /// <reference path="../../node_modules/pxt-core/built/pxtsim.d.ts"/>
 /// <reference path="../../built/common-sim.d.ts"/>
@@ -990,7 +990,7 @@ var pxsim;
                 this.svgEl = svgEl;
                 this.initDom();
                 this.attachEvents();
-                pxsim.screen.fillScreen(0 /* Black */);
+                pxsim.oled.fillScreen(0 /* Black */);
             }
             moveToCoord(xy) {
                 visuals.translateEl(this.element, [xy[0], xy[1]]);

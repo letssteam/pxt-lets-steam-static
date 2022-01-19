@@ -21,7 +21,7 @@
     "Nucleo 64": "Nucleo 64",
     "Ok": "Ok",
     "Reference": "Reference",
-    "SSD1306 Driver": "SSD1306 Driver",
+    "Support for OLED display based on the SSD1306": "Support for OLED display based on the SSD1306",
     "The accelerometer library": "The accelerometer library",
     "The base library": "The base library",
     "The core library for Codal-based targets": "The core library for Codal-based targets",
