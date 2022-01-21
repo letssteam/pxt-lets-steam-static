@@ -132,9 +132,8 @@
     "ignoreDocsErrors": true,
     "uploadDocs": true,
     "versions": {
-        "branch": "v1.0.3",
-        "tag": "v1.0.3",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/1997f6bab073da1ca84887633b605d56b2fddd75",
+        "branch": "main",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/cebbecb377440ff5e3a46e89aa405178fdc75a6e",
         "target": "1.0.3",
         "pxt": "7.4.12"
     },
