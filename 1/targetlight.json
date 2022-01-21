@@ -133,8 +133,8 @@
     "uploadDocs": true,
     "versions": {
         "branch": "main",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/b739beed3ffdd104ff8997bdb7b5e5b142c47864",
-        "target": "1.0.2",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/1997f6bab073da1ca84887633b605d56b2fddd75",
+        "target": "1.0.3",
         "pxt": "7.4.12"
     },
     "blocksprj": {
