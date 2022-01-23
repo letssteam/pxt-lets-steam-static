@@ -27,7 +27,6 @@
     "The core library for Codal-based targets": "The core library for Codal-based targets",
     "The music library": "The music library",
     "UART communication": "UART communication",
-    "USB Pen-drive support and flash storage": "USB Pen-drive support and flash storage",
     "Uploading": "Uploading",
     "Your program is uploading to your target, please wait.": "Your program is uploading to your target, please wait."
 }
