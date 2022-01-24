@@ -11,8 +11,6 @@
     "organizationLogo": "docs/static/Microsoft-logo_rgb_c-gray-square.png",
     "organizationWideLogo": "docs/static/Microsoft-logo_rgb_c-white.png",
     "homeUrl": "http://makecode.lets-steam.eu/",
-    "embedUrl": "https://makecode.lets-steam.eu/",
-    "shareUrl": "https://makecode.lets-steam.eu/",
     "privacyUrl": "https://go.microsoft.com/fwlink/?LinkId=521839",
     "termsOfUseUrl": "https://go.microsoft.com/fwlink/?LinkID=206977",
     "githubUrl": "https://github.com/letssteam/pxt-lets-steam",
@@ -414,6 +412,7 @@
             ]
         }
     ],
+    "embedUrl": "http://makecode.lets-steam.eu/",
     "id": "stm32iotnode",
     "title": "MakeCode Let's STEAM - Blocks / Javascript editor",
     "name": "MakeCode Let's STEAM",

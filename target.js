@@ -158,8 +158,6 @@ var pxtTargetBundle = {
         "organizationLogo": "docs/static/Microsoft-logo_rgb_c-gray-square.png",
         "organizationWideLogo": "docs/static/Microsoft-logo_rgb_c-white.png",
         "homeUrl": "/",
-        "embedUrl": "https://makecode.lets-steam.eu/",
-        "shareUrl": "https://makecode.lets-steam.eu/",
         "privacyUrl": "https://go.microsoft.com/fwlink/?LinkId=521839",
         "termsOfUseUrl": "https://go.microsoft.com/fwlink/?LinkID=206977",
         "githubUrl": "https://github.com/letssteam/pxt-lets-steam",
@@ -561,6 +559,7 @@ var pxtTargetBundle = {
                 ]
             }
         ],
+        "embedUrl": "http://makecode.lets-steam.eu/",
         "id": "stm32iotnode",
         "title": "MakeCode Let's STEAM - Blocks / Javascript editor",
         "name": "MakeCode Let's STEAM",
@@ -570,9 +569,8 @@ var pxtTargetBundle = {
     "ignoreDocsErrors": true,
     "uploadDocs": true,
     "versions": {
-        "branch": "v1.0.14",
-        "tag": "v1.0.14",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/2ee8fa0aa5f74d16803e819f1e242279296942a4",
+        "branch": "main",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/12dd04abdb4c9d79cb6fccbe6cc225137d4b425c",
         "target": "1.0.14",
         "pxt": "7.4.12"
     },
