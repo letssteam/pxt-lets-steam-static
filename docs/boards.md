@@ -9,10 +9,11 @@ This editor supports various maker boards, based on STM32 MCU.
     {
         "name": "Add your board",
         "url": "/boards/add-a-new-board",
-        "imageUrl": "/docs/static/libs/bead-servo.jpg"
+        "imageUrl": "/docs/static/libs/stm32-board.jpg"
     }
 ]
 ```
 
 ## See Also
+
 [Add a new board](/boards/add-a-new-board)

@@ -132,9 +132,8 @@
     "ignoreDocsErrors": true,
     "uploadDocs": true,
     "versions": {
-        "branch": "v1.0.16",
-        "tag": "v1.0.16",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/d3462f211731cc2960df35a9a9c6215115e4e64d",
+        "branch": "main",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/d7d49d2f2ad7b71e299c265d2e73b79949ce30a1",
         "target": "1.0.16",
         "pxt": "7.4.12"
     },
@@ -155,7 +154,7 @@
         },
         "files": {
             "README.md": "",
-            "main.blocks": "<xml xmlns=\"http://www.w3.org/1999/xhtml\">\n  <block type=\"pxt-on-start\"></block>\n  <block type=\"forever\"></block>\n</xml>\n",
+            "main.blocks": "<xml xmlns=\"http://www.w3.org/1999/xhtml\">\n  <block type=\"pxt-on-start\" x=\"0\" y=\"0\"></block>\n  <block type=\"forever\" x=\"176\" y=\"0\"></block>\n</xml>\n",
             "main.ts": "\n"
         }
     },

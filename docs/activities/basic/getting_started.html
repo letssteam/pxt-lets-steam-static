@@ -22,14 +22,14 @@
 <meta name="twitter:site" content="@msmakecode" />
 <meta name="twitter:title" content="MakeCode Let&#39;s STEAM - Blocks / Javascript editor" />
 <meta name="twitter:description" content="A Blocks / JavaScript code editor for the Let&#39;s STEAM project" />
-<meta name="twitter:image" content="" />
+<meta name="twitter:image" content="/static/projects/getting_started/makecode-home.png" />
 
 <meta property="og:title" content="MakeCode Let&#39;s STEAM - Blocks / Javascript editor" />
 <meta property="og:site_name" content="Microsoft MakeCode" />
 <meta property="og:type" content="website" />
 <meta property="og:description" content="A Blocks / JavaScript code editor for the Let&#39;s STEAM project" />
 <meta property="fb:app_id" content="" />
-<meta property="og:image" content="" />
+<meta property="og:image" content="/static/projects/getting_started/makecode-home.png" />
 
 <meta name="format-detection" content="telephone=no">
 <link rel="apple-touch-icon" href="">
@@ -373,9 +373,66 @@
 					</button>
 					
     <div class="ui text">
-        <h1 id="stmicroelectronics-nucleo-f4x1re-board">STMicroelectronics Nucleo F4x1RE Board</h1><pre><code class="lang-sim">forever(function() {
-
-})</code></pre>
+        <h1 id="getting-started-with-makecode">Getting Started with MakeCode</h1><h2 id="discover-makecode"><strong>Discover MakeCode</strong></h2><h3 id="what-is-it-"><strong>What is it?</strong></h3><p>This workshop will introduce you to the possibilities that programmable things may give you as teachers to engage your students in practical activities that solicit their curiosity in scientific subjects. To this purpose, we first have to develop our computational thinking attitude by challenging our practical problem-solving skills.</p>
+<p>The purpose of this first module is to introduce the technical topics that will be used in the next modules. In particular, we will present the physical IoT board that will be used for activities and the MakeCode programming environment.</p>
+<h3 id="what-you-ll-learn"><strong>What you’ll learn</strong></h3><ul>
+<li>What is the STM32L4 Discovery for IoT Node (simply the board, hereinafter);</li>
+<li>How to connect the board to your PC;</li>
+<li>How to use MakeCode</li>
+</ul>
+<h3 id="what-you-need"><strong>What you need</strong></h3><ul>
+<li>A computer with a modern web browser (e.g. Edge, Chrome, Safari, …) connected to the Internet</li>
+<li>1 Programming board STM32 <a target="_blank" rel="nofollow noopener" href="http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html">B-L475E-IOT01A</a> Discovery kit for IoT node</li>
+<li>1 Micro-USB (Type B) cable</li>
+</ul>
+<h3 id="what-you-need-to-know-before-we-start">What you need to know before we start</h3><p>Make Code is a free, open-source platform for creating engaging computer science learning experiences. MakeCode was created by Microsoft Research.</p>
+<p>We use MakeCode fo. This board is a sort of mini-computer. Technically speaking, the board is an <strong>embedded system</strong>. An embedded system is a computer system designed for a specific purpose, while PCs are general-purpose computer systems.</p>
+<h3 id="how-to-use-it"><strong>How to use it</strong></h3><p>Open your web browser and go to: <a target="_blank" rel="nofollow noopener" href="https://makecode.st.com/">https://makecode.st.com/</a>. The following will appear.</p>
+<p><img class="ui image" src="/static/projects/getting_started/makecode-home.png" alt="Makecode home" loading="lazy"></p>
+<p>The MakeCode environment provides us with a few sample projects. Let’s try the first one just to understand how we can execute a project’s code on our board. Let’s click on the “<strong>Blinky Led</strong>” project icon, which you may find as a first project example.</p>
+<p>Our web browser now shows the <strong>Development Environment</strong>.</p>
+<p><img class="ui image" src="/static/projects/getting_started/makecode-ide.png" alt="Makecode editor" loading="lazy"></p>
+<p>The screen can be split into 5 parts :</p>
+<p><strong>The top bar</strong></p>
+<p>Contains the link to return to the home screen, or share your project.
+The most important feature is the centre “switch” which allows you to <strong>program with blocks</strong> (enabled per default), or directly <strong>write Javascript’s code</strong>.
+Then you can also find the help and settings buttons.</p>
+<p>When you build your code with blocks, it automatically translates to Javascript, and vice versa.</p>
+<p><strong>The left panel</strong></p>
+<p>Here is the <strong>board simulator,</strong> that is able to reproduce the same behaviour as the physical board. In this example, you can see the LED (on top of the board) blinking.</p>
+<p><strong>The center panel</strong></p>
+<p>In each <strong>colored sections</strong> (Input, Pins, Control, …) you’ll find all <strong>programming blocks</strong> used to create your program, by simply drag-it on <strong>workspace</strong></p>
+<p><strong>The right panel</strong></p>
+<p>This is your <strong>workspace</strong>. It’s the place where you’ll place the block to create your programs (or type directly your Javascript).
+In the example, you can see there are already placed blocks in your workspace, to make the board’s led blinking.</p>
+<p>In theory, for simple activities, we might not need the real board and execute our code entirely in the simulator. But this is not what we want! Indeed, we want to execute our code on the real board.</p>
+<p><strong>The bottom bar</strong></p>
+<p>The last section is where you can lots of usefull button, heres what they do (left to right order):</p>
+<ul>
+<li>Hide/show the simulator, if you did not want to see the simulator you can hide it with this button.</li>
+<li>Debugging, useful to find where “bugs” are, and test your code block by block (or line by line in Javascript mode).</li>
+<li>Download, when you finish your development, you can download your program to send it into your STM32 Discovery board.</li>
+<li>The name of your project and the button to save it (Autosave is enabled by default, but when you rename your project, or just to be sure everything is saved, you can use the “Save” button).</li>
+<li>Undo and Redo buttons, when you make something wrong, you can go back with the undo button or use the redo button to replay a modification.</li>
+<li>Zoom buttons, to adjust the workspace zoom level.</li>
+</ul>
+<h3 id="how-to-upload-program-into-the-stm32-discovery-board">How to upload program into the STM32 Discovery board</h3><p>Test your program on the simulator it’s great but is better to try it on the real board. To do this, you have to follow these simple steps.</p>
+<ol>
+<li><p>Connect the STM32L4 Discovery kit to your computer with the USB cable. <strong>The cable MUST be connected to the ST-LINK/V2-1 USB Micro-B female connector on the board.</strong> Once the board has been connected to the PC, it powers on. On the board, the LED close to the USB connector should immediately turn on to RED and, after a few seconds, to GREEN.</p>
+<p><img class="ui image" src="/static/projects/getting_started/board-boot.jpg" alt="Board boot" loading="lazy"></p>
+</li>
+<li><p>When the connection has been established, the computer will show you a new storage unit (or drive).</p>
+</li>
+<li>Download the code to our computer by clicking on the “Download” button; a file (with the <em>.bin</em> extension) will be downloaded.</li>
+<li>Move this file into the storage unit called <code>DIS_L4IOT</code>.</li>
+<li><p>As soon as the file is transferred into the board’s storage folder, the board loads the code and executes it. When the transfer is done, the led will start blinking!</p>
+<p><img class="ui image" src="/static/projects/getting_started/blink.gif" alt="Blink" loading="lazy"></p>
+</li>
+</ol>
+<h3 id="going-further">Going further</h3><p><a target="_blank" rel="nofollow noopener" href="https://www.microsoft.com/en-us/makecode">Microsoft MakeCode Computer Science Education</a></p>
+<p><a target="_blank" rel="nofollow noopener" href="https://www.microsoft.com/en-us/makecode/get-started?activetab=pivot1%3aprimaryr2">Get Started with MakeCode Tech Education</a></p>
+<p><a target="_blank" rel="nofollow noopener" href="https://www.youtube.com/channel/UCye7YlvFUUQ1dSy0WZZ1T_Q">Microsoft MakeCode</a></p>
+<h3 id="you-may-also-like">You may also like</h3><p><a target="_blank" rel="nofollow noopener" href="https://www.notion.so/Blink-a-LED-Makecode-f6fe6d24a4a94c4db523f2a11726e7bc">Blink a LED - Makecode</a></p>
 
     </div>
 
