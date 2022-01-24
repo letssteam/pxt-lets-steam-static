@@ -4,7 +4,8 @@
 [
     {
         "name": "Activity sheets",
-        "url": "/activities"
+        "url": "/activities",
+        "imageUrl": "/docs/static/activities/1.png"
     }
 ]
 ```
