@@ -569,7 +569,8 @@
     "ignoreDocsErrors": true,
     "uploadDocs": true,
     "versions": {
-        "branch": "main",
+        "branch": "v1.0.19",
+        "tag": "v1.0.19",
         "commits": "https://github.com/letssteam/pxt-lets-steam/commits/be334d4ce1a8c21f114a9a63631bc1385210565c",
         "target": "1.0.19",
         "pxt": "7.4.12"
