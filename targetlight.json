@@ -96,9 +96,8 @@
         "codalTarget": {
             "name": "codal-stm32-DISCO_L475VG_IOT",
             "url": "https://github.com/letssteam/codal-stm32-DISCO_L475VG_IOT",
-            "branch": "v1.0.6",
-            "type": "git",
-            "dev": true
+            "branch": "v1.0.10",
+            "type": "git"
         },
         "codalBinary": "STM32",
         "githubCorePackage": "lancaster-university/codal",
@@ -119,9 +118,8 @@
                 "codalTarget": {
                     "name": "codal-stm32-DISCO_L475VG_IOT",
                     "url": "https://github.com/letssteam/codal-stm32-DISCO_L475VG_IOT",
-                    "branch": "v1.0.6",
-                    "type": "git",
-                    "dev": true
+                    "branch": "v1.0.10",
+                    "type": "git"
                 },
                 "codalBinary": "STM32",
                 "serviceId": "codal2stm32",
@@ -132,10 +130,10 @@
     "ignoreDocsErrors": true,
     "uploadDocs": true,
     "versions": {
-        "branch": "v1.0.22",
-        "tag": "v1.0.22",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/08980d408ab33f25f192acf4e79e03d2f936801c",
-        "target": "1.0.22",
+        "branch": "v1.0.23",
+        "tag": "v1.0.23",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/2e041e03b1b2f1a709551c94a379b1626df8badc",
+        "target": "1.0.23",
         "pxt": "7.4.12"
     },
     "blocksprj": {
