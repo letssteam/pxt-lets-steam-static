@@ -9,6 +9,8 @@
   "description": "Activité de prise en main pour aborder le concept de broche",
   "url": "https://nbviewer.org/github/letssteam/ActivitySheets/blob/main/FR/R1/R1AS01-Faisons_clignoter_une_led.pdf",
   "imageUrl": "/docs/static/activities/1.png",
+  "label": "New? Start Here!",
+  "labelClass": "purple ribbon large",
   "otherActions": [{
     "url": "/projects/blinkaled",
     "editor": "block",

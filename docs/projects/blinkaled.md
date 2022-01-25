@@ -1,6 +1,6 @@
 # Blink a LED
 
-```typescript
+```spy
 forever(function () {
   pins.LED.digitalWrite(true);
   pause(500);
