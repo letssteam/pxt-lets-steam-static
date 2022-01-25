@@ -8,7 +8,20 @@
   "name": "Faisons clignoter une LED",
   "description": "Activité de prise en main pour aborder le concept de broche",
   "url": "https://nbviewer.org/github/letssteam/ActivitySheets/blob/main/FR/R1/R1AS01-Faisons_clignoter_une_led.pdf",
-  "imageUrl": "/docs/static/activities/1.png"
+  "imageUrl": "/docs/static/activities/1.png",
+  "otherActions": [{
+    "url": "/projects/blinkaled",
+    "editor": "block",
+    "cardType": "example"
+  },{
+    "url": "/projects/blinkaled",
+    "editor": "py",
+    "cardType": "example"
+  }, {
+    "url": "/projects/blinkaled",
+    "editor": "js",
+    "cardType": "example"
+  }]
 },
 {
   "name": "Breadboard",
