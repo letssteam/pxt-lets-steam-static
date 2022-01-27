@@ -8,7 +8,6 @@
     "Blocks": "Blocks",
     "Boards": "Boards",
     "Button A and B drivers": "Button A and B drivers",
-    "Characeter lcd driver": "Characeter lcd driver",
     "Coding activities": "Coding activities",
     "DISCO_L475VG_IOT - beta": "DISCO_L475VG_IOT - beta",
     "Forum": "Forum",
@@ -19,7 +18,9 @@
     "MakeCode Let's STEAM - Blocks / Javascript editor": "MakeCode Let's STEAM - Blocks / Javascript editor",
     "Ok": "Ok",
     "Project Ideas": "Project Ideas",
+    "Radio service for mesh networking": "Radio service for mesh networking",
     "Reference": "Reference",
+    "Support for I2C Characeter LCD display with RGB backlight": "Support for I2C Characeter LCD display with RGB backlight",
     "Support for OLED display based on the SSD1306": "Support for OLED display based on the SSD1306",
     "The accelerometer library": "The accelerometer library",
     "The base library": "The base library",
@@ -27,6 +28,6 @@
     "The music library": "The music library",
     "UART communication": "UART communication",
     "Uploading": "Uploading",
-    "Wifi services": "Wifi services",
+    "Wifi support for the module ISM43362-M3G-L44": "Wifi support for the module ISM43362-M3G-L44",
     "Your program is uploading to your target, please wait.": "Your program is uploading to your target, please wait."
 }
