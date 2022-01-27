@@ -1866,6 +1866,45 @@ var pxsim;
 })(pxsim || (pxsim = {}));
 var pxsim;
 (function (pxsim) {
+    var magnetics;
+    (function (magnetics) {
+        function setLocalName(name) { }
+        magnetics.setLocalName = setLocalName;
+        function setAdvertisingUserStringData(data) { }
+        magnetics.setAdvertisingUserStringData = setAdvertisingUserStringData;
+        function setAdvertisingKeyValueData(key, value) { }
+        magnetics.setAdvertisingKeyValueData = setAdvertisingKeyValueData;
+        function availableDataFromName(name) { return false; }
+        magnetics.availableDataFromName = availableDataFromName;
+        function readDataFromName(name) { return ""; }
+        magnetics.readDataFromName = readDataFromName;
+        function onTemperatureConditionChanged(Name, handler) { }
+        magnetics.onTemperatureConditionChanged = onTemperatureConditionChanged;
+        function isEmitting() { return false; }
+        magnetics.isEmitting = isEmitting;
+        function isScanning() { return false; }
+        magnetics.isScanning = isScanning;
+        function setAdvertisingService(uuidService, data) { }
+        magnetics.setAdvertisingService = setAdvertisingService;
+        function setAdvertisingData(id, data) { }
+        magnetics.setAdvertisingData = setAdvertisingData;
+        function stopScanning() { }
+        magnetics.stopScanning = stopScanning;
+        function stopEmitting() { }
+        magnetics.stopEmitting = stopEmitting;
+        function starScanning(ms) { }
+        magnetics.starScanning = starScanning;
+        function startEmitting(ms) { }
+        magnetics.startEmitting = startEmitting;
+        function onNewMessageReceived(name, handler) { }
+        magnetics.onNewMessageReceived = onNewMessageReceived;
+    })(magnetics = pxsim.magnetics || (pxsim.magnetics = {}));
+})(pxsim || (pxsim = {}));
+/// <reference path="../../../node_modules/pxt-core/built/pxtsim.d.ts"/>
+/// <reference path="../../../built/common-sim.d.ts"/>
+/// <reference path="../../../libs/core/dal.d.ts"/>
+var pxsim;
+(function (pxsim) {
     class ThermometerState {
         constructor(thermometerState, thermometerUnitState = pxsim.TemperatureUnit.Celsius) {
             this.thermometerState = thermometerState;
