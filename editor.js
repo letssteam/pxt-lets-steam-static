@@ -211,7 +211,7 @@ class STMDAPWrapper {
         log("DAP initialized !");
     }
     async startSerial(baudrateSerial) {
-        return;
+        //return; 
         if (this.lock_serial) {
             return;
         }
@@ -230,7 +230,7 @@ class STMDAPWrapper {
         log("Serial Started");
     }
     async stopSerial() {
-        return;
+        //return; 
         this.target.on(DAPjs.DAPLink.EVENT_SERIAL_DATA, (data) => { });
         this.target.stopSerialRead();
         await this.sleep(1000);

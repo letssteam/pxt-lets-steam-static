@@ -75,6 +75,7 @@ var pxsim;
             this.barometerState = new pxsim.AnalogSensorState(28 /* DEVICE_ID_PRESSURE */, 980, 1050);
             this.pressureUnitState = pxsim.PressureUnit.HectoPascal;
             this.ssd1306State = new pxsim.SSD1306State();
+            this.serialState = new pxsim.STMSerialState(pxsim.runtime, this);
             // TODO we need this.buttonState set for pxtcore.getButtonByPin(), but
             // this should be probably merged with buttonpair somehow
             this.builtinParts["radio"] = this.radioState = new pxsim.RadioState(pxsim.runtime, this, {
@@ -136,6 +137,7 @@ var pxsim;
             this.builtinParts["ssd1306"] = this.ssd1306State;
             this.builtinVisuals["ssd1306"] = () => new pxsim.visuals.SSD1306View();
             this.builtinPartVisuals["ssd1306"] = (xy) => pxsim.visuals.mkSSD1306Part(xy);
+            this.builtinParts["serial"] = this.serialState;
         }
         kill() {
             super.kill();
@@ -301,6 +303,8 @@ var pxsim;
     (function (oled) {
         const BLACK_COLOR_SVG = "#00435E";
         const WHITE_COLOR_SVG = "#FFFFFF";
+        function initScreen(address, width, height) { }
+        oled.initScreen = initScreen;
         function printString(str, color, x, y) {
             let state = pxsim.ssd1306State();
             let elem = new pxsim.SSD1306DrawElement();
@@ -1903,6 +1907,171 @@ var pxsim;
 /// <reference path="../../../node_modules/pxt-core/built/pxtsim.d.ts"/>
 /// <reference path="../../../built/common-sim.d.ts"/>
 /// <reference path="../../../libs/core/dal.d.ts"/>
+var pxsim;
+(function (pxsim) {
+    var Serial;
+    (function (Serial) {
+        let availableDevices = new Array();
+        function internalCreateSerialDevice(tx, rx, id) {
+            // const b = board() as EdgeConnectorBoard;
+            // return b && b.edgeConnectorState ? b.edgeConnectorState.createSerialDevice(tx, rx, id) : new STMSerialDevice(tx, rx, id);
+            let device = availableDevices.find(x => x.isPinMatch(tx, rx));
+            if (device == undefined) {
+                device = new Serial.STMSerialDevice(tx, rx, id);
+                availableDevices.push(device);
+            }
+            return device;
+        }
+        Serial.internalCreateSerialDevice = internalCreateSerialDevice;
+    })(Serial = pxsim.Serial || (pxsim.Serial = {}));
+})(pxsim || (pxsim = {}));
+(function (pxsim) {
+    var STMSerialDeviceMethods;
+    (function (STMSerialDeviceMethods) {
+        function setTxBufferSize(device, size) {
+            device.setTxBufferSize(size);
+        }
+        STMSerialDeviceMethods.setTxBufferSize = setTxBufferSize;
+        function setRxBufferSize(device, size) {
+            device.setRxBufferSize(size);
+        }
+        STMSerialDeviceMethods.setRxBufferSize = setRxBufferSize;
+        function read(device) {
+            return device.read();
+        }
+        STMSerialDeviceMethods.read = read;
+        function readBuffer(device) {
+            return device.readBuffer();
+        }
+        STMSerialDeviceMethods.readBuffer = readBuffer;
+        function writeBuffer(device, buffer) {
+            device.writeBuffer(buffer);
+        }
+        STMSerialDeviceMethods.writeBuffer = writeBuffer;
+        function setBaudRate(device, rate) {
+            device.setBaudRate(rate);
+        }
+        STMSerialDeviceMethods.setBaudRate = setBaudRate;
+        function redirect(device, tx, rx, rate) {
+            device.redirect(tx, rx, rate);
+        }
+        STMSerialDeviceMethods.redirect = redirect;
+        function onEvent(device, event, handler) {
+            device.onEvent(event, handler);
+        }
+        STMSerialDeviceMethods.onEvent = onEvent;
+        function onDelimiterReceived(device, delimiter, handler) {
+            device.onDelimiterReceived(delimiter, handler);
+        }
+        STMSerialDeviceMethods.onDelimiterReceived = onDelimiterReceived;
+        function attachToConsole(device) {
+            device.attachToConsole();
+        }
+        STMSerialDeviceMethods.attachToConsole = attachToConsole;
+    })(STMSerialDeviceMethods = pxsim.STMSerialDeviceMethods || (pxsim.STMSerialDeviceMethods = {}));
+})(pxsim || (pxsim = {}));
+var pxsim;
+(function (pxsim) {
+    function serialState() {
+        return pxsim.board().serialState;
+    }
+    pxsim.serialState = serialState;
+})(pxsim || (pxsim = {}));
+var pxsim;
+(function (pxsim) {
+    const SERIAL_BUFFER_LENGTH = 16;
+    class STMSerialState {
+        constructor(runtime, board) {
+            this.runtime = runtime;
+            this.board = board;
+            this.serialIn = [];
+            this.serialOutBuffer = "";
+            this.board.addMessageListener(this.handleMessage.bind(this));
+        }
+        handleMessage(msg) {
+            if (msg.type === "serial") {
+                const data = msg.data || "";
+                this.receiveData(data);
+            }
+        }
+        receiveData(data) {
+            this.serialIn.push();
+        }
+        readSerial() {
+            let v = this.serialIn.shift() || "";
+            return v;
+        }
+        writeSerial(s) {
+            this.serialOutBuffer += s;
+            if (/\n/.test(this.serialOutBuffer) || this.serialOutBuffer.length > SERIAL_BUFFER_LENGTH) {
+                pxsim.Runtime.postMessage({
+                    type: 'serial',
+                    data: this.serialOutBuffer,
+                    id: pxsim.runtime.id,
+                    sim: true
+                });
+                this.serialOutBuffer = '';
+            }
+        }
+    }
+    pxsim.STMSerialState = STMSerialState;
+})(pxsim || (pxsim = {}));
+var pxsim;
+(function (pxsim) {
+    var Serial;
+    (function (Serial) {
+        class STMSerialDevice {
+            constructor(tx, rx, id) {
+                this.tx = tx;
+                this.rx = rx;
+                this.id = id;
+                this.baudRate = 115200;
+                this.setRxBufferSize(64);
+                this.setTxBufferSize(64);
+                this.isAttachToConsole = false;
+            }
+            isPinMatch(tx, rx) {
+                return this.tx == tx && this.rx == rx;
+            }
+            setTxBufferSize(size) {
+                this.txBuffer = pxsim.control.createBuffer(size);
+            }
+            setRxBufferSize(size) {
+                this.rxBuffer = pxsim.control.createBuffer(size);
+            }
+            read() {
+                return -1;
+            }
+            readBuffer() {
+                const buf = pxsim.control.createBuffer(0);
+                return buf;
+            }
+            writeBuffer(buffer) {
+                if (this.isAttachToConsole) {
+                    pxsim.serialState().writeSerial(String.fromCharCode.apply(null, buffer.data));
+                }
+            }
+            setBaudRate(rate) {
+                this.baudRate = rate;
+            }
+            redirect(tx, rx, rate) {
+                this.tx = tx;
+                this.rx = rx;
+                this.baudRate = rate;
+            }
+            onEvent(event, handler) {
+                pxsim.control.internalOnEvent(this.id, event, handler);
+            }
+            onDelimiterReceived(delimiter, handler) {
+                // TODO
+            }
+            attachToConsole() {
+                this.isAttachToConsole = true;
+            }
+        }
+        Serial.STMSerialDevice = STMSerialDevice;
+    })(Serial = pxsim.Serial || (pxsim.Serial = {}));
+})(pxsim || (pxsim = {}));
 var pxsim;
 (function (pxsim) {
     class ThermometerState {

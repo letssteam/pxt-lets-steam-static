@@ -19,7 +19,7 @@
         }
     },
     "serial": {
-        "nameFilter": "^(mbed Serial Port|DAPLink CMSIS-DAP)",
+        "nameFilter": "^(mbed Serial Port|DAPLink CMSIS-DAP|STM32L475 CMSIS-DAP)",
         "useHF2": false,
         "useEditor": true,
         "log": true,
@@ -133,7 +133,7 @@
     "uploadDocs": true,
     "versions": {
         "branch": "main",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/6e0a1f4727726c32dddca717a7c86e5773959c9e",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/922f12af1d5a4edb729739fd648da5a5085e292a",
         "target": "1.0.27",
         "pxt": "7.4.12"
     },
