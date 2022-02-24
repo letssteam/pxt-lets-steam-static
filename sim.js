@@ -2225,3 +2225,20 @@ var pxsim;
         visuals.ThermometerView = ThermometerView;
     })(visuals = pxsim.visuals || (pxsim.visuals = {}));
 })(pxsim || (pxsim = {}));
+/// <reference path="../../../node_modules/pxt-core/built/pxtsim.d.ts"/>
+/// <reference path="../../../node_modules/pxt-core/localtypings/pxtarget.d.ts"/>
+/// <reference path="../../../built/common-sim.d.ts"/>
+var pxsim;
+(function (pxsim) {
+    var wifi;
+    (function (wifi) {
+        const DEVICE_ID_WIFI_ISM43362_DATA_READY = 2510;
+        const WIFI_ISM43362_EVT_DATA_READY = 1;
+        function onReceivedData(handler) {
+            pxsim.pxtcore.registerWithDal(DEVICE_ID_WIFI_ISM43362_DATA_READY, WIFI_ISM43362_EVT_DATA_READY, handler);
+        }
+        wifi.onReceivedData = onReceivedData;
+        function executeHttpMethod(method, host, port, urlPath, headers, body, time) { }
+        wifi.executeHttpMethod = executeHttpMethod;
+    })(wifi = pxsim.wifi || (pxsim.wifi = {}));
+})(pxsim || (pxsim = {}));
