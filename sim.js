@@ -214,91 +214,6 @@ var pxsim;
 })(pxsim || (pxsim = {}));
 var pxsim;
 (function (pxsim) {
-    let DistanceCondition;
-    (function (DistanceCondition) {
-        //% block="far"
-        DistanceCondition[DistanceCondition["Far"] = 2] = "Far";
-        //% block="near"
-        DistanceCondition[DistanceCondition["Near"] = 1] = "Near";
-    })(DistanceCondition = pxsim.DistanceCondition || (pxsim.DistanceCondition = {}));
-})(pxsim || (pxsim = {}));
-(function (pxsim) {
-    var input;
-    (function (input) {
-        function onDistanceConditionChanged(condition, distance, unit, body) {
-            let b = pxsim.distanceState();
-            b.setUsed();
-            let d = distance;
-            switch (unit) {
-                case 0 /* Millimeter */:
-                    d = distance;
-                    break;
-                case 1 /* Centimeter */:
-                    d = distance * 10;
-                    break;
-                case 2 /* Decimeter */:
-                    d = distance * 100;
-                    break;
-                case 3 /* Meter */:
-                    d = distance * 1000;
-                    break;
-                default:
-                    d = 0;
-                    break;
-            }
-            if (condition === 2 /* ANALOG_THRESHOLD_HIGH */) {
-                b.setHighThreshold(d);
-            }
-            else {
-                b.setLowThreshold(d);
-            }
-            pxsim.pxtcore.registerWithDal(b.id, condition, body);
-        }
-        input.onDistanceConditionChanged = onDistanceConditionChanged;
-        function distance(unit) {
-            let b = pxsim.distanceState();
-            b.setUsed();
-            const distance = b.getLevel();
-            switch (unit) {
-                case 0 /* Millimeter */:
-                    return distance;
-                case 1 /* Centimeter */:
-                    return distance / 10.;
-                case 2 /* Decimeter */:
-                    return distance / 100.;
-                case 3 /* Meter */:
-                    return distance / 1000.;
-                default:
-                    return 0;
-            }
-        }
-        input.distance = distance;
-    })(input = pxsim.input || (pxsim.input = {}));
-})(pxsim || (pxsim = {}));
-/// <reference path="../../node_modules/pxt-core/built/pxtsim.d.ts"/>
-/// <reference path="../../built/common-sim.d.ts"/>
-/// <reference path="../../node_modules/pxt-core/built/pxtsim.d.ts"/>
-/// <reference path="../../built/common-sim.d.ts"/>
-var pxsim;
-(function (pxsim) {
-    class DistanceState {
-        constructor(distanceState, distanceUnit) {
-            this.distanceState = distanceState;
-            this.distanceUnit = distanceUnit;
-        }
-    }
-    pxsim.DistanceState = DistanceState;
-    function distanceState() {
-        return pxsim.board().distanceState;
-    }
-    pxsim.distanceState = distanceState;
-    function setDistanceUnit(unit) {
-        pxsim.board().distanceUnitState = unit;
-    }
-    pxsim.setDistanceUnit = setDistanceUnit;
-})(pxsim || (pxsim = {}));
-var pxsim;
-(function (pxsim) {
     var oled;
     (function (oled) {
         const BLACK_COLOR_SVG = "#00435E";
@@ -827,147 +742,6 @@ var pxsim;
 (function (pxsim) {
     var visuals;
     (function (visuals) {
-        class DistanceView {
-            constructor() {
-                this.style = visuals.BUTTON_PAIR_STYLE;
-            }
-            init(bus, state, svgEl, otherParams) {
-                this.state = state;
-                this.bus = bus;
-                this.defs = [];
-                this.svgEl = svgEl;
-                this.updateState();
-                this.attachEvents();
-            }
-            moveToCoord(xy) {
-                let btnWidth = visuals.PIN_DIST * 3;
-                let [x, y] = xy;
-                visuals.translateEl(this.btn, [x, y]);
-            }
-            updateState() {
-                let state = this.state;
-                if (!state || !state.distanceState || !state.distanceState.sensorUsed) {
-                    if (this.distance) {
-                        this.svgEl.removeChild(this.element);
-                        this.distance = null;
-                    }
-                }
-                else if (state && state.distanceState && state.distanceState.sensorUsed) {
-                    this.mkDistance();
-                    this.svgEl.appendChild(this.element);
-                    this.updateDistance();
-                }
-            }
-            getElement() {
-                return this.element;
-            }
-            updateTheme() {
-                let On = "#77ffff";
-                let Off = "#fff";
-                pxsim.svg.setGradientColors(this.distanceGradient, Off, On);
-            }
-            mkDistance() {
-                let svgEl = this.svgEl;
-                let defs = pxsim.svg.child(svgEl, "defs", {});
-                let g = pxsim.svg.elt("g");
-                if (!this.distance) {
-                    let gid = "gradient-distance";
-                    this.distanceGradient = pxsim.svg.linearGradient(defs, gid);
-                    let xBase = 25;
-                    let yBase = 450;
-                    let heightBase = 64;
-                    pxsim.svg.child(g, "rect", {
-                        fill: "transparent",
-                        x: xBase - 5,
-                        y: yBase - 20,
-                        width: 20,
-                        height: heightBase + 40,
-                    });
-                    this.distance = pxsim.svg.child(g, "rect", {
-                        class: "sim-distance no-drag",
-                        x: xBase,
-                        y: yBase,
-                        width: 10,
-                        height: heightBase,
-                        rx: 4, ry: 4,
-                        fill: `url(#${gid})`
-                    });
-                    this.distanceText = pxsim.svg.child(g, "text", { class: 'sim-text', x: xBase + 20, y: yBase + 20 });
-                    this.updateTheme();
-                    let pt = svgEl.createSVGPoint();
-                    pxsim.svg.buttonEvents(this.distance, 
-                    // move
-                    (ev) => {
-                        let cur = pxsim.svg.cursorPoint(pt, svgEl, ev);
-                        let t = Math.max(0, Math.min(1, ((heightBase + yBase) - cur.y) / (heightBase)));
-                        this.state.distanceState.setLevel(Math.floor(DistanceView.dmin + t * (DistanceView.dmax - DistanceView.dmin)));
-                        this.updateDistance();
-                    }, 
-                    // start
-                    ev => { }, 
-                    // stop
-                    ev => { }, 
-                    // keydown
-                    (ev) => {
-                        let charCode = (typeof ev.which == "number") ? ev.which : ev.keyCode;
-                        if (charCode === 40 || charCode === 37) { // Down/Left arrow
-                            if (this.state.distanceState.getLevel() === DistanceView.dmin) {
-                                this.state.distanceState.setLevel(DistanceView.dmax);
-                            }
-                            else {
-                                this.state.distanceState.setLevel(this.state.distanceState.getLevel() - 1);
-                            }
-                            this.updateDistance();
-                        }
-                        else if (charCode === 38 || charCode === 39) { // Up/Right arrow
-                            if (this.state.distanceState.getLevel() === DistanceView.dmax) {
-                                this.state.distanceState.setLevel(DistanceView.dmin);
-                            }
-                            else {
-                                this.state.distanceState.setLevel(this.state.distanceState.getLevel() + 1);
-                            }
-                            this.updateDistance();
-                        }
-                    });
-                    pxsim.accessibility.makeFocusable(this.distance);
-                    pxsim.accessibility.setAria(this.distance, "slider", "Distance");
-                    this.distance.setAttribute("aria-valuemin", DistanceView.dmin.toString());
-                    this.distance.setAttribute("aria-valuemax", DistanceView.dmax.toString());
-                    this.distance.setAttribute("aria-orientation", "vertical");
-                }
-                this.element = g;
-            }
-            attachEvents() {
-            }
-            updateDistance() {
-                let state = this.state;
-                if (!state || !state.distanceState || !state.distanceState.sensorUsed)
-                    return;
-                let t = Math.max(DistanceView.dmin, Math.min(DistanceView.dmax, state.distanceState.getLevel()));
-                let per = Math.floor((state.distanceState.getLevel() - DistanceView.dmin) / (DistanceView.dmax - DistanceView.dmin) * 100);
-                pxsim.svg.setGradientValue(this.distanceGradient, 100 - per + "%");
-                let unit = " mm";
-                if (state.distanceUnit == 3 /* Meter */) {
-                    unit = " m";
-                }
-                this.distanceText.textContent = t + unit;
-                this.distance.setAttribute("aria-valuenow", t.toString());
-                this.distance.setAttribute("aria-valuetext", t + unit);
-                pxsim.accessibility.setLiveContent(t + unit);
-            }
-        }
-        DistanceView.dmin = 0;
-        DistanceView.dmax = 2000;
-        visuals.DistanceView = DistanceView;
-    })(visuals = pxsim.visuals || (pxsim.visuals = {}));
-})(pxsim || (pxsim = {}));
-/// <reference path="../../node_modules/pxt-core/built/pxtsim.d.ts"/>
-/// <reference path="../../built/common-sim.d.ts"/>
-/// <reference path="../../libs/core/dal.d.ts"/>
-var pxsim;
-(function (pxsim) {
-    var visuals;
-    (function (visuals) {
         function mkSSD1306Part(xy = [0, 0]) {
             let [x, y] = xy;
             let l = x;
@@ -1405,6 +1179,281 @@ var pxsim;
         BarometerView.pmin = 980;
         BarometerView.pmax = 1050;
         visuals.BarometerView = BarometerView;
+    })(visuals = pxsim.visuals || (pxsim.visuals = {}));
+})(pxsim || (pxsim = {}));
+var pxsim;
+(function (pxsim) {
+    let DistanceCondition;
+    (function (DistanceCondition) {
+        //% block="far"
+        DistanceCondition[DistanceCondition["Far"] = 2] = "Far";
+        //% block="near"
+        DistanceCondition[DistanceCondition["Near"] = 1] = "Near";
+    })(DistanceCondition = pxsim.DistanceCondition || (pxsim.DistanceCondition = {}));
+})(pxsim || (pxsim = {}));
+(function (pxsim) {
+    var input;
+    (function (input) {
+        function onDistanceConditionChanged(condition, distance, unit, body) {
+            let b = pxsim.distanceState();
+            b.setUsed();
+            let d = distance;
+            switch (unit) {
+                case 0 /* Millimeter */:
+                    d = distance;
+                    break;
+                case 1 /* Centimeter */:
+                    d = distance * 10;
+                    break;
+                case 2 /* Decimeter */:
+                    d = distance * 100;
+                    break;
+                case 3 /* Meter */:
+                    d = distance * 1000;
+                    break;
+                default:
+                    d = 0;
+                    break;
+            }
+            if (condition === 2 /* ANALOG_THRESHOLD_HIGH */) {
+                b.setHighThreshold(d);
+            }
+            else {
+                b.setLowThreshold(d);
+            }
+            pxsim.pxtcore.registerWithDal(b.id, condition, body);
+        }
+        input.onDistanceConditionChanged = onDistanceConditionChanged;
+        function distance(unit) {
+            let b = pxsim.distanceState();
+            b.setUsed();
+            const distance = b.getLevel();
+            pxsim.setDistanceUnit(unit);
+            switch (unit) {
+                case 0 /* Millimeter */:
+                    return distance;
+                case 1 /* Centimeter */:
+                    return distance / 10.;
+                case 2 /* Decimeter */:
+                    return distance / 100.;
+                case 3 /* Meter */:
+                    return distance / 1000.;
+                default:
+                    return 0;
+            }
+        }
+        input.distance = distance;
+    })(input = pxsim.input || (pxsim.input = {}));
+})(pxsim || (pxsim = {}));
+/// <reference path="../../../node_modules/pxt-core/built/pxtsim.d.ts"/>
+/// <reference path="../../../built/common-sim.d.ts"/>
+/// <reference path="../../../built/common-sim.d.ts"/>
+/// <reference path="../../../node_modules/pxt-core/built/pxtsim.d.ts"/>
+var pxsim;
+(function (pxsim) {
+    class DistanceState {
+        constructor(distanceState, distanceUnit) {
+            this.distanceState = distanceState;
+            this.distanceUnit = distanceUnit;
+        }
+    }
+    pxsim.DistanceState = DistanceState;
+    function distanceState() {
+        return pxsim.board().distanceState;
+    }
+    pxsim.distanceState = distanceState;
+    function distanceUnit() {
+        return pxsim.board().distanceUnitState;
+    }
+    pxsim.distanceUnit = distanceUnit;
+    function setDistanceUnit(unit) {
+        pxsim.board().distanceUnitState = unit;
+    }
+    pxsim.setDistanceUnit = setDistanceUnit;
+})(pxsim || (pxsim = {}));
+/// <reference path="../../../node_modules/pxt-core/built/pxtsim.d.ts"/>
+/// <reference path="../../../built/common-sim.d.ts"/>
+/// <reference path="../../../libs/core/dal.d.ts"/>
+var pxsim;
+(function (pxsim) {
+    var visuals;
+    (function (visuals) {
+        class DistanceView {
+            constructor() {
+                this.style = visuals.BUTTON_PAIR_STYLE;
+                this.isOpen = false;
+                this.INPUT_ID = "DISTANCE-RANGE";
+                this.BOARD_ICON_ID = `BUTTON-${this.INPUT_ID}`;
+                this.ICON_SVG = `<rect x="0" y="0" width="504" height="359.92" fill="#00000000"/><g transform="rotate(-90,250.98,278.98)"><path d="m170.04 28h201.73v504h-201.73v-504m181.66 246.98v-36.289h-92.863v-10.035l92.863 4e-3v-36.289h-46.324v-10.246h46.324v-36.289h-92.863v-10.035h92.863v-36.289h-46.324v-10.035h46.324v-36.289h-161.39v453.62l161.39 4e-3v-36.289h-46.324v-10.035h46.324v-36.289h-92.863v-10.035h92.863v-36.289h-46.324v-10.031h46.324v-36.508h-92.863v-10.035l92.863 4e-3v-36.289h-46.324v-10.035h46.324"/><path d="m529.96 28v12.594h-100.76v-12.594h100.76"/><path d="m529.96 532v-12.594h-100.76v12.594h100.76"/><path d="m473.17 462.84h-43.977l50.379 50.383 50.383-50.383h-44.191v-365.67h44.191l-50.383-50.383-50.379 50.383h43.977v365.67"/></g>`;
+                this.BACKGROUND_COLOR = "#39474e";
+                this.dmin = 0;
+                this.dmax = 2000;
+                this.unitPerKeyPress = 5;
+            }
+            init(bus, state, svgEl, otherParams) {
+                this.state = state;
+                this.bus = bus;
+                this.defs = [];
+                this.svgEl = svgEl;
+                this.updateState();
+            }
+            moveToCoord(xy) {
+            }
+            updateState() {
+                let state = this.state;
+                if (!state || !state.distanceState || !state.distanceState.sensorUsed) {
+                    if (this.sliderDiv) {
+                        this.svgEl.removeChild(this.board_icon);
+                        this.svgEl.removeChild(this.text);
+                        document.body.removeChild(this.sliderDiv);
+                        this.sliderDiv = null;
+                    }
+                }
+                else if (state && state.distanceState && state.distanceState.sensorUsed) {
+                    if (!this.sliderDiv) {
+                        this.mkDistance();
+                        this.svgEl.appendChild(this.board_icon);
+                        this.svgEl.appendChild(this.text);
+                        document.body.appendChild(this.sliderDiv);
+                        this.updateDistance();
+                        this.board_icon.dispatchEvent(new Event("click"));
+                    }
+                }
+            }
+            getElement() {
+                return this.element;
+            }
+            updateTheme() {
+            }
+            mkDistance() {
+                if (this.sliderDiv) {
+                    return;
+                }
+                this.sliderDiv = document.createElement("div");
+                let icon = document.createElement("div");
+                this.slider = document.createElement("input");
+                this.board_icon = pxsim.svg.elt("g");
+                this.text = pxsim.svg.elt("text", { x: 25, y: 515, "font-family": "monospace", "font-size": 25, fill: "#FFFFFF" });
+                this.board_icon.id = this.BOARD_ICON_ID;
+                this.board_icon.style.cursor = "pointer";
+                this.board_icon.innerHTML = this.generateIcon(60, 60, 25, 438);
+                this.board_icon.onclick = () => {
+                    this.sliderDiv.style.display = "block";
+                    setTimeout(() => { this.isOpen = true; }, 250); // Avoid immediate closing
+                };
+                document.addEventListener("click", (ev) => {
+                    if (!this.isOpen) {
+                        return;
+                    }
+                    for (let i = 0; i < ev.path.length; ++i) {
+                        if (ev.path[i].id == this.INPUT_ID || ev.path[i].id == this.BOARD_ICON_ID) {
+                            return;
+                        }
+                    }
+                    this.sliderDiv.style.display = "none";
+                    this.isOpen = false;
+                });
+                document.addEventListener("keydown", (ev) => {
+                    if (!this.isOpen) {
+                        return;
+                    }
+                    switch (ev.key) {
+                        case "ArrowUp":
+                            this.slider.valueAsNumber += this.unitPerKeyPress;
+                            break;
+                        case "ArrowDown":
+                            this.slider.valueAsNumber -= this.unitPerKeyPress;
+                            break;
+                    }
+                });
+                this.sliderDiv.style.position = "absolute";
+                this.sliderDiv.style.top = "0";
+                this.sliderDiv.style.left = "0";
+                this.sliderDiv.style.width = "100%";
+                this.sliderDiv.style.height = "15px";
+                this.sliderDiv.style.transform = "translate(-50%) rotate(270deg) translate(-50%, 50%)";
+                this.sliderDiv.style.display = "none";
+                this.sliderDiv.style.backgroundColor = this.BACKGROUND_COLOR;
+                icon.style.width = "15px";
+                icon.style.position = "absolute";
+                icon.style.top = "50%";
+                icon.style.right = "0";
+                icon.style.transform = "translate(0, -50%) rotate(90deg)";
+                icon.style.backgroundColor = this.BACKGROUND_COLOR;
+                icon.innerHTML = this.generateIcon();
+                this.slider.id = this.INPUT_ID;
+                this.slider.type = "range";
+                this.slider.min = this.dmin.toString();
+                this.slider.max = this.dmax.toString();
+                this.slider.value = this.state.distanceState.getLevel().toString();
+                this.slider.style.width = "calc(100% - 20px - 15px)";
+                this.slider.style.display = "inline-block";
+                this.slider.style.position = "absolute";
+                this.slider.style.left = "15px";
+                this.slider.style.top = "50%";
+                this.slider.style.margin = "0";
+                this.slider.style.transform = "translate(0, -50%)";
+                this.slider.style.setProperty("appearance", "none");
+                this.slider.style.height = "5px";
+                this.slider.style.borderRadius = "100px";
+                this.slider.style.background = "linear-gradient(90deg, rgb(255 239 220) 0%, rgb(97 178 47) 80%)";
+                this.slider.oninput = (ev) => {
+                    this.state.distanceState.setLevel(parseInt(this.slider.value));
+                    this.updateDistance();
+                };
+                this.sliderDiv.append(icon);
+                this.sliderDiv.append(this.slider);
+                this.sliderDiv.append(this.text);
+            }
+            updateDistance() {
+                let state = this.state;
+                if (!state || !state.distanceState || !state.distanceState.sensorUsed)
+                    return;
+                let t = Math.max(this.dmin, Math.min(this.dmax, state.distanceState.getLevel()));
+                let unit = "";
+                let nbDigit = 0;
+                switch (pxsim.distanceUnit()) {
+                    case 3 /* Meter */:
+                        unit = " m";
+                        t /= 1000;
+                        nbDigit = 1;
+                        break;
+                    case 2 /* Decimeter */:
+                        unit = " dm";
+                        t /= 100;
+                        nbDigit = 2;
+                        break;
+                    case 1 /* Centimeter */:
+                        unit = " cm";
+                        t /= 10;
+                        nbDigit = 3;
+                        break;
+                    case 0 /* Millimeter */:
+                        unit = " mm";
+                        nbDigit = 4;
+                        break;
+                }
+                this.text.textContent = `${t + unit}`;
+                pxsim.accessibility.setLiveContent(t + unit);
+            }
+            generateIcon(width, height, x, y) {
+                let svgTag = `<svg version="1.1" viewBox="0 0 504 359.92" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF"`;
+                if (width != undefined && width > 0) {
+                    svgTag += ` ${svgTag} width="${width}" `;
+                }
+                if (height != undefined && height > 0) {
+                    svgTag += ` ${svgTag} height="${height}"`;
+                }
+                if (x != undefined && x > 0) {
+                    svgTag += ` ${svgTag} x="${x}"`;
+                }
+                if (y != undefined && y > 0) {
+                    svgTag += ` ${svgTag} y="${y}"`;
+                }
+                return `${svgTag}>${this.ICON_SVG}</svg>`;
+            }
+        }
+        visuals.DistanceView = DistanceView;
     })(visuals = pxsim.visuals || (pxsim.visuals = {}));
 })(pxsim || (pxsim = {}));
 var pxsim;
