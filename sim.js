@@ -212,6 +212,34 @@ var pxsim;
     }
     pxsim.parsePinString = parsePinString;
 })(pxsim || (pxsim = {}));
+class SimGaugeData {
+}
+var pxsim;
+(function (pxsim) {
+    class SimGaugeMessage {
+        static askClose(id) {
+            for (let e of SimGaugeMessage.callbackMap) {
+                if (e.id == id) {
+                    continue;
+                }
+                if (e.onAskClose) {
+                    e.onAskClose(id);
+                }
+            }
+        }
+        static registerOnAskClose(id, cb) {
+            let idx = SimGaugeMessage.callbackMap.findIndex((e) => e.id == id);
+            if (idx == -1) {
+                SimGaugeMessage.callbackMap.push({ id: id, onAskClose: cb });
+            }
+            else {
+                SimGaugeMessage.callbackMap[idx].onAskClose = cb;
+            }
+        }
+    }
+    SimGaugeMessage.callbackMap = [];
+    pxsim.SimGaugeMessage = SimGaugeMessage;
+})(pxsim || (pxsim = {}));
 var pxsim;
 (function (pxsim) {
     var oled;
@@ -1057,9 +1085,7 @@ var pxsim;
                 this.style = visuals.BUTTON_PAIR_STYLE;
                 this.isOpen = false;
                 this.INPUT_ID = "PRESSURE-RANGE";
-                this.BOARD_ICON_ID = `BUTTON-${this.INPUT_ID}`;
                 this.ICON_SVG = `<rect x="0" y="0" width="504" height="208.25" fill="#00000000"/><g transform="translate(-97.992 -175.88)"><path d="m316.05 175.88c-1.793 0.1875-3.1523 1.6992-3.1523 3.5v201.25c0.0117 1.9297 1.5703 3.4922 3.5 3.5h67.203c1.9297-8e-3 3.4883-1.5703 3.5-3.5v-201.25c-0.0117-1.9297-1.5703-3.4922-3.5-3.5h-67.203c-0.11328-4e-3 -0.23047-4e-3 -0.34766 0zm3.8516 7h60.199v194.25h-60.199zm-111.83 33.074c-1.2656-0.0312-2.4531 0.61719-3.1055 1.707-0.65234 1.0859-0.67188 2.4414-0.043 3.543l20.301 36.227h-40.953c-1.9297 8e-3 -3.4883 1.5703-3.5 3.5v38.148c0.0117 1.9297 1.5703 3.4922 3.5 3.5h40.949l-20.301 36.051h4e-3c-0.94922 1.4336-0.71875 3.3398 0.53516 4.5117 1.2578 1.168 3.1758 1.2617 4.5391 0.21484l90.648-60.375c1.0234-0.64453 1.6445-1.7695 1.6445-2.9766s-0.62109-2.332-1.6445-2.9766l-90.648-60.375c-0.55859-0.41797-1.2266-0.66016-1.9258-0.69922zm283.85 0c-0.69922 0.0391-1.3672 0.28125-1.9258 0.69922l-90.648 60.375c-1 0.66016-1.5898 1.7812-1.5781 2.9766-0.0117 1.1953 0.57812 2.3164 1.5781 2.9766l90.648 60.375c1.3633 1.0469 3.2812 0.95313 4.5391-0.21484 1.2539-1.1719 1.4844-3.0781 0.53516-4.5117l-20.301-36.051h40.953c1.9297-8e-3 3.4883-1.5703 3.5-3.5v-38.148c-0.0117-1.9297-1.5703-3.4922-3.5-3.5h-40.949l20.301-36.227h-4e-3c0.62891-1.1016 0.60938-2.457-0.043-3.543-0.65234-1.0898-1.8398-1.7383-3.1055-1.707zm-10.148 14.523-16.102 28.699v4e-3c-0.62891 1.1016-0.60938 2.457 0.043 3.543 0.65234 1.0898 1.8398 1.7383 3.1055 1.707h43.398v31.148h-43.398c-1.2656-0.0312-2.4531 0.61719-3.1055 1.707-0.65234 1.0859-0.67188 2.4414-0.043 3.543l16.102 28.523-74.199-49.352zm-263.55 0.17578 74.199 49.352-74.199 49.352 16.102-28.523-4e-3 -4e-3c0.62891-1.1016 0.60938-2.457-0.043-3.543-0.65234-1.0898-1.8398-1.7383-3.1055-1.707h-43.398v-31.148h43.398c1.2656 0.0312 2.4531-0.61719 3.1055-1.707 0.65234-1.0859 0.67188-2.4414 0.043-3.543l-16.102-28.523zm-117.43 26.777c-1.6523 0.34375-2.8281 1.8125-2.8008 3.5v38.148c0.0078 1.9297 1.5703 3.4922 3.5 3.5h13.477c1.9297-8e-3 3.4883-1.5703 3.5-3.5v-38.148c-0.0117-1.9297-1.5703-3.4922-3.5-3.5h-13.477c-0.23438-0.0234-0.46875-0.0234-0.69922 0zm27.648 0c-1.6523 0.34375-2.8281 1.8125-2.8008 3.5v38.148c0.0117 1.9297 1.5703 3.4922 3.5 3.5h13.301c1.9297-8e-3 3.4922-1.5703 3.5-3.5v-38.148c-8e-3 -1.9297-1.5703-3.4922-3.5-3.5h-13.301c-0.23047-0.0234-0.46484-0.0234-0.69922 0zm27.477 0c-1.6523 0.34375-2.8281 1.8125-2.8008 3.5v38.148c8e-3 1.9297 1.5703 3.4922 3.5 3.5h13.477c1.9297-8e-3 3.4883-1.5703 3.5-3.5v-38.148c-0.0117-1.9297-1.5703-3.4922-3.5-3.5h-13.477c-0.23438-0.0234-0.46875-0.0234-0.69922 0zm373.27 0c-1.6523 0.34375-2.8281 1.8125-2.8008 3.5v38.148c0.0117 1.9297 1.5703 3.4922 3.5 3.5h13.477c1.9297-8e-3 3.4922-1.5703 3.5-3.5v-38.148c-8e-3 -1.9297-1.5703-3.4922-3.5-3.5h-13.477c-0.23047-0.0234-0.46484-0.0234-0.69922 0zm27.648 0h4e-3c-1.6523 0.34375-2.8281 1.8125-2.8008 3.5v38.148c8e-3 1.9297 1.5703 3.4922 3.5 3.5h13.301c1.9297-8e-3 3.4883-1.5703 3.5-3.5v-38.148c-0.0117-1.9297-1.5703-3.4922-3.5-3.5h-13.301c-0.23438-0.0234-0.46875-0.0234-0.69922 0zm27.477 0c-1.6523 0.34375-2.8281 1.8125-2.8008 3.5v38.148c0.0117 1.9297 1.5703 3.4922 3.5 3.5h13.477c1.9297-8e-3 3.4922-1.5703 3.5-3.5v-38.148c-8e-3 -1.9297-1.5703-3.4922-3.5-3.5h-13.477c-0.23047-0.0234-0.46484-0.0234-0.69922 0zm-479.32 7h6.4766v31.148h-6.4766zm27.648 0h6.3008v31.148h-6.3008zm27.477 0h6.4766v31.148h-6.4766zm373.27 0h6.4766v31.148h-6.4766zm27.648 0h6.3008v31.148h-6.3008zm27.477 0h6.4766v31.148h-6.4766z"/></g>`;
-                this.BACKGROUND_COLOR = "#39474e";
                 this.pmin = 980;
                 this.pmax = 1050;
                 this.unitPerKeyPress = 2;
@@ -1107,26 +1133,14 @@ var pxsim;
                 let icon = document.createElement("div");
                 this.slider = document.createElement("input");
                 this.board_icon = pxsim.svg.elt("g");
-                this.text = pxsim.svg.elt("text", { x: 405, y: 520, "font-family": "monospace", "font-size": 25, fill: "#FFFFFF" });
-                this.board_icon.id = this.BOARD_ICON_ID;
+                this.text = pxsim.svg.elt("text", { x: 520, y: 520, "font-family": "monospace", "font-size": 25, fill: "#FFFFFF", "text-anchor": "end" });
                 this.board_icon.style.cursor = "pointer";
                 this.board_icon.innerHTML = this.generateIcon(100, 55, 415, 444);
                 this.board_icon.onclick = () => {
                     this.sliderDiv.style.display = "block";
-                    setTimeout(() => { this.isOpen = true; }, 250); // Avoid immediate closing
+                    pxsim.SimGaugeMessage.askClose(this.INPUT_ID);
+                    this.isOpen = true;
                 };
-                document.addEventListener("click", (ev) => {
-                    if (!this.isOpen) {
-                        return;
-                    }
-                    for (let i = 0; i < ev.path.length; ++i) {
-                        if (ev.path[i].id == this.INPUT_ID || ev.path[i].id == this.BOARD_ICON_ID) {
-                            return;
-                        }
-                    }
-                    this.sliderDiv.style.display = "none";
-                    this.isOpen = false;
-                });
                 document.addEventListener("keydown", (ev) => {
                     if (!this.isOpen) {
                         return;
@@ -1134,10 +1148,10 @@ var pxsim;
                     let newValue = 0;
                     switch (ev.key) {
                         case "ArrowUp":
-                            newValue = this.constraintPressureValue(this.slider.valueAsNumber + this.unitPerKeyPress);
+                            newValue = this.constraintValue(this.slider.valueAsNumber + this.unitPerKeyPress);
                             break;
                         case "ArrowDown":
-                            newValue = this.constraintPressureValue(this.slider.valueAsNumber - this.unitPerKeyPress);
+                            newValue = this.constraintValue(this.slider.valueAsNumber - this.unitPerKeyPress);
                             break;
                         default:
                             return;
@@ -1152,14 +1166,12 @@ var pxsim;
                 this.sliderDiv.style.width = "100%";
                 this.sliderDiv.style.height = "15px";
                 this.sliderDiv.style.transform = "translate(-50%) rotate(270deg) translate(-50%, 50%)";
-                this.sliderDiv.style.backgroundColor = this.BACKGROUND_COLOR;
                 this.sliderDiv.style.display = "none";
                 icon.style.width = "27px";
                 icon.style.position = "absolute";
                 icon.style.top = "50%";
                 icon.style.right = "0";
                 icon.style.transform = "translate(0, -50%) rotate(90deg)";
-                icon.style.backgroundColor = this.BACKGROUND_COLOR;
                 icon.innerHTML = this.generateIcon();
                 this.slider.id = this.INPUT_ID;
                 this.slider.type = "range";
@@ -1184,6 +1196,13 @@ var pxsim;
                 this.sliderDiv.append(icon);
                 this.sliderDiv.append(this.slider);
                 this.sliderDiv.append(this.text);
+                pxsim.SimGaugeMessage.registerOnAskClose(this.INPUT_ID, (id) => {
+                    if (!this.isOpen) {
+                        return;
+                    }
+                    this.sliderDiv.style.display = "none";
+                    this.isOpen = false;
+                });
             }
             updatePressure() {
                 let state = this.state;
@@ -1218,7 +1237,7 @@ var pxsim;
                 }
                 return `${svgTag}>${this.ICON_SVG}</svg>`;
             }
-            constraintPressureValue(value) {
+            constraintValue(value) {
                 return Math.min(this.pmax, Math.max(this.pmin, value));
             }
         }
@@ -1327,9 +1346,7 @@ var pxsim;
                 this.style = visuals.BUTTON_PAIR_STYLE;
                 this.isOpen = false;
                 this.INPUT_ID = "DISTANCE-RANGE";
-                this.BOARD_ICON_ID = `BUTTON-${this.INPUT_ID}`;
                 this.ICON_SVG = `<rect x="0" y="0" width="504" height="359.92" fill="#00000000"/><g transform="rotate(-90,250.98,278.98)"><path d="m170.04 28h201.73v504h-201.73v-504m181.66 246.98v-36.289h-92.863v-10.035l92.863 4e-3v-36.289h-46.324v-10.246h46.324v-36.289h-92.863v-10.035h92.863v-36.289h-46.324v-10.035h46.324v-36.289h-161.39v453.62l161.39 4e-3v-36.289h-46.324v-10.035h46.324v-36.289h-92.863v-10.035h92.863v-36.289h-46.324v-10.031h46.324v-36.508h-92.863v-10.035l92.863 4e-3v-36.289h-46.324v-10.035h46.324"/><path d="m529.96 28v12.594h-100.76v-12.594h100.76"/><path d="m529.96 532v-12.594h-100.76v12.594h100.76"/><path d="m473.17 462.84h-43.977l50.379 50.383 50.383-50.383h-44.191v-365.67h44.191l-50.383-50.383-50.379 50.383h43.977v365.67"/></g>`;
-                this.BACKGROUND_COLOR = "#39474e";
                 this.dmin = 0;
                 this.dmax = 2000;
                 this.unitPerKeyPress = 5;
@@ -1377,38 +1394,32 @@ var pxsim;
                 let icon = document.createElement("div");
                 this.slider = document.createElement("input");
                 this.board_icon = pxsim.svg.elt("g");
-                this.text = pxsim.svg.elt("text", { x: 25, y: 515, "font-family": "monospace", "font-size": 25, fill: "#FFFFFF" });
-                this.board_icon.id = this.BOARD_ICON_ID;
+                this.text = pxsim.svg.elt("text", { x: 8, y: 520, "font-family": "monospace", "font-size": 25, fill: "#FFFFFF" });
                 this.board_icon.style.cursor = "pointer";
-                this.board_icon.innerHTML = this.generateIcon(60, 60, 25, 438);
+                this.board_icon.innerHTML = this.generateIcon(60, 60, 10, 440);
                 this.board_icon.onclick = () => {
                     this.sliderDiv.style.display = "block";
-                    setTimeout(() => { this.isOpen = true; }, 250); // Avoid immediate closing
+                    pxsim.SimGaugeMessage.askClose(this.INPUT_ID);
+                    this.isOpen = true;
                 };
-                document.addEventListener("click", (ev) => {
-                    if (!this.isOpen) {
-                        return;
-                    }
-                    for (let i = 0; i < ev.path.length; ++i) {
-                        if (ev.path[i].id == this.INPUT_ID || ev.path[i].id == this.BOARD_ICON_ID) {
-                            return;
-                        }
-                    }
-                    this.sliderDiv.style.display = "none";
-                    this.isOpen = false;
-                });
                 document.addEventListener("keydown", (ev) => {
                     if (!this.isOpen) {
                         return;
                     }
+                    let newValue = 0;
                     switch (ev.key) {
                         case "ArrowUp":
-                            this.slider.valueAsNumber += this.unitPerKeyPress;
+                            newValue = this.constraintValue(this.slider.valueAsNumber + this.unitPerKeyPress);
                             break;
                         case "ArrowDown":
-                            this.slider.valueAsNumber -= this.unitPerKeyPress;
+                            newValue = this.constraintValue(this.slider.valueAsNumber - this.unitPerKeyPress);
                             break;
+                        default:
+                            return;
                     }
+                    this.slider.valueAsNumber = newValue;
+                    this.state.distanceState.setLevel(newValue);
+                    this.updateDistance();
                 });
                 this.sliderDiv.style.position = "absolute";
                 this.sliderDiv.style.top = "0";
@@ -1417,13 +1428,11 @@ var pxsim;
                 this.sliderDiv.style.height = "15px";
                 this.sliderDiv.style.transform = "translate(-50%) rotate(270deg) translate(-50%, 50%)";
                 this.sliderDiv.style.display = "none";
-                this.sliderDiv.style.backgroundColor = this.BACKGROUND_COLOR;
                 icon.style.width = "15px";
                 icon.style.position = "absolute";
                 icon.style.top = "50%";
                 icon.style.right = "0";
                 icon.style.transform = "translate(0, -50%) rotate(90deg)";
-                icon.style.backgroundColor = this.BACKGROUND_COLOR;
                 icon.innerHTML = this.generateIcon();
                 this.slider.id = this.INPUT_ID;
                 this.slider.type = "range";
@@ -1448,6 +1457,13 @@ var pxsim;
                 this.sliderDiv.append(icon);
                 this.sliderDiv.append(this.slider);
                 this.sliderDiv.append(this.text);
+                pxsim.SimGaugeMessage.registerOnAskClose(this.INPUT_ID, (id) => {
+                    if (!this.isOpen) {
+                        return;
+                    }
+                    this.sliderDiv.style.display = "none";
+                    this.isOpen = false;
+                });
             }
             updateDistance() {
                 let state = this.state;
@@ -1495,6 +1511,9 @@ var pxsim;
                     svgTag += ` ${svgTag} y="${y}"`;
                 }
                 return `${svgTag}>${this.ICON_SVG}</svg>`;
+            }
+            constraintValue(value) {
+                return Math.min(this.dmax, Math.max(this.dmin, value));
             }
         }
         visuals.DistanceView = DistanceView;
@@ -1552,9 +1571,7 @@ var pxsim;
                 this.style = visuals.BUTTON_PAIR_STYLE;
                 this.isOpen = false;
                 this.INPUT_ID = "HUMIDITY-RANGE";
-                this.BOARD_ICON_ID = `BUTTON-${this.INPUT_ID}`;
                 this.ICON_SVG = `<rect x="0" y="0" width="347.20001" height="492.7955" fill="#00000000" /> <g id="g152" transform="translate(-176.395,-33.605)"> <path d="M 443.04,184.27 C 410.981,138.282 377.825,90.731 357.833,38.98 c -1.25,-3.2383 -4.3594,-5.3711 -7.8242,-5.375 h -0.0117 c -3.4609,0 -6.5742,2.1289 -7.8281,5.3555 -19.875,51.07 -52.832,98.398 -84.688,144.17 -41.699,59.887 -81.086,116.45 -81.086,170.54 0,95.246 77.875,172.73 173.6,172.73 95.725,0 173.6,-77.488 173.6,-172.73 0,-53.879 -39.129,-109.99 -80.559,-169.4 z M 349.997,509.6 c -86.457,0 -156.8,-69.949 -156.8,-155.93 0,-48.828 37.918,-103.29 78.062,-160.95 28.582,-41.047 58.012,-83.328 78.703,-129.02 20.82,46.316 50.496,88.871 79.297,130.18 39.879,57.18 77.539,111.19 77.539,159.79 0,85.984 -70.344,155.93 -156.8,155.93 z" id="path70" /> <path d="m 409.46,274.69 c -3.6836,-2.8047 -8.9609,-2.1055 -11.777,1.5781 l -104.06,136.25 c -2.8164,3.6836 -2.1094,8.9609 1.5742,11.777 1.5234,1.1602 3.3164,1.7266 5.0898,1.7266 2.5312,0 5.0273,-1.1367 6.6797,-3.3047 l 104.06,-136.25 c 2.8203,-3.6914 2.1172,-8.9609 -1.5664,-11.777 z" id="path72" /> <path d="m 346.21,315.18 c 0,-21.352 -17.309,-38.652 -38.656,-38.652 -21.363,0 -38.664,17.305 -38.664,38.652 0,21.352 17.297,38.664 38.664,38.664 21.348,0.004 38.656,-17.305 38.656,-38.664 z m -60.516,0 c 0,-12.047 9.8125,-21.852 21.863,-21.852 12.051,0 21.855,9.8047 21.855,21.852 0,12.051 -9.8047,21.863 -21.855,21.863 -12.055,0 -21.863,-9.8047 -21.863,-21.863 z" id="path74" /> <path d="m 392.12,353.85 c -21.359,0 -38.664,17.305 -38.664,38.656 0,21.352 17.305,38.664 38.664,38.664 21.352,0 38.656,-17.309 38.656,-38.664 0,-21.352 -17.305,-38.656 -38.656,-38.656 z m 0,60.52 c -12.051,0 -21.863,-9.8047 -21.863,-21.863 0,-12.051 9.8125,-21.855 21.863,-21.855 12.051,0 21.855,9.8047 21.855,21.855 0.008,12.059 -9.7969,21.863 -21.855,21.863 z" id="path76" /> </g>`;
-                this.BACKGROUND_COLOR = "#39474e";
                 this.unitPerKeyPress = 1;
             }
             init(bus, state, svgEl, otherParams) {
@@ -1601,38 +1618,32 @@ var pxsim;
                 let icon = document.createElement("div");
                 this.slider = document.createElement("input");
                 this.board_icon = pxsim.svg.elt("g");
-                this.text = pxsim.svg.elt("text", { x: 410, y: 30, "font-family": "monospace", "font-size": 25, fill: "#FFFFFF" });
-                this.board_icon.id = this.BOARD_ICON_ID;
+                this.text = pxsim.svg.elt("text", { x: 480, y: 30, "font-family": "monospace", "font-size": 25, fill: "#FFFFFF", "text-anchor": "end" });
                 this.board_icon.style.cursor = "pointer";
-                this.board_icon.innerHTML = this.generateIcon(60, 60, 450, 15);
+                this.board_icon.innerHTML = this.generateIcon(50, 60, 470, 20);
                 this.board_icon.onclick = () => {
                     this.sliderDiv.style.display = "block";
-                    setTimeout(() => { this.isOpen = true; }, 250); // Avoid immediate closing
+                    pxsim.SimGaugeMessage.askClose(this.INPUT_ID);
+                    this.isOpen = true;
                 };
-                document.addEventListener("click", (ev) => {
-                    if (!this.isOpen) {
-                        return;
-                    }
-                    for (let i = 0; i < ev.path.length; ++i) {
-                        if (ev.path[i].id == this.INPUT_ID || ev.path[i].id == this.BOARD_ICON_ID) {
-                            return;
-                        }
-                    }
-                    this.sliderDiv.style.display = "none";
-                    this.isOpen = false;
-                });
                 document.addEventListener("keydown", (ev) => {
                     if (!this.isOpen) {
                         return;
                     }
+                    let newValue = 0;
                     switch (ev.key) {
                         case "ArrowUp":
-                            this.slider.valueAsNumber += this.unitPerKeyPress;
+                            newValue = this.constraintValue(this.slider.valueAsNumber + this.unitPerKeyPress);
                             break;
                         case "ArrowDown":
-                            this.slider.valueAsNumber -= this.unitPerKeyPress;
+                            newValue = this.constraintValue(this.slider.valueAsNumber - this.unitPerKeyPress);
                             break;
+                        default:
+                            return;
                     }
+                    this.slider.valueAsNumber = newValue;
+                    this.state.hygrometerState.setLevel(newValue);
+                    this.updateHumidity();
                 });
                 this.sliderDiv.style.position = "absolute";
                 this.sliderDiv.style.top = "0";
@@ -1641,13 +1652,11 @@ var pxsim;
                 this.sliderDiv.style.height = "15px";
                 this.sliderDiv.style.transform = "translate(-50%) rotate(270deg) translate(-50%, 50%)";
                 this.sliderDiv.style.display = "none";
-                this.sliderDiv.style.backgroundColor = this.BACKGROUND_COLOR;
                 icon.style.width = "15px";
                 icon.style.position = "absolute";
                 icon.style.top = "50%";
                 icon.style.right = "0";
                 icon.style.transform = "translate(0, -50%) rotate(90deg)";
-                icon.style.backgroundColor = this.BACKGROUND_COLOR;
                 icon.innerHTML = this.generateIcon();
                 this.slider.id = this.INPUT_ID;
                 this.slider.type = "range";
@@ -1672,6 +1681,13 @@ var pxsim;
                 this.sliderDiv.append(icon);
                 this.sliderDiv.append(this.slider);
                 this.sliderDiv.append(this.text);
+                pxsim.SimGaugeMessage.registerOnAskClose(this.INPUT_ID, (id) => {
+                    if (!this.isOpen) {
+                        return;
+                    }
+                    this.sliderDiv.style.display = "none";
+                    this.isOpen = false;
+                });
             }
             updateHumidity() {
                 if (!this.state || !this.state.hygrometerState || !this.state.hygrometerState.sensorUsed)
@@ -1695,6 +1711,9 @@ var pxsim;
                     svgTag += ` ${svgTag} y="${y}"`;
                 }
                 return `${svgTag}>${this.ICON_SVG}</svg>`;
+            }
+            constraintValue(value) {
+                return Math.min(100, Math.max(0, value));
             }
         }
         visuals.HygrometerView = HygrometerView;
@@ -2217,9 +2236,7 @@ var pxsim;
                 this.style = visuals.BUTTON_PAIR_STYLE;
                 this.isOpen = false;
                 this.INPUT_ID = "TEMPERATURE-RANGE";
-                this.BOARD_ICON_ID = `BUTTON-${this.INPUT_ID}`;
                 this.ICON_SVG = `<rect x="0" y="0" width="237.9964" height="498.67801" fill="#00000000" /><g id="g148" transform="translate(-231.003,-30.6692)"> <path d="m 359.8,362.63 v -85.289 h -22.398 v 85.289 c -22.438,5.0977 -39.199,25.129 -39.199,49.113 0,27.836 22.562,50.398 50.398,50.398 27.836,0 50.398,-22.562 50.398,-50.398 0,-23.988 -16.762,-44.02 -39.199,-49.113 z" id="path70" /><path d="M 460.6,218.54 H 421.944 V 179.341 H 460.6 c 4.6406,0 8.3984,-3.7617 8.3984,-8.3984 0,-4.6367 -3.7578,-8.3984 -8.3984,-8.3984 h -38.656 v -58.801 c 0,-40.359 -32.711,-73.074 -73.07,-73.074 -40.359,0 -73.07,32.715 -73.07,73.074 v 215.75 c -27.254,21.539 -44.801,54.812 -44.801,92.254 0,64.961 52.641,117.6 117.6,117.6 64.961,0 117.6,-52.641 117.6,-117.6 0,-37.199 -17.309,-70.297 -44.258,-91.844 v -84.559 h 38.656 c 4.6406,0 8.3984,-3.7617 8.3984,-8.3984 0,-4.6406 -3.7617,-8.4023 -8.4023,-8.4023 z m -49.152,114.47 c 24.121,19.285 37.953,47.98 37.953,78.73 0,55.578 -45.219,100.8 -100.8,100.8 -55.578,0 -100.8,-45.219 -100.8,-100.8 0,-30.957 14,-59.781 38.414,-79.07 l 6.3828,-5.0391 v -8.1367 l 0.004,-215.76 c 0,-31.031 25.246,-56.273 56.27,-56.273 31.023,0 56.27,25.246 56.27,56.273 v 58.801 h -50.941 c -4.6406,0 -8.3984,3.7617 -8.3984,8.3984 0,4.6367 3.7578,8.3984 8.3984,8.3984 h 50.941 v 39.199 l -50.941,0.004 c -4.6406,0 -8.3984,3.7617 -8.3984,8.3984 0,4.6367 3.7578,8.3984 8.3984,8.3984 h 50.941 v 92.629 z" id="path72" /></g>`;
-                this.BACKGROUND_COLOR = "#39474e";
                 // Celsius
                 this.tmin = -5;
                 this.tmax = 50;
@@ -2268,38 +2285,32 @@ var pxsim;
                 let icon = document.createElement("div");
                 this.slider = document.createElement("input");
                 this.board_icon = pxsim.svg.elt("g");
-                this.text = pxsim.svg.elt("text", { x: 75, y: 30, "font-family": "monospace", "font-size": 25, fill: "#FFFFFF" });
-                this.board_icon.id = this.BOARD_ICON_ID;
+                this.text = pxsim.svg.elt("text", { x: 40, y: 30, "font-family": "monospace", "font-size": 25, fill: "#FFFFFF" });
                 this.board_icon.style.cursor = "pointer";
-                this.board_icon.innerHTML = this.generateIcon(65, 65, 25, 15);
+                this.board_icon.innerHTML = this.generateIcon(30, 65, 10, 18);
                 this.board_icon.onclick = () => {
                     this.sliderDiv.style.display = "block";
-                    setTimeout(() => { this.isOpen = true; }, 250); // Avoid immediate closing
+                    pxsim.SimGaugeMessage.askClose(this.INPUT_ID);
+                    this.isOpen = true;
                 };
-                document.addEventListener("click", (ev) => {
-                    if (!this.isOpen) {
-                        return;
-                    }
-                    for (let i = 0; i < ev.path.length; ++i) {
-                        if (ev.path[i].id == this.INPUT_ID || ev.path[i].id == this.BOARD_ICON_ID) {
-                            return;
-                        }
-                    }
-                    this.sliderDiv.style.display = "none";
-                    this.isOpen = false;
-                });
                 document.addEventListener("keydown", (ev) => {
                     if (!this.isOpen) {
                         return;
                     }
+                    let newValue = 0;
                     switch (ev.key) {
                         case "ArrowUp":
-                            this.slider.valueAsNumber += this.unitPerKeyPress;
+                            newValue = this.constraintValue(this.slider.valueAsNumber + this.unitPerKeyPress);
                             break;
                         case "ArrowDown":
-                            this.slider.valueAsNumber -= this.unitPerKeyPress;
+                            newValue = this.constraintValue(this.slider.valueAsNumber - this.unitPerKeyPress);
                             break;
+                        default:
+                            return;
                     }
+                    this.slider.valueAsNumber = newValue;
+                    this.state.thermometerState.setLevel(newValue);
+                    this.updateTemperature();
                 });
                 this.sliderDiv.style.position = "absolute";
                 this.sliderDiv.style.top = "0";
@@ -2308,13 +2319,11 @@ var pxsim;
                 this.sliderDiv.style.height = "15px";
                 this.sliderDiv.style.transform = "translate(-50%) rotate(270deg) translate(-50%, 50%)";
                 this.sliderDiv.style.display = "none";
-                this.sliderDiv.style.backgroundColor = this.BACKGROUND_COLOR;
                 icon.style.width = "12px";
                 icon.style.position = "absolute";
                 icon.style.top = "50%";
                 icon.style.right = "2px";
                 icon.style.transform = "translate(0, -50%) rotate(90deg)";
-                icon.style.backgroundColor = this.BACKGROUND_COLOR;
                 icon.innerHTML = this.generateIcon();
                 this.slider.id = this.INPUT_ID;
                 this.slider.type = "range";
@@ -2339,6 +2348,13 @@ var pxsim;
                 this.sliderDiv.append(icon);
                 this.sliderDiv.append(this.slider);
                 this.sliderDiv.append(this.text);
+                pxsim.SimGaugeMessage.registerOnAskClose(this.INPUT_ID, (id) => {
+                    if (!this.isOpen) {
+                        return;
+                    }
+                    this.sliderDiv.style.display = "none";
+                    this.isOpen = false;
+                });
             }
             updateTemperature() {
                 let state = this.state;
@@ -2373,6 +2389,9 @@ var pxsim;
                     svgTag += ` ${svgTag} y="${y}"`;
                 }
                 return `${svgTag}>${this.ICON_SVG}</svg>`;
+            }
+            constraintValue(value) {
+                return Math.min(this.tmax, Math.max(this.tmin, value));
             }
         }
         visuals.ThermometerView = ThermometerView;
