@@ -159,6 +159,8 @@ var pxsim;
                 fnArgs: fnArgs,
                 maxWidth: "100%",
                 maxHeight: "100%",
+                forceBreadboardLayout: true,
+                forceBreadboardRender: true
             };
             this.viewHost = new pxsim.visuals.BoardHost(pxsim.visuals.mkBoardView({
                 visual: boardDef.visual,
