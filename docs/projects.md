@@ -4,8 +4,7 @@
 [
     {
         "name": "Coding activities",
-        "url": "/coding_activities",
-        "imageUrl": "/docs/static/activities/1.png"
+        "url": "/coding_activities"
     },
     {
         "name": "Inclusiveness",
