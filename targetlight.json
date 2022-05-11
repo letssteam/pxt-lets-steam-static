@@ -133,7 +133,7 @@
     "uploadDocs": true,
     "versions": {
         "branch": "main",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/7ad6f9a32432ca6ae19a2f19174f211ce6bff899",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/f39d16fcd802e72307921f5bda296a2ebfaf8510",
         "target": "1.0.30",
         "pxt": "7.4.12"
     },
