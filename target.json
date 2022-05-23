@@ -115,7 +115,7 @@
         "codalTarget": {
             "name": "codal-stm32-DISCO_L475VG_IOT",
             "url": "https://github.com/letssteam/codal-stm32-DISCO_L475VG_IOT",
-            "branch": "v1.0.18",
+            "branch": "v1.0.19",
             "type": "git",
             "dev": true
         },
@@ -138,7 +138,7 @@
                 "codalTarget": {
                     "name": "codal-stm32-DISCO_L475VG_IOT",
                     "url": "https://github.com/letssteam/codal-stm32-DISCO_L475VG_IOT",
-                    "branch": "v1.0.18",
+                    "branch": "v1.0.19",
                     "type": "git",
                     "dev": true
                 },
@@ -574,7 +574,7 @@
     "uploadDocs": true,
     "versions": {
         "branch": "main",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/d64289e75ef29982d77e19278d679a30ad508f92",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/72dee5e16a6026e3bff822b69ef4d0b55023d31d",
         "target": "1.0.30",
         "pxt": "7.4.12"
     },
