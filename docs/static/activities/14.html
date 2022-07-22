@@ -375,14 +375,14 @@
     <div class="ui text">
         <h1 id="create-an-egg-timer">Create an egg timer</h1><pre><code>input.buttonUser.onEvent(ButtonEvent.Click, function () { 
     for (let pos = 0; pos &lt;= 179; pos++) { 
-         pins.D4.servoWrite(pos) 
-         pause(1000) 
+        pins.D4.servoWrite(pos) 
+        pause(1000) 
     } 
     for (let i = 0; i &lt; 5; i++) { 
-         pins.D4.servoWrite(0) 
-         pause(1000) 
-         pins.D4.servoWrite(180) 
-         pause(1000) 
+        pins.D4.servoWrite(0) 
+        pause(1000) 
+        pins.D4.servoWrite(180) 
+        pause(1000) 
     } 
 })</code></pre>
     </div>
