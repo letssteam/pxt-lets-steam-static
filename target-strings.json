@@ -21,6 +21,7 @@
     "Project Ideas": "Project Ideas",
     "Radio service for mesh networking": "Radio service for mesh networking",
     "Reference": "Reference",
+    "Support for I2C Characeter LCD display (not grove one)": "Support for I2C Characeter LCD display (not grove one)",
     "Support for I2C Characeter LCD display with RGB backlight": "Support for I2C Characeter LCD display with RGB backlight",
     "Support for OLED display based on the SSD1306": "Support for OLED display based on the SSD1306",
     "The accelerometer library": "The accelerometer library",
