@@ -3699,8 +3699,8 @@ var pxsim;
     (function (magnetics) {
         function setLocalName(name) { }
         magnetics.setLocalName = setLocalName;
-        function setAdvertisingUserStringData(data) { }
-        magnetics.setAdvertisingUserStringData = setAdvertisingUserStringData;
+        function setAdvertisingStringData(data) { }
+        magnetics.setAdvertisingStringData = setAdvertisingStringData;
         function setAdvertisingKeyValueData(key, value) { }
         magnetics.setAdvertisingKeyValueData = setAdvertisingKeyValueData;
         function availableDataFromName(name) { return false; }
@@ -3721,17 +3721,14 @@ var pxsim;
         magnetics.stopScanning = stopScanning;
         function stopEmitting() { }
         magnetics.stopEmitting = stopEmitting;
-        function starScanning(ms) { }
-        magnetics.starScanning = starScanning;
+        function startScanning(ms) { }
+        magnetics.startScanning = startScanning;
         function startEmitting(ms) { }
         magnetics.startEmitting = startEmitting;
         function onNewMessageReceived(name, handler) { }
         magnetics.onNewMessageReceived = onNewMessageReceived;
     })(magnetics = pxsim.magnetics || (pxsim.magnetics = {}));
 })(pxsim || (pxsim = {}));
-/// <reference path="../../../node_modules/pxt-core/built/pxtsim.d.ts"/>
-/// <reference path="../../../built/common-sim.d.ts"/>
-/// <reference path="../../../libs/core/dal.d.ts"/>
 var pxsim;
 (function (pxsim) {
     var Serial;
