@@ -577,7 +577,7 @@ var pxtTargetBundle = {
     "uploadDocs": true,
     "versions": {
         "branch": "main",
-        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/2b66cdd14df5de5e7e0ae8d56ecd4425253d4cdf",
+        "commits": "https://github.com/letssteam/pxt-lets-steam/commits/f27999bbfa3f7b9efec725065f3f4048147033c9",
         "target": "1.0.31",
         "pxt": "7.4.12"
     },
