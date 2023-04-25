@@ -1548,9 +1548,15 @@ var pxsim;
         function getDistance(unit) {
             let state = pxsim.hcsr04State();
             state.setUsed();
-            return state.getDistance(0);
+            return state.getDistance(unit);
         }
         HCSR04.getDistance = getDistance;
+        function getTime(unit) {
+            let state = pxsim.hcsr04State();
+            state.setUsed();
+            return state.getTime(unit);
+        }
+        HCSR04.getTime = getTime;
         function onDistanceFrom(fromDistanceIs, distance, unit, handler) {
             let state = pxsim.hcsr04State();
             state.setUsed();
@@ -1580,7 +1586,8 @@ var pxsim;
     class HCSR04State {
         constructor() {
             this.used = false;
-            this.distance = 40;
+            this.setDistance(40);
+            this.setTime();
             this.distanceEvent = [null, null];
             this.distanceActionEvent = [null, null];
             this.lastEvent = null;
@@ -1591,16 +1598,30 @@ var pxsim;
         }
         getDistance(unit) {
             switch (unit) {
-                case 1:
-                    return this.distance / 10;
-                case 2:
-                    return this.distance / 100;
-                case 3:
-                    return this.distance / 1000;
                 case 0:
+                    return this.distance / 1000;
+                case 1:
+                    return this.distance / 100;
+                case 2:
+                    return this.distance / 10;
+                case 3:
                 default:
                     return this.distance;
             }
+        }
+        getTime(unit) {
+            switch (unit) {
+                case 0:
+                    return this.time / 1000000;
+                case 1:
+                    return this.time / 1000;
+                case 2:
+                default:
+                    return this.time;
+            }
+        }
+        setTime() {
+            this.time = (1000000 * 2 * this.distance) / 343000;
         }
         setDistance(distance) {
             this.distance = distance;
@@ -1747,6 +1768,7 @@ var pxsim;
                 });
                 this.slider.oninput = (ev) => {
                     state.setDistance(parseInt(this.slider.value));
+                    state.setTime();
                     this.updateDistance();
                     if (state.distanceEvent[0] != null && state.getDistance(0) <= state.distanceActionEvent[0] && state.lastEvent != 0) {
                         pxsim.thread.runInBackground(state.distanceEvent[0]);
@@ -1767,7 +1789,7 @@ var pxsim;
                 let state = this.state;
                 if (!state || !state.isUsed())
                     return;
-                this.text.getElementsByTagName("tspan").item(0).innerHTML = state.getDistance(0).toString() + ' mm';
+                this.text.getElementsByTagName("tspan").item(0).innerHTML = state.getDistance(3).toString() + ' mm';
             }
             generateIcon(width, height, x, y) {
                 let svgTag = `<svg version="1.1" viewBox="0 0 504 359.92" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF"`;
