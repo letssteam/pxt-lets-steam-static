@@ -379,7 +379,7 @@ The <a  rel="nofollow noopener" href="/docs/blocks/on-start.html">on-start</a> e
 <h2 id="blocks">Blocks</h2><pre><code class="lang-namespaces">for (let i = 0;i&lt;5;++i) {}
 if (true){}
 let x = 0;</code></pre>
-<h2 id="builtins">Built-in objects</h2><pre><code class="lang-namespaces">Math.randomRange(0,5);
+<h2 id="builtins">Built-in objects </h2><pre><code class="lang-namespaces">Math.randomRange(0,5);
 &quot;&quot;.compare(&quot;&quot;);
 [0].push(0);</code></pre>
 <h2 id="see-also">See Also</h2><p><a  rel="nofollow noopener" href="/docs/blocks/logic.html">logic</a>, <a  rel="nofollow noopener" href="/docs/blocks/loops.html">loops</a>, <a  rel="nofollow noopener" href="/docs/blocks/variables.html">variables</a>,
@@ -423,7 +423,7 @@ let x = 0;</code></pre>
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -554,7 +554,7 @@ let x = 0;</code></pre>
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -585,7 +585,7 @@ let x = 0;</code></pre>
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

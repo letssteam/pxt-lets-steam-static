@@ -381,7 +381,7 @@ connected to the pin is <strong>on</strong> or has a status of <code>true</code>
 <h2 id="returns">Returns</h2><ul>
 <li>a <a target="_blank" rel="nofollow noopener" href="types/boolean">boolean</a> value that is either <code>false</code> or <code>true</code>. The meaning of the value depends on how something connected to the pin decides on what value to give.</li>
 </ul>
-<h2 id="example">Example</h2><p>See if a switch on your bread board is on or off. The switch is connected to pin <code>D4</code>. Write the position of the switch to the console.</p>
+<h2 id="example">Example </h2><p>See if a switch on your bread board is on or off. The switch is connected to pin <code>D4</code>. Write the position of the switch to the console.</p>
 <pre><code class="lang-blocks">let mySwitchOn = pins.D4.digitalRead();
 
 if (mySwitchOn) {
@@ -389,7 +389,7 @@ if (mySwitchOn) {
 } else {
     console.log(&quot;Switch at D4 is OFF&quot;)
 }</code></pre>
-<h2 id="seealso">See also</h2><p><a  rel="nofollow noopener" href="/docs/reference/pins/digital-write.html">digital write</a></p>
+<h2 id="seealso">See also </h2><p><a  rel="nofollow noopener" href="/docs/reference/pins/digital-write.html">digital write</a></p>
 
     </div>
 
@@ -428,7 +428,7 @@ if (mySwitchOn) {
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -559,7 +559,7 @@ if (mySwitchOn) {
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -590,7 +590,7 @@ if (mySwitchOn) {
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

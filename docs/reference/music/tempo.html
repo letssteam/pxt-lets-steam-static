@@ -379,7 +379,7 @@
 <li>a <a  rel="nofollow noopener" href="/docs/types/number.html">number</a> that means the count of beats per minute (number of
 beats in a minute of the music that the board is playing right now).</li>
 </ul>
-<h2 id="seealso">See also</h2><p><a  rel="nofollow noopener" href="/docs/reference/music/play-tone.html">play tone</a>, <a  rel="nofollow noopener" href="/docs/reference/music/ring-tone.html">ring tone</a>,
+<h2 id="seealso">See also </h2><p><a  rel="nofollow noopener" href="/docs/reference/music/play-tone.html">play tone</a>, <a  rel="nofollow noopener" href="/docs/reference/music/ring-tone.html">ring tone</a>,
 <a  rel="nofollow noopener" href="/docs/reference/music/rest.html">rest</a>, <a  rel="nofollow noopener" href="/docs/reference/music/set-tempo.html">set tempo</a>,
 <a  rel="nofollow noopener" href="/docs/reference/music/change-tempo-by.html">change tempo by</a></p>
 <pre><code class="lang-package">music</code></pre>
@@ -421,7 +421,7 @@ beats in a minute of the music that the board is playing right now).</li>
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -552,7 +552,7 @@ beats in a minute of the music that the board is playing right now).</li>
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -583,7 +583,7 @@ beats in a minute of the music that the board is playing right now).</li>
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

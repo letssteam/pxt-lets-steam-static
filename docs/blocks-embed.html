@@ -383,7 +383,7 @@ A quick solution is take screenshots of the snippets but that approach can quick
 <li>screenshots don’t play well with source control system - you can’t diff changes efficiently.</li>
 </ul>
 <h2 id="rendering-blocks-on-the-spot">Rendering blocks on the spot</h2><p>The MakeCode approach to solving this issue is to render the <strong>JavaScript</strong> code snippets on the client using the same block rendering engine as the editor. Under the hood, an <code>iframe</code> from the MakeCode editor will render the blocks for you.</p>
-<h2 id="githubpages">GitHub pages</h2><p>You can use <a target="_blank" rel="nofollow noopener" href="https://help.github.com/en/github/working-with-github-pages">GitHub pages</a> to render your README.md file as a web site.</p>
+<h2 id="githubpages">GitHub pages </h2><p>You can use <a target="_blank" rel="nofollow noopener" href="https://help.github.com/en/github/working-with-github-pages">GitHub pages</a> to render your README.md file as a web site.</p>
 <ul>
 <li>enable <a target="_blank" rel="nofollow noopener" href="https://help.github.com/en/github/working-with-github-pages/creating-a-github-pages-site#creating-your-site">GitHub pages</a> on your repository</li>
 <li>add the following entry in the <code>_config.yml</code></li>
@@ -451,8 +451,8 @@ A quick solution is take screenshots of the snippets but that approach can quick
 </ul>
 <h3 id="message-handler">Message Handler</h3><p>To receive messages from the renderer, the document registers a handler using the DOM <a target="_blank" rel="nofollow noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener">addEventListener</a> method. This is registered for the <code>message</code> event. The two responses it waits for are <code>renderready</code> and <code>renderblocks</code>. The message contents are in the format described above.</p>
 <p>The handler must check that the <code>source</code> value in the message contains <code>&quot;makecode&quot;</code> to be certain that this message came from the blocks renderer.</p>
-<h4 id="responding-to-renderready">Responding to <code>renderready</code></h4><p>When the <code>renderready</code> response is received, the document can begin collecting and sending its code snippets to the renderer. A method for gathering snippet code and sending it to the renderer is shown in the <a  rel="nofollow noopener" href="/docs/blocks-embed#makecoderenderpre.html">makeCodeRenderPre</a> function.</p>
-<h4 id="responding-to-renderblocks">Responding to <code>renderblocks</code></h4><p>The <code>renderblocks</code> message is received as a response to a previous <code>renderblocks</code> request sent by the document. The message contains an image of the rendered blocks if compilation of the code snippet sent was successful. The image can be inserted into the DOM by matching the <code>id</code> of the original snippet element with the <code>id</code> in the message. The image is provided as both SVG and <code>img</code> data. The implementation can decide which form it wants to use. Depending on how the blocks are to be displayed, the original snippet elements are replaced by the blocks image or the blocks are added to the DOM next to them.</p>
+<h4 id="responding-to-code-renderready-code-">Responding to <code>renderready</code></h4><p>When the <code>renderready</code> response is received, the document can begin collecting and sending its code snippets to the renderer. A method for gathering snippet code and sending it to the renderer is shown in the <a  rel="nofollow noopener" href="/docs/blocks-embed#makecoderenderpre.html">makeCodeRenderPre</a> function.</p>
+<h4 id="responding-to-code-renderblocks-code-">Responding to <code>renderblocks</code></h4><p>The <code>renderblocks</code> message is received as a response to a previous <code>renderblocks</code> request sent by the document. The message contains an image of the rendered blocks if compilation of the code snippet sent was successful. The image can be inserted into the DOM by matching the <code>id</code> of the original snippet element with the <code>id</code> in the message. The image is provided as both SVG and <code>img</code> data. The implementation can decide which form it wants to use. Depending on how the blocks are to be displayed, the original snippet elements are replaced by the blocks image or the blocks are added to the DOM next to them.</p>
 <h4 id="handler-example">Handler example</h4><p>As an example, let’s say that a document has all of its code snippets contained in <code>pre</code> elements:</p>
 <pre><code>&lt;pre&gt;
 basic.showString(&quot;Hello World&quot;)
@@ -484,7 +484,7 @@ basic.showString(&quot;Hello World&quot;)
             break;
     }
 }, false);</code></pre>
-<h3 id="makecoderenderpre">Sending snippets to the renderer</h3><p>To request a code render, a <code>renderblocks</code> message is sent to the rendering <code>iframe</code>. First, the request message is prepared with the matching element identifier set in the message <code>id</code>. Then, the code snippet text is taken from the inner part of its containing element and set as the <code>data</code> value of the message. The message is posted to the <code>iframe</code>.</p>
+<h3 id="makecoderenderpre">Sending snippets to the renderer </h3><p>To request a code render, a <code>renderblocks</code> message is sent to the rendering <code>iframe</code>. First, the request message is prepared with the matching element identifier set in the message <code>id</code>. Then, the code snippet text is taken from the inner part of its containing element and set as the <code>data</code> value of the message. The message is posted to the <code>iframe</code>.</p>
 <pre><code class="lang-typescript-ignore">function makeCodeRenderPre(pre) {
     var f = document.getElementById(&quot;makecoderenderer&quot;);
     f.contentWindow.postMessage({
@@ -493,7 +493,7 @@ basic.showString(&quot;Hello World&quot;)
         code: pre.innerText
     }, &quot;http://makecode.st.com/&quot;);
 }</code></pre>
-<h3 id="create-the-iframe-renderer">Create the <code>iframe</code> renderer</h3><p>Finally, the rendering <code>iframe</code> is added to the HTML DOM and is hidden so that it does not interfere with the outer document page.</p>
+<h3 id="create-the-code-iframe-code-renderer">Create the <code>iframe</code> renderer</h3><p>Finally, the rendering <code>iframe</code> is added to the HTML DOM and is hidden so that it does not interfere with the outer document page.</p>
 <pre><code class="lang-typescript-ignore">function makeCodeInjectRenderer() {
     var f = document.createElement(&quot;iframe&quot;);
     f.id = &quot;makecoderenderer&quot;;
@@ -509,7 +509,7 @@ basic.showString(&quot;Hello World&quot;)
 // load the renderer
 makeCodeInjectRenderer();</code></pre>
 <p>Once this <code>iframe</code> loads, it sends the <code>renderready</code> message to the registered handler.</p>
-<h3 id="example">Putting it together</h3><p>This HTML document example contains three <code>pre</code> elements with code snippets. Only two are sent to the renderer since they’re filtered on their class as <code>blocks</code>. Each element sent is given an identifier to match up with the rendered block that is returned. JQuery is used in this example but another framework or standard DOM methods could be used too.</p>
+<h3 id="example">Putting it together </h3><p>This HTML document example contains three <code>pre</code> elements with code snippets. Only two are sent to the renderer since they’re filtered on their class as <code>blocks</code>. Each element sent is given an identifier to match up with the rendered block that is returned. JQuery is used in this example but another framework or standard DOM methods could be used too.</p>
 <pre><code class="lang-html">&lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;title&gt;Blocks Embedding Test Page&lt;/title&gt;
@@ -685,7 +685,7 @@ leave the <code>code</code> attribute empty and pass the shared project id in a 
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -816,7 +816,7 @@ leave the <code>code</code> attribute empty and pass the shared project id in a 
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -847,7 +847,7 @@ leave the <code>code</code> attribute empty and pass the shared project id in a 
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

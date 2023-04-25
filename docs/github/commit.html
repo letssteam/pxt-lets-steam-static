@@ -374,11 +374,11 @@
 					
     <div class="ui text">
         <h1 id="commit">Commit</h1><p>On GitHub, <strong>saved changes</strong> are called <strong>commits</strong>. Each commit has an associated commit message, which is a description explaining why a particular change was made. Commit messages capture the history of your changes, so other contributors can understand what you’ve done and why.</p>
-<h2 id="commit-push">Commit &amp; push</h2><p>Make any change in the code editor and you will notice that an up arrow is displayed
+<h2 id="commit-amp-push">Commit &amp; push</h2><p>Make any change in the code editor and you will notice that an up arrow is displayed
 on the <strong>GitHub</strong> button. The arrow means that there are <strong>local</strong> changes. They are stored on your computer and they need to get saved on GitHub. Click on that button to open the <strong>GitHub view</strong>.</p>
 <p>The GitHub view contains the <a  rel="nofollow noopener" href="/docs/github/diff.html">diffs</a> that represent every <strong>local</strong> change.
 If the changes look correct, click on <strong>commit &amp; push changes</strong> to create a <strong>commit</strong> of the changes and <strong>push</strong> them to GitHub. Once the commit is pushed, all of your code is safely stored in GitHub!</p>
-<h2 id="review-revert">Review &amp; revert</h2><p>It’s good practice to <strong>review</strong> your <strong>local</strong> changes before commiting; just like you review your answer sheet before turning in a test. If you find some changes that are incorrect, you can decide to fix them right away, <strong>revert</strong> the entire file, or even just <strong>commit</strong> them so you can make any fixes later.</p>
+<h2 id="review-amp-revert">Review &amp; revert</h2><p>It’s good practice to <strong>review</strong> your <strong>local</strong> changes before commiting; just like you review your answer sheet before turning in a test. If you find some changes that are incorrect, you can decide to fix them right away, <strong>revert</strong> the entire file, or even just <strong>commit</strong> them so you can make any fixes later.</p>
 <h2 id="see-also">See Also</h2><p><a target="_blank" rel="nofollow noopener" href="https://help.github.com/en/categories/committing-changes-to-your-project">GitHub Commit Documentation</a></p>
 
     </div>
@@ -418,7 +418,7 @@ If the changes look correct, click on <strong>commit &amp; push changes</strong>
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -549,7 +549,7 @@ If the changes look correct, click on <strong>commit &amp; push changes</strong>
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -580,7 +580,7 @@ If the changes look correct, click on <strong>commit &amp; push changes</strong>
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

@@ -379,7 +379,7 @@
 always put in <a  rel="nofollow noopener" href="/docs/blocks/on-start.html"><code>||on start||</code></a>. But, you can also put some other part of your
 program in <code>||control:run in parallel||</code>. This is useful when you want your program to keep doing important things
 and you don’t want to wait for some other actions to happen first.</p>
-<h2 id="tasks">Separate tasks</h2><p>As an example, you could have a small task to rotate a bit in a 16 character
+<h2 id="tasks">Separate tasks </h2><p>As an example, you could have a small task to rotate a bit in a 16 character
 string of zeros. This is placed inside a <code>||control:run in parallel||</code> block:</p>
 <pre><code class="lang-blocks">let bitPos = 0
 let rorit = true
@@ -412,7 +412,7 @@ rorit = true</code></pre>
 <h2 id="parameters">Parameters</h2><ul>
 <li><strong>a</strong>: the code to run in the background.</li>
 </ul>
-<h2 id="example">Example</h2><p>Use a parallel task to generate a magic number. In the main program check the value of the magic number twice. The first time check the value right away. The
+<h2 id="example">Example </h2><p>Use a parallel task to generate a magic number. In the main program check the value of the magic number twice. The first time check the value right away. The
 second time, check <code>2</code> seconds later after the parallel task has time to run.</p>
 <pre><code class="lang-blocks">let magic = 0
 
@@ -461,7 +461,7 @@ console.logValue(&quot;magic&quot;, magic)</code></pre>
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -592,7 +592,7 @@ console.logValue(&quot;magic&quot;, magic)</code></pre>
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -623,7 +623,7 @@ console.logValue(&quot;magic&quot;, magic)</code></pre>
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

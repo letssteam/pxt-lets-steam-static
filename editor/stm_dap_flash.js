@@ -14,6 +14,7 @@ function log_error(msg, ...optionsParams) {
 class STMDAPWrapper {
     constructor(io) {
         this.io = io;
+        this.initialized = false;
         this.icon = "usb";
         this.onFlashProgress = null;
         this.onFlashFinish = null;
@@ -21,11 +22,10 @@ class STMDAPWrapper {
         this.lastSerialPrint = 0;
         this.serialBuffer = "";
         this.lock_serial = false;
-        this.familyID = 0x0D28; //this is the microbit vendor id, not quite UF2 family id
+        this.familyID = 0x0d28; //this is the microbit vendor id, not quite UF2 family id
         this.io.onDeviceConnectionChanged = (connect) => {
             log("Device connection Changed !");
-            this.disconnectAsync()
-                .then(() => connect && this.reconnectAsync());
+            this.disconnectAsync().then(() => connect && this.reconnectAsync());
         };
         this.io.onData = (buf) => {
             log("Wrapper On DATA : " + pxt.Util.toHex(buf));
@@ -34,20 +34,21 @@ class STMDAPWrapper {
     onSerial(buf, isStderr) {
         log(`On Serial : \n\tBuf : '${buf}'\n\tisStderr : ${isStderr}`);
     }
-    ;
     onCustomEvent(type, payload) {
         log(`On Custom Event : \n\type : '${type}'\n\payload : ${payload}`);
     }
-    ;
     async reconnectAsync() {
         log("Reconnect");
+        this.initialized = false;
         await this.io.reconnectAsync();
         await this.initDAP(this.io.dev);
         await this.startSerial(SERIAL_BAUDRATE);
+        this.initialized = true;
         return Promise.resolve();
     }
     async disconnectAsync() {
         log("Disconnected");
+        this.initialized = false;
         if (this.target != null) {
             await this.target.disconnect();
             this.stopSerial();
@@ -55,6 +56,12 @@ class STMDAPWrapper {
         }
         this.serialBuffer = "";
         return Promise.resolve();
+    }
+    isConnected() {
+        return this.io.isConnected() && this.initialized;
+    }
+    isConnecting() {
+        return (this.io.isConnecting() || (this.io.isConnected() && !this.initialized));
     }
     async reflashAsync(resp) {
         var blob = new Blob([resp.outfiles[HEX_FILENAME]], { type: "text/plain" });
@@ -65,7 +72,7 @@ class STMDAPWrapper {
             return this.flashDevice(evt.target.result);
         };
         fileReader.onprogress = (evt) => {
-            log(`Blob progress : ${evt.loaded / evt.total * 100.0} %`);
+            log(`Blob progress : ${(evt.loaded / evt.total) * 100.0} %`);
         };
         fileReader.onerror = (evt) => {
             log_error("Failed to load Blob file : ", fileReader.error);
@@ -77,7 +84,7 @@ class STMDAPWrapper {
         throw new Error("Method not implemented.");
     }
     isTargetReady() {
-        return (this.target != null);
+        return this.target != null;
     }
     async initDAP(device) {
         const transport = new DAPjs.WebUSB(device);
@@ -85,7 +92,7 @@ class STMDAPWrapper {
         log("DAP initialized !");
     }
     async startSerial(baudrateSerial) {
-        //return; 
+        //return;
         if (this.lock_serial) {
             return;
         }
@@ -100,11 +107,13 @@ class STMDAPWrapper {
         await this.target.connect();
         await this.target.setSerialBaudrate(baudrateSerial);
         await this.target.disconnect();
-        this.target.startSerialRead().catch((e) => log_error("ERROR startSerial : ", e));
+        this.target
+            .startSerialRead()
+            .catch((e) => log_error("ERROR startSerial : ", e));
         log("Serial Started");
     }
     async stopSerial() {
-        //return; 
+        //return;
         this.target.on(DAPjs.DAPLink.EVENT_SERIAL_DATA, (data) => { });
         this.target.stopSerialRead();
         await this.sleep(1000);
@@ -126,7 +135,7 @@ class STMDAPWrapper {
     async flashDevice(buffer) {
         var errorCatch = null;
         log(`Flashing file ${buffer.byteLength} words long`);
-        this.target.on(DAPjs.DAPLink.EVENT_PROGRESS, progress => {
+        this.target.on(DAPjs.DAPLink.EVENT_PROGRESS, (progress) => {
             if (this.onFlashProgress != null) {
                 this.onFlashProgress(progress);
             }
@@ -137,16 +146,29 @@ class STMDAPWrapper {
             this.lock_serial = true;
             await this.stopSerial();
             log("Connect");
-            await this.target.connect().catch((e) => { log_error("ERROR connect : ", e); throw e; });
+            await this.target.connect().catch((e) => {
+                log_error("ERROR connect : ", e);
+                throw e;
+            });
             log("Reset");
-            await this.target.reset().catch((e) => { log_error("No reset available on target. Error : ", e); });
+            await this.target.reset().catch((e) => {
+                log_error("No reset available on target. Error : ", e);
+            });
             log("Flash");
-            await this.target.flash(buffer).catch((e) => { log_error("ERROR flash : ", e); throw e; });
+            await this.target.flash(buffer).catch((e) => {
+                log_error("ERROR flash : ", e);
+                throw e;
+            });
             log("Reset");
-            await this.target.reset().catch((e) => { log_error("No reset available on target. Error : ", e); });
+            await this.target.reset().catch((e) => {
+                log_error("No reset available on target. Error : ", e);
+            });
             await this.sleep(1000);
             log("Disconnect");
-            await this.target.disconnect().catch((e) => { log_error("ERROR disconnect : ", e); throw e; });
+            await this.target.disconnect().catch((e) => {
+                log_error("ERROR disconnect : ", e);
+                throw e;
+            });
         }
         catch (error) {
             errorCatch = error;
@@ -164,7 +186,7 @@ class STMDAPWrapper {
         return Promise.resolve();
     }
     sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+        return new Promise((resolve) => setTimeout(resolve, ms));
     }
 }
 exports.STMDAPWrapper = STMDAPWrapper;

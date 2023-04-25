@@ -402,7 +402,7 @@ But, <em>floating point</em> numbers have the decimal point at any spot between 
 <pre><code class="lang-typescript">let num = 0
 num = 6.7
 num = 10.083</code></pre>
-<h2 id="string">String</h2><p>As in other languages, we use the type <code>string</code> to refer to textual data.
+<h2 id="string">String </h2><p>As in other languages, we use the type <code>string</code> to refer to textual data.
 Use double quotes (<code>&quot;</code>) or single quotes (<code>&#39;</code>) to surround string data.</p>
 <pre><code class="lang-typescript">let myColor: string = &quot;blue&quot;;
 myColor = &#39;red&#39;;</code></pre>
@@ -418,7 +418,7 @@ I&#39;ll be ${ age + 1 } years old next month.`</code></pre>
 let age: number = 37;
 let sentence: string = &quot;Hello, my name is &quot; + fullName + &quot;.\n\n&quot; +
     &quot;I&#39;ll be &quot; + (age + 1) + &quot; years old next month.&quot;</code></pre>
-<h2 id="array">Array</h2><p>Arrays allow you to work with an expandable sequence of values, addressed by an integer-valued index.
+<h2 id="array">Array </h2><p>Arrays allow you to work with an expandable sequence of values, addressed by an integer-valued index.
 Array types can be written in one of two ways.
 In the first, you use the type of the elements followed by <code>[]</code> to denote an array of that element type:</p>
 <pre><code class="lang-typescript">let list: number[] = [1, 2, 3];</code></pre>
@@ -507,7 +507,7 @@ while (!received) {
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -638,7 +638,7 @@ while (!received) {
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -669,7 +669,7 @@ while (!received) {
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

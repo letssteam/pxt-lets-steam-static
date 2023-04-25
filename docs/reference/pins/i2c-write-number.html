@@ -406,7 +406,7 @@ again right away.<blockquote>
 </blockquote>
 </li>
 </ul>
-<h2 id="example">Example</h2><p>Connect a 12-bit digital-to-analog converter (DAC) on a breadboard to the <strong>SDA</strong> and <strong>SCL</strong> pins on your
+<h2 id="example">Example </h2><p>Connect a 12-bit digital-to-analog converter (DAC) on a breadboard to the <strong>SDA</strong> and <strong>SCL</strong> pins on your
 board. Set your DAC to respond to address <code>99</code>. Write numbers to the DAC to have it make a sawtooth wave
 about every second.</p>
 <pre><code class="lang-blocks">let i = 0
@@ -422,7 +422,7 @@ forever(() =&gt; {
         }
     }
 })</code></pre>
-<h2 id="seealso">See also</h2><p><a  rel="nofollow noopener" href="/docs/reference/pins/i2c-read-number.html">i2c read number</a></p>
+<h2 id="seealso">See also </h2><p><a  rel="nofollow noopener" href="/docs/reference/pins/i2c-read-number.html">i2c read number</a></p>
 
     </div>
 
@@ -461,7 +461,7 @@ forever(() =&gt; {
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -592,7 +592,7 @@ forever(() =&gt; {
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -623,7 +623,7 @@ forever(() =&gt; {
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

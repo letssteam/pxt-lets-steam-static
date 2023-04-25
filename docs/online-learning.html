@@ -373,7 +373,7 @@
 					</button>
 					
     <div class="ui text">
-        <h1 id="online-learning">Online Learning</h1><h2 id="live"></h2><h2 id="teams"><a target="_blank" rel="nofollow noopener" href="https://teams.microsoft.com/">Microsoft Teams Assignments</a></h2><p><strong>Microsoft Teams</strong> is a collaboration hub for Office 365 where Educators can organize student groups into classes with content, conversations, apps, and assignments all in one place.</p>
+        <h1 id="online-learning">Online Learning</h1><h2 id="live"></h2><h2 id="teams"><a target="_blank" rel="nofollow noopener" href="https://teams.microsoft.com/">Microsoft Teams Assignments</a> </h2><p><strong>Microsoft Teams</strong> is a collaboration hub for Office 365 where Educators can organize student groups into classes with content, conversations, apps, and assignments all in one place.</p>
 <p>You can now create MakeCode programming assignments for your students by attaching a MakeCode project. Students can then open the MakeCode editor and complete the assignment without ever leaving Teams!</p>
 <h3 id="youtubeteams"></h3><ul>
 <li><a target="_blank" rel="nofollow noopener" href="https://makecode.com/blog/teams/teams-assignments">Blog post about MakeCode Assignments</a>
@@ -386,7 +386,7 @@
     </div>
 </li>
 </ul>
-<h2 id="googleclassroom"><a target="_blank" rel="nofollow noopener" href="https://classroom.google.com">Google Classroom</a></h2><p>You can use shared urls or download files from the MakeCode editor to create assigments in Google Classroom. See the tutorial video below.</p>
+<h2 id="googleclassroom"><a target="_blank" rel="nofollow noopener" href="https://classroom.google.com">Google Classroom</a> </h2><p>You can use shared urls or download files from the MakeCode editor to create assigments in Google Classroom. See the tutorial video below.</p>
 <h3 id="youtubegoogleclassroom"></h3>
     <div class="ui grid">
         <div class="ten wide column">
@@ -395,7 +395,7 @@
             </div>
         </div>
     </div>
-<h2 id="canvas"><a target="_blank" rel="nofollow noopener" href="https://www.canvas.net/">Canvas</a></h2><p>You can use shared urls or download files from the MakeCode editor to create assigments in Canvas. See the tutorial video below.</p>
+<h2 id="canvas"><a target="_blank" rel="nofollow noopener" href="https://www.canvas.net/">Canvas</a> </h2><p>You can use shared urls or download files from the MakeCode editor to create assigments in Canvas. See the tutorial video below.</p>
 <h3 id="youtubecanvas"></h3>
     <div class="ui grid">
         <div class="ten wide column">
@@ -404,7 +404,7 @@
             </div>
         </div>
     </div>
-<h2 id="seesaw"><a target="_blank" rel="nofollow noopener" href="https://web.seesaw.me/">SeeSaw</a></h2><p>You can use shared urls or download files from the MakeCode editor to create activities in SeeSaw. See the tutorial video below.</p>
+<h2 id="-a-target-_blank-rel-nofollow-noopener-href-https-web-seesaw-me-seesaw-a-"><a target="_blank" rel="nofollow noopener" href="https://web.seesaw.me/">SeeSaw</a></h2><p>You can use shared urls or download files from the MakeCode editor to create activities in SeeSaw. See the tutorial video below.</p>
 <h3 id="youtubeseesaw"></h3>
     <div class="ui grid">
         <div class="ten wide column">
@@ -451,7 +451,7 @@
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -582,7 +582,7 @@
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -613,7 +613,7 @@
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

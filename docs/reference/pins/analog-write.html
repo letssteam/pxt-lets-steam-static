@@ -384,7 +384,7 @@ voltage range used by your board.</p>
 <h2 id="parameters">Parameters</h2><ul>
 <li><strong>value</strong>: a <a target="_blank" rel="nofollow noopener" href="types/number">number</a> between <code>0</code> (no signal) and <code>1023</code> (full signal)</li>
 </ul>
-<h2 id="example">Example</h2><p>Create a sawtooth wave signal on pin <code>A0</code>.</p>
+<h2 id="example">Example </h2><p>Create a sawtooth wave signal on pin <code>A0</code>.</p>
 <pre><code class="lang-blocks">let i = 0
 forever(() =&gt; {
     i = 0
@@ -399,7 +399,7 @@ forever(() =&gt; {
     }
 })
 </code></pre>
-<h2 id="seealso">See also</h2><p><a  rel="nofollow noopener" href="/docs/reference/pins/analog-read.html">analog read</a></p>
+<h2 id="seealso">See also </h2><p><a  rel="nofollow noopener" href="/docs/reference/pins/analog-read.html">analog read</a></p>
 
     </div>
 
@@ -438,7 +438,7 @@ forever(() =&gt; {
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -569,7 +569,7 @@ forever(() =&gt; {
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -600,7 +600,7 @@ forever(() =&gt; {
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

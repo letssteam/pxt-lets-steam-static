@@ -8,7 +8,7 @@
     <script type="text/javascript">
     if(/[&?]translate=1/.test(window.location.href)) {
 		var _jipt = [];
-        _jipt.push(['project', 'kindscript']);
+        _jipt.push(['project', 'makecode']);
         _jipt.push(['escape', function() {
             window.location.href = window.location.href.replace(/[$\?]translate=1/, '');
         }]);
@@ -105,7 +105,7 @@
     "gifworkerjs": "/gifjs/gif.worker.js",
     "serviceworkerjs": "/serviceworker.js",
     "typeScriptWorkerJs": "/tsworker.js",
-    "pxtVersion": "7.4.12",
+    "pxtVersion": "8.6.27",
     "pxtRelId": "localDirRelId",
     "pxtCdnUrl": "/",
     "commitCdnUrl": "/",
@@ -124,6 +124,8 @@
     "multiUrl": "/multi.html",
     "asseteditorUrl": "/asseteditor.html",
     "skillmapUrl": "/skillmap.html",
+    "authcodeUrl": "/authcode.html",
+    "multiplayerUrl": "/multiplayer.html",
     "isStatic": true
 };
     </script>
@@ -158,7 +160,7 @@
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);
@@ -196,7 +198,7 @@
         };
 
         // this get rewritten to blob URLs with SHAs while uploading to the cloud
-        // keep in sync with release.manifest
+        // keep in sync with release.manifest and asseteditor.html
         window.MonacoPaths = {
             "vs/loader": "/vs/loader.js",
             "vs/base/worker/workerMain": "/vs/base/worker/workerMain.js",
@@ -218,7 +220,31 @@
             "blockly.css": "/blockly.css",
             "rtlblockly.css": "/rtlblockly.css",
             "gifjs/gif.js": "/gifjs/gif.js",
-            "qrcode/qrcode.min.js": "/qrcode/qrcode.min.js"
+            "qrcode/qrcode.min.js": "/qrcode/qrcode.min.js",
+            "zip.js/zip.min.js": "/zip.js/zip.min.js",
+            "pdf-lib/pdf-lib.min.js": "/pdf-lib/pdf-lib.min.js",
+            "music-editor/apple.png": "/music-editor/apple.png",
+            "music-editor/burger.png": "/music-editor/burger.png",
+            "music-editor/cake.png": "/music-editor/cake.png",
+            "music-editor/car.png": "/music-editor/car.png",
+            "music-editor/cat.png": "/music-editor/cat.png",
+            "music-editor/cherry.png": "/music-editor/cherry.png",
+            "music-editor/clam.png": "/music-editor/clam.png",
+            "music-editor/computer.png": "/music-editor/computer.png",
+            "music-editor/crab.png": "/music-editor/crab.png",
+            "music-editor/dog.png": "/music-editor/dog.png",
+            "music-editor/duck.png": "/music-editor/duck.png",
+            "music-editor/egg.png": "/music-editor/egg.png",
+            "music-editor/explosion.png": "/music-editor/explosion.png",
+            "music-editor/fish.png": "/music-editor/fish.png",
+            "music-editor/ice-cream.png": "/music-editor/ice-cream.png",
+            "music-editor/lemon.png": "/music-editor/lemon.png",
+            "music-editor/snake.png": "/music-editor/snake.png",
+            "music-editor/star.png": "/music-editor/star.png",
+            "music-editor/strawberry.png": "/music-editor/strawberry.png",
+            "music-editor/taco.png": "/music-editor/taco.png",
+            "music-editor/bass-clef.svg": "/music-editor/bass-clef.svg",
+            "music-editor/treble-clef.svg": "/music-editor/treble-clef.svg",
         }
     </script>
 </body>

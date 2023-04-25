@@ -382,13 +382,13 @@ is something between <code>0</code> and <code>1023</code>.  A <code>0</code> is 
 <h2 id="returns">Returns</h2><ul>
 <li>a <a target="_blank" rel="nofollow noopener" href="types/number">number</a> between <code>0</code> and <code>1023</code> that is amount of signal at the pin.</li>
 </ul>
-<h2 id="example">Example</h2><p>Read from pin <code>A2</code> and write the value to the console.</p>
+<h2 id="example">Example </h2><p>Read from pin <code>A2</code> and write the value to the console.</p>
 <pre><code class="lang-blocks">forever(function() {
     let signal = pins.A2.analogRead()
     console.log(&quot;signal&quot;, signal)
     pause(1000)
 })</code></pre>
-<h2 id="seealso">See also</h2><p><a  rel="nofollow noopener" href="/docs/reference/pins/analog-write.html">analog write</a></p>
+<h2 id="seealso">See also </h2><p><a  rel="nofollow noopener" href="/docs/reference/pins/analog-write.html">analog write</a></p>
 
     </div>
 
@@ -427,7 +427,7 @@ is something between <code>0</code> and <code>1023</code>.  A <code>0</code> is 
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -558,7 +558,7 @@ is something between <code>0</code> and <code>1023</code>.  A <code>0</code> is 
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -589,7 +589,7 @@ is something between <code>0</code> and <code>1023</code>.  A <code>0</code> is 
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

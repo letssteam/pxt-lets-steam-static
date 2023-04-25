@@ -373,7 +373,7 @@
 					</button>
 					
     <div class="ui text">
-        <h1 id="sharing">Sharing</h1><h2 id="default">Default</h2><ul>
+        <h1 id="sharing">Sharing</h1><h2 id="default">Default </h2><ul>
 <li>Open the Editor and drag a few blocks</li>
 <li>Click on <strong>Share</strong>, then <strong>Publish</strong></li>
 <li>A new URL gets generated successfully</li>
@@ -381,13 +381,13 @@
 <li>In a new browser tab, open that URL</li>
 <li>The script page shows the same blocks as in the editor</li>
 </ul>
-<h2 id="cancel">Cancel</h2><ul>
+<h2 id="cancel">Cancel </h2><ul>
 <li>Open the Editor and drag a few blocks</li>
 <li>Click on <strong>Share</strong></li>
 <li>Click the <strong>X</strong> icon</li>
 <li>the dialog closes and no URL is generated</li>
 </ul>
-<h2 id="embed">Embed Code</h2><ul>
+<h2 id="embed">Embed Code </h2><ul>
 <li>Open the Editor and drag a few blocks</li>
 <li>Click on <strong>Share</strong>, then <strong>Publish</strong></li>
 <li>Click on <strong>Embed</strong><ol>
@@ -398,7 +398,7 @@
 </ol>
 </li>
 </ul>
-<h2 id="editor">Embed Editor</h2><ul>
+<h2 id="editor">Embed Editor </h2><ul>
 <li>Open the Editor and drag a few blocks</li>
 <li>Click on <strong>Share</strong>, then <strong>Publish</strong></li>
 <li>Click on <strong>Embed</strong><ol>
@@ -409,7 +409,7 @@
 </ol>
 </li>
 </ul>
-<h2 id="simulator">Embed Simulator</h2><ul>
+<h2 id="simulator">Embed Simulator </h2><ul>
 <li>Open the Editor and drag a few blocks</li>
 <li>Click on <strong>Share</strong>, then <strong>Publish</strong></li>
 <li>Click on <strong>Embed</strong><ol>
@@ -461,7 +461,7 @@
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -592,7 +592,7 @@
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -623,7 +623,7 @@
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

@@ -452,7 +452,7 @@ We could have written the <code>Animal</code> class from the previous section in
         console.log(`${this.name} moved ${distanceInMeters}m.`);
     }
 }</code></pre>
-<h3 id="understanding-private">Understanding <code>private</code></h3><p>When a member is marked <code>private</code>, it cannot be accessed from outside of its containing class. For example:</p>
+<h3 id="understanding-code-private-code-">Understanding <code>private</code></h3><p>When a member is marked <code>private</code>, it cannot be accessed from outside of its containing class. For example:</p>
 <pre><code class="lang-typescript-ignore">class Animal {
     private name: string;
     constructor(theName: string) { this.name = theName; }
@@ -493,7 +493,7 @@ Because <code>Animal</code> and <code>Rhino</code> share the <code>private</code
 <code>private name: string</code> in <code>Animal</code>, they are compatible. However, this is not the case for <code>Employee</code>.
 When we try to assign from an <code>Employee</code> to <code>Animal</code> we get an error that these types are not compatible.
 Even though <code>Employee</code> also has a <code>private</code> member called <code>name</code>, it’s not the one we declared in <code>Animal</code>.</p>
-<h3 id="understanding-protected">Understanding <code>protected</code></h3><p>The <code>protected</code> modifier acts much like the <code>private</code> modifier with the exception that members 
+<h3 id="understanding-code-protected-code-">Understanding <code>protected</code></h3><p>The <code>protected</code> modifier acts much like the <code>private</code> modifier with the exception that members 
 declared <code>protected</code> can also be accessed by instances of deriving classes. For example,</p>
 <pre><code class="lang-typescript-ignore">class Person {
     protected name: string;
@@ -556,7 +556,7 @@ we can still use it from within an instance method of <code>Employee</code> beca
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -687,7 +687,7 @@ we can still use it from within an instance method of <code>Employee</code> beca
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -718,7 +718,7 @@ we can still use it from within an instance method of <code>Employee</code> beca
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

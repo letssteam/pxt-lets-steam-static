@@ -373,8 +373,16 @@
 					</button>
 					
     <div class="ui text">
-        <h1 id="microsoft-accounts-and-makecode">Microsoft Accounts and MakeCode</h1><p><strong>Note</strong>: This feature only available in <a target="_blank" rel="nofollow noopener" href="https://arcade.makecode.com"><strong>MakeCode Arcade</strong></a>.</p>
-<h2 id="what-is-a-microsoft-account-">What is a Microsoft Account?</h2><p>A Microsoft Account, or MSA, is the personal user account you create when you want to sign into Microsoft services like outlook.com, Xbox, Skype, etc. Read more <a target="_blank" rel="nofollow noopener" href="https://aka.ms/AAdd6f8">here</a>. We also support Microsoft 365 accounts that you can use from school or your workplace.</p>
+        <h1 id="online-accounts-and-makecode">Online Accounts and MakeCode</h1>
+    <div class="ui info message">
+        <div class="content">
+            <h4 id="sign-in-with-makecode-arcade">Sign in with MakeCode Arcade</h4><p><strong>Note</strong>: This feature is only available in <a target="_blank" rel="nofollow noopener" href="https://arcade.makecode.com"><strong>MakeCode Arcade</strong></a>.</p>
+
+        </div>
+    </div>
+<h2 id="what-is-a-online-account-">What is a Online Account?</h2><p>An online account is a user account with a provider of online services such as Microsoft or Google. MakeCode allows you to sign in using an account with either Microsoft or Google.</p>
+<h3 id="microsoft-account">Microsoft Account</h3><p>A Microsoft Account, or MSA, is the personal user account you create when you want to sign into Microsoft services like outlook.com, Xbox, Skype, etc. Read more <a target="_blank" rel="nofollow noopener" href="https://aka.ms/AAdd6f8">here</a>. We also support Microsoft 365 accounts that you can use from school or your workplace.</p>
+<h3 id="google-account">Google Account</h3><p>Google accounts are for sign-in access to Google’s services such as GMail, YouTube, and more. See <a target="_blank" rel="nofollow noopener" href="https://support.google.com/accounts/answer/27441">Create a Google Account</a> for more information.</p>
 <h2 id="how-does-it-work-in-makecode-">How does it work in MakeCode?</h2><p>A number of new features are coming that will only be available to signed-in users. These features need to know your identity so they can do things for you like store data in the cloud, and connect you to other users. The first of these features is one we’re calling <a  rel="nofollow noopener" href="/docs/identity/cloud-sync.html">Cloud Sync</a>. With Cloud Sync, when you’re signed into MakeCode, we’ll store your projects in the cloud where they’re accessible from anywhere.</p>
 <p>Click the sign in button in the upper right corner to log into MakeCode.</p>
 <p><img class="ui image" src="/static/identity/sign-in-button.jpg" alt="Home screen sign in button" loading="lazy"></p>
@@ -438,7 +446,7 @@
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -569,7 +577,7 @@
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -600,7 +608,7 @@
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

@@ -373,21 +373,21 @@
 					</button>
 					
     <div class="ui text">
-        <h1 id="getting-started-with-makecode">Getting Started with MakeCode</h1><h2 id="discover-makecode"><strong>Discover MakeCode</strong></h2><h3 id="what-is-it-"><strong>What is it?</strong></h3><p>This workshop will introduce you to the possibilities that programmable things may give you as teachers to engage your students in practical activities that solicit their curiosity in scientific subjects. To this purpose, we first have to develop our computational thinking attitude by challenging our practical problem-solving skills.</p>
+        <h1 id="getting-started-with-makecode">Getting Started with MakeCode</h1><h2 id="-strong-discover-makecode-strong-"><strong>Discover MakeCode</strong></h2><h3 id="-strong-what-is-it-strong-"><strong>What is it?</strong></h3><p>This workshop will introduce you to the possibilities that programmable things may give you as teachers to engage your students in practical activities that solicit their curiosity in scientific subjects. To this purpose, we first have to develop our computational thinking attitude by challenging our practical problem-solving skills.</p>
 <p>The purpose of this first module is to introduce the technical topics that will be used in the next modules. In particular, we will present the physical IoT board that will be used for activities and the MakeCode programming environment.</p>
-<h3 id="what-you-ll-learn"><strong>What you’ll learn</strong></h3><ul>
+<h3 id="-strong-what-you-ll-learn-strong-"><strong>What you’ll learn</strong></h3><ul>
 <li>What is the STM32L4 Discovery for IoT Node (simply the board, hereinafter);</li>
 <li>How to connect the board to your PC;</li>
 <li>How to use MakeCode</li>
 </ul>
-<h3 id="what-you-need"><strong>What you need</strong></h3><ul>
+<h3 id="-strong-what-you-need-strong-"><strong>What you need</strong></h3><ul>
 <li>A computer with a modern web browser (e.g. Edge, Chrome, Safari, …) connected to the Internet</li>
 <li>1 Programming board STM32 <a target="_blank" rel="nofollow noopener" href="http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html">B-L475E-IOT01A</a> Discovery kit for IoT node</li>
 <li>1 Micro-USB (Type B) cable</li>
 </ul>
 <h3 id="what-you-need-to-know-before-we-start">What you need to know before we start</h3><p>Make Code is a free, open-source platform for creating engaging computer science learning experiences. MakeCode was created by Microsoft Research.</p>
 <p>We use MakeCode fo. This board is a sort of mini-computer. Technically speaking, the board is an <strong>embedded system</strong>. An embedded system is a computer system designed for a specific purpose, while PCs are general-purpose computer systems.</p>
-<h3 id="how-to-use-it"><strong>How to use it</strong></h3><p>Open your web browser and go to: <a target="_blank" rel="nofollow noopener" href="https://makecode.st.com/">https://makecode.st.com/</a>. The following will appear.</p>
+<h3 id="-strong-how-to-use-it-strong-"><strong>How to use it</strong></h3><p>Open your web browser and go to: <a target="_blank" rel="nofollow noopener" href="https://makecode.st.com/">https://makecode.st.com/</a>. The following will appear.</p>
 <p><img class="ui image" src="/static/projects/getting_started/makecode-home.png" alt="Makecode home" loading="lazy"></p>
 <p>The MakeCode environment provides us with a few sample projects. Let’s try the first one just to understand how we can execute a project’s code on our board. Let’s click on the “<strong>Blinky Led</strong>” project icon, which you may find as a first project example.</p>
 <p>Our web browser now shows the <strong>Development Environment</strong>.</p>
@@ -471,7 +471,7 @@ In the example, you can see there are already placed blocks in your workspace, t
             <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
             <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
             <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
-            <span class="item">© 2021 Microsoft</span>
+            <span class="item">© 2022 Microsoft</span>
         </div>
         <div class="ui container horizontal small link list poweredBy">
             <span class="item">Powered by</span>
@@ -602,7 +602,7 @@ In the example, you can see there are already placed blocks in your workspace, t
                 var telemetryItem = envelope.data.baseData;
                 telemetryItem.properties = telemetryItem.properties || {};
                 telemetryItem.properties["cookie"] = isProduction;
-                if (typeof pxtConfig === "undefined" || !pxtConfig) {
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
                     telemetryItem.properties["target"] = "stm32iotnode";
                     return;
                 }
@@ -633,7 +633,7 @@ In the example, you can see there are already placed blocks in your workspace, t
         var pageTitle = isScriptPage(location) ? "Share Page" : null;
         appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
 
-        var scriptIdRegex = /(?:\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
         // Check if the current page contains a share URL
         function isScriptPage(url) {
             return !!url.match(scriptIdRegex);

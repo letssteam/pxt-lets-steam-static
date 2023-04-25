@@ -5,11 +5,11 @@ var pxsim;
         function onGesture(gesture, handler) {
             let b = pxsim.accelerometer();
             b.accelerometer.activate();
-            if (gesture == 11 /* ACCELEROMETER_EVT_SHAKE */ && !b.useShake) {
+            if (gesture == 11 /* DAL.ACCELEROMETER_EVT_SHAKE */ && !b.useShake) {
                 b.useShake = true;
                 pxsim.runtime.queueDisplayUpdate();
             }
-            pxsim.pxtcore.registerWithDal(13 /* DEVICE_ID_GESTURE */, gesture, handler);
+            pxsim.pxtcore.registerWithDal(13 /* DAL.DEVICE_ID_GESTURE */, gesture, handler);
         }
         input.onGesture = onGesture;
         function rotation(kind) {
@@ -99,7 +99,7 @@ var pxsim;
             this.shake = { x: false, y: false, z: false, count: 0, shaken: 0, timer: 0 }; // State information needed to detect shake events.
             this.isActive = false;
             this.sampleRange = 2;
-            this.id = 5 /* DEVICE_ID_ACCELEROMETER */;
+            this.id = 5 /* DAL.DEVICE_ID_ACCELEROMETER */;
         }
         setSampleRange(range) {
             this.activate();
@@ -123,7 +123,7 @@ var pxsim;
             // Update gesture tracking
             this.updateGesture();
             // Indicate that a new sample is available
-            pxsim.board().bus.queue(this.id, 1 /* ACCELEROMETER_EVT_DATA_UPDATE */);
+            pxsim.board().bus.queue(this.id, 1 /* DAL.ACCELEROMETER_EVT_DATA_UPDATE */);
         }
         instantaneousAccelerationSquared() {
             // Use pythagoras theorem to determine the combined force acting on the device.
@@ -144,21 +144,21 @@ var pxsim;
             //
             // If we see enough zero crossings in succession (MICROBIT_ACCELEROMETER_SHAKE_COUNT_THRESHOLD), then we decide that the device
             // has been shaken.
-            if ((this.getX() < -400 /* ACCELEROMETER_SHAKE_TOLERANCE */ && this.shake.x) || (this.getX() > 400 /* ACCELEROMETER_SHAKE_TOLERANCE */ && !this.shake.x)) {
+            if ((this.getX() < -400 /* DAL.ACCELEROMETER_SHAKE_TOLERANCE */ && this.shake.x) || (this.getX() > 400 /* DAL.ACCELEROMETER_SHAKE_TOLERANCE */ && !this.shake.x)) {
                 shakeDetected = true;
                 this.shake.x = !this.shake.x;
             }
-            if ((this.getY() < -400 /* ACCELEROMETER_SHAKE_TOLERANCE */ && this.shake.y) || (this.getY() > 400 /* ACCELEROMETER_SHAKE_TOLERANCE */ && !this.shake.y)) {
+            if ((this.getY() < -400 /* DAL.ACCELEROMETER_SHAKE_TOLERANCE */ && this.shake.y) || (this.getY() > 400 /* DAL.ACCELEROMETER_SHAKE_TOLERANCE */ && !this.shake.y)) {
                 shakeDetected = true;
                 this.shake.y = !this.shake.y;
             }
-            if ((this.getZ() < -400 /* ACCELEROMETER_SHAKE_TOLERANCE */ && this.shake.z) || (this.getZ() > 400 /* ACCELEROMETER_SHAKE_TOLERANCE */ && !this.shake.z)) {
+            if ((this.getZ() < -400 /* DAL.ACCELEROMETER_SHAKE_TOLERANCE */ && this.shake.z) || (this.getZ() > 400 /* DAL.ACCELEROMETER_SHAKE_TOLERANCE */ && !this.shake.z)) {
                 shakeDetected = true;
                 this.shake.z = !this.shake.z;
             }
-            if (shakeDetected && this.shake.count < 4 /* ACCELEROMETER_SHAKE_COUNT_THRESHOLD */ && ++this.shake.count == 4 /* ACCELEROMETER_SHAKE_COUNT_THRESHOLD */)
+            if (shakeDetected && this.shake.count < 4 /* DAL.ACCELEROMETER_SHAKE_COUNT_THRESHOLD */ && ++this.shake.count == 4 /* DAL.ACCELEROMETER_SHAKE_COUNT_THRESHOLD */)
                 this.shake.shaken = 1;
-            if (++this.shake.timer >= 10 /* ACCELEROMETER_SHAKE_DAMPING */) {
+            if (++this.shake.timer >= 10 /* DAL.ACCELEROMETER_SHAKE_DAMPING */) {
                 this.shake.timer = 0;
                 if (this.shake.count > 0) {
                     if (--this.shake.count == 0)
@@ -166,29 +166,29 @@ var pxsim;
                 }
             }
             if (this.shake.shaken)
-                return 11 /* ACCELEROMETER_EVT_SHAKE */;
+                return 11 /* DAL.ACCELEROMETER_EVT_SHAKE */;
             let sq = (n) => n * n;
-            if (force < sq(400 /* ACCELEROMETER_FREEFALL_TOLERANCE */))
-                return 7 /* ACCELEROMETER_EVT_FREEFALL */;
-            if (force > sq(3072 /* ACCELEROMETER_3G_TOLERANCE */))
-                return 8 /* ACCELEROMETER_EVT_3G */;
-            if (force > sq(6144 /* ACCELEROMETER_6G_TOLERANCE */))
-                return 9 /* ACCELEROMETER_EVT_6G */;
-            if (force > sq(8192 /* ACCELEROMETER_8G_TOLERANCE */))
-                return 10 /* ACCELEROMETER_EVT_8G */;
+            if (force < sq(400 /* DAL.ACCELEROMETER_FREEFALL_TOLERANCE */))
+                return 7 /* DAL.ACCELEROMETER_EVT_FREEFALL */;
+            if (force > sq(3072 /* DAL.ACCELEROMETER_3G_TOLERANCE */))
+                return 8 /* DAL.ACCELEROMETER_EVT_3G */;
+            if (force > sq(6144 /* DAL.ACCELEROMETER_6G_TOLERANCE */))
+                return 9 /* DAL.ACCELEROMETER_EVT_6G */;
+            if (force > sq(8192 /* DAL.ACCELEROMETER_8G_TOLERANCE */))
+                return 10 /* DAL.ACCELEROMETER_EVT_8G */;
             // Determine our posture.
-            if (this.getX() < (-1000 + 200 /* ACCELEROMETER_TILT_TOLERANCE */))
-                return 3 /* ACCELEROMETER_EVT_TILT_LEFT */;
-            if (this.getX() > (1000 - 200 /* ACCELEROMETER_TILT_TOLERANCE */))
-                return 4 /* ACCELEROMETER_EVT_TILT_RIGHT */;
-            if (this.getY() < (-1000 + 200 /* ACCELEROMETER_TILT_TOLERANCE */))
-                return 1 /* ACCELEROMETER_EVT_TILT_UP */;
-            if (this.getY() > (1000 - 200 /* ACCELEROMETER_TILT_TOLERANCE */))
-                return 2 /* ACCELEROMETER_EVT_TILT_DOWN */;
-            if (this.getZ() < (-1000 + 200 /* ACCELEROMETER_TILT_TOLERANCE */))
-                return 5 /* ACCELEROMETER_EVT_FACE_UP */;
-            if (this.getZ() > (1000 - 200 /* ACCELEROMETER_TILT_TOLERANCE */))
-                return 6 /* ACCELEROMETER_EVT_FACE_DOWN */;
+            if (this.getX() < (-1000 + 200 /* DAL.ACCELEROMETER_TILT_TOLERANCE */))
+                return 3 /* DAL.ACCELEROMETER_EVT_TILT_LEFT */;
+            if (this.getX() > (1000 - 200 /* DAL.ACCELEROMETER_TILT_TOLERANCE */))
+                return 4 /* DAL.ACCELEROMETER_EVT_TILT_RIGHT */;
+            if (this.getY() < (-1000 + 200 /* DAL.ACCELEROMETER_TILT_TOLERANCE */))
+                return 1 /* DAL.ACCELEROMETER_EVT_TILT_UP */;
+            if (this.getY() > (1000 - 200 /* DAL.ACCELEROMETER_TILT_TOLERANCE */))
+                return 2 /* DAL.ACCELEROMETER_EVT_TILT_DOWN */;
+            if (this.getZ() < (-1000 + 200 /* DAL.ACCELEROMETER_TILT_TOLERANCE */))
+                return 5 /* DAL.ACCELEROMETER_EVT_FACE_UP */;
+            if (this.getZ() > (1000 - 200 /* DAL.ACCELEROMETER_TILT_TOLERANCE */))
+                return 6 /* DAL.ACCELEROMETER_EVT_FACE_DOWN */;
             return 0;
         }
         updateGesture() {
@@ -196,7 +196,7 @@ var pxsim;
             let g = this.instantaneousPosture();
             // Perform some low pass filtering to reduce jitter from any detected effects
             if (g == this.currentGesture) {
-                if (this.sigma < 5 /* ACCELEROMETER_GESTURE_DAMPING */)
+                if (this.sigma < 5 /* DAL.ACCELEROMETER_GESTURE_DAMPING */)
                     this.sigma++;
             }
             else {
@@ -204,9 +204,9 @@ var pxsim;
                 this.sigma = 0;
             }
             // If we've reached threshold, update our record and raise the relevant event...
-            if (this.currentGesture != this.lastGesture && this.sigma >= 5 /* ACCELEROMETER_GESTURE_DAMPING */) {
+            if (this.currentGesture != this.lastGesture && this.sigma >= 5 /* DAL.ACCELEROMETER_GESTURE_DAMPING */) {
                 this.lastGesture = this.currentGesture;
-                pxsim.board().bus.queue(13 /* DEVICE_ID_GESTURE */, this.lastGesture);
+                pxsim.board().bus.queue(13 /* DAL.DEVICE_ID_GESTURE */, this.lastGesture);
             }
         }
         /**
@@ -699,7 +699,7 @@ var pxsim;
 var pxsim;
 (function (pxsim) {
     function board() {
-        return pxsim.runtime.board;
+        return pxsim.runtime && pxsim.runtime.board;
     }
     pxsim.board = board;
 })(pxsim || (pxsim = {}));
@@ -728,21 +728,21 @@ var pxsim;
             this.pressed = p;
             if (p) {
                 this._wasPressed = true;
-                pxsim.board().bus.queue(this.id, 1 /* DEVICE_BUTTON_EVT_DOWN */);
+                pxsim.board().bus.queue(this.id, 1 /* DAL.DEVICE_BUTTON_EVT_DOWN */);
                 this._pressedTime = pxsim.runtime.runningTime();
             }
             else if (this._pressedTime !== -1) {
-                pxsim.board().bus.queue(this.id, 2 /* DEVICE_BUTTON_EVT_UP */);
+                pxsim.board().bus.queue(this.id, 2 /* DAL.DEVICE_BUTTON_EVT_UP */);
                 const current = pxsim.runtime.runningTime();
-                if (current - this._pressedTime >= 1000 /* DEVICE_BUTTON_LONG_CLICK_TIME */) {
-                    pxsim.board().bus.queue(this.id, 4 /* DEVICE_BUTTON_EVT_LONG_CLICK */);
+                if (current - this._pressedTime >= 1000 /* DAL.DEVICE_BUTTON_LONG_CLICK_TIME */) {
+                    pxsim.board().bus.queue(this.id, 4 /* DAL.DEVICE_BUTTON_EVT_LONG_CLICK */);
                 }
                 else {
-                    pxsim.board().bus.queue(this.id, 3 /* DEVICE_BUTTON_EVT_CLICK */);
+                    pxsim.board().bus.queue(this.id, 3 /* DAL.DEVICE_BUTTON_EVT_CLICK */);
                 }
                 if (this._clickedTime !== -1) {
                     if (current - this._clickedTime <= DOUBLE_CLICK_TIME) {
-                        pxsim.board().bus.queue(this.id, 6 /* DEVICE_BUTTON_EVT_DOUBLE_CLICK */);
+                        pxsim.board().bus.queue(this.id, 6 /* DAL.DEVICE_BUTTON_EVT_DOUBLE_CLICK */);
                     }
                 }
                 this._clickedTime = current;
@@ -767,9 +767,9 @@ var pxsim;
             this.usesButtonAB = false;
             this.buttonsByPin = {};
             this.buttons = buttons || [
-                new CommonButton(1 /* DEVICE_ID_BUTTON_A */),
-                new CommonButton(2 /* DEVICE_ID_BUTTON_B */),
-                new CommonButton(3 /* DEVICE_ID_BUTTON_AB */)
+                new CommonButton(1 /* DAL.DEVICE_ID_BUTTON_A */),
+                new CommonButton(2 /* DAL.DEVICE_ID_BUTTON_B */),
+                new CommonButton(3 /* DAL.DEVICE_ID_BUTTON_AB */)
             ];
             this.buttons.forEach(btn => this.buttonsByPin[btn.id] = btn);
         }
@@ -966,10 +966,10 @@ var pxsim;
             this.state = state;
             switch (state) {
                 case ThresholdState.High:
-                    pxsim.board().bus.queue(this.id, 2 /* SENSOR_THRESHOLD_HIGH */);
+                    pxsim.board().bus.queue(this.id, 2 /* DAL.SENSOR_THRESHOLD_HIGH */);
                     break;
                 case ThresholdState.Low:
-                    pxsim.board().bus.queue(this.id, 1 /* SENSOR_THRESHOLD_LOW */);
+                    pxsim.board().bus.queue(this.id, 1 /* DAL.SENSOR_THRESHOLD_LOW */);
                     break;
                 case ThresholdState.Normal:
                     break;
@@ -1189,8 +1189,8 @@ var pxsim;
             const old = this.value;
             this.value = value;
             const b = pxsim.board();
-            if (b && this.eventMode == 2 /* DEVICE_PIN_EVENT_ON_EDGE */ && old != this.value)
-                b.bus.queue(this.id, this.value > 0 ? 2 /* DEVICE_PIN_EVT_RISE */ : 3 /* DEVICE_PIN_EVT_FALL */);
+            if (b && this.eventMode == 2 /* DAL.DEVICE_PIN_EVENT_ON_EDGE */ && old != this.value)
+                b.bus.queue(this.id, this.value > 0 ? 2 /* DAL.DEVICE_PIN_EVT_RISE */ : 3 /* DAL.DEVICE_PIN_EVT_FALL */);
         }
         digitalReadPin() {
             this.mode = PinFlags.Digital | PinFlags.Input;
@@ -1251,13 +1251,13 @@ var pxsim;
         onEvent(ev, handler) {
             const b = pxsim.board();
             switch (ev) {
-                case 4 /* DEVICE_PIN_EVT_PULSE_HI */:
-                case 5 /* DEVICE_PIN_EVT_PULSE_LO */:
-                    this.eventMode = 3 /* DEVICE_PIN_EVENT_ON_PULSE */;
+                case 4 /* DAL.DEVICE_PIN_EVT_PULSE_HI */:
+                case 5 /* DAL.DEVICE_PIN_EVT_PULSE_LO */:
+                    this.eventMode = 3 /* DAL.DEVICE_PIN_EVENT_ON_PULSE */;
                     break;
-                case 2 /* DEVICE_PIN_EVT_RISE */:
-                case 3 /* DEVICE_PIN_EVT_FALL */:
-                    this.eventMode = 2 /* DEVICE_PIN_EVENT_ON_EDGE */;
+                case 2 /* DAL.DEVICE_PIN_EVT_RISE */:
+                case 3 /* DAL.DEVICE_PIN_EVT_FALL */:
+                    this.eventMode = 2 /* DAL.DEVICE_PIN_EVENT_ON_EDGE */;
                     break;
                 default:
                     return;
@@ -2056,7 +2056,7 @@ var pxsim;
         */
         function onPulsed(name, high, body) {
             pxsim.pins.markUsed(name);
-            onEvent(name, high ? 4 /* DEVICE_PIN_EVT_PULSE_HI */ : 5 /* DEVICE_PIN_EVT_PULSE_LO */, body);
+            onEvent(name, high ? 4 /* DAL.DEVICE_PIN_EVT_PULSE_HI */ : 5 /* DAL.DEVICE_PIN_EVT_PULSE_LO */, body);
         }
         DigitalInOutPinMethods.onPulsed = onPulsed;
         function onEvent(name, ev, body) {
@@ -2071,7 +2071,7 @@ var pxsim;
         */
         function pulseIn(name, high, maxDuration = 2000000) {
             pxsim.pins.markUsed(name);
-            const pulse = high ? 4 /* DEVICE_PIN_EVT_PULSE_HI */ : 5 /* DEVICE_PIN_EVT_PULSE_LO */;
+            const pulse = high ? 4 /* DAL.DEVICE_PIN_EVT_PULSE_HI */ : 5 /* DAL.DEVICE_PIN_EVT_PULSE_LO */;
             // Always return default value, can't simulate
             return 500;
         }
@@ -2393,6 +2393,302 @@ var pxsim;
         }
     }
     pxsim.ToggleState = ToggleState;
+})(pxsim || (pxsim = {}));
+var pxsim;
+(function (pxsim) {
+    var keymap;
+    (function (keymap) {
+        // Keep in sync with pxt-arcade-sim/api.ts
+        let Key;
+        (function (Key) {
+            Key[Key["None"] = 0] = "None";
+            // Player 1
+            Key[Key["Left"] = 1] = "Left";
+            Key[Key["Up"] = 2] = "Up";
+            Key[Key["Right"] = 3] = "Right";
+            Key[Key["Down"] = 4] = "Down";
+            Key[Key["A"] = 5] = "A";
+            Key[Key["B"] = 6] = "B";
+            Key[Key["Menu"] = 7] = "Menu";
+            // Player 2 = Player 1 + 7
+            // Player 3 = Player 2 + 7
+            // Player 4 = Player 3 + 7
+            // system keys
+            Key[Key["Screenshot"] = -1] = "Screenshot";
+            Key[Key["Gif"] = -2] = "Gif";
+            Key[Key["Reset"] = -3] = "Reset";
+            Key[Key["TogglePause"] = -4] = "TogglePause";
+        })(Key = keymap.Key || (keymap.Key = {}));
+        function _setPlayerKeys(player, // player number is 1-based
+        up, down, left, right, A, B) {
+            pxsim.getKeymapState().setPlayerKeys(player, up, down, left, right, A, B);
+        }
+        keymap._setPlayerKeys = _setPlayerKeys;
+        function _setSystemKeys(screenshot, gif, menu, reset) {
+            pxsim.getKeymapState().setSystemKeys(screenshot, gif, menu, reset);
+        }
+        keymap._setSystemKeys = _setSystemKeys;
+    })(keymap = pxsim.keymap || (pxsim.keymap = {}));
+})(pxsim || (pxsim = {}));
+(function (pxsim) {
+    var Key = pxsim.keymap.Key;
+    function getKeymapState() {
+        return pxsim.board().keymapState;
+    }
+    pxsim.getKeymapState = getKeymapState;
+    const reservedKeyCodes = [
+        27,
+        9 // Tab
+    ];
+    class KeymapState {
+        constructor() {
+            this.keymap = {};
+            this.altmap = {};
+            this.mappings = {};
+            // Player 1 keymap
+            this.setPlayerKeys(1, // Player 1
+            87, // W - Up
+            83, // S - Down
+            65, // A - Left
+            68, // D - Right
+            32, // Space - A
+            13 // Enter - B
+            );
+            // Player 2 keymap
+            this.setPlayerKeys(2, // Player 2
+            73, // I - Up
+            75, // K - Down
+            74, // J - Left
+            76, // L - Right
+            85, // U - A
+            79 // O - B
+            );
+            // Note: Player 3 and 4 have no default keyboard mapping
+            // System keymap
+            this.setSystemKeys(80, // P - Screenshot
+            82, // R - Gif
+            192, // Menu - '`' (backtick) button
+            8 // Reset - Backspace button
+            );
+            // Player 1 alternate mapping. This is cleared when the game sets any player keys explicitly
+            this.altmap[38] = Key.Up; // UpArrow
+            this.altmap[37] = Key.Left; // LeftArrow
+            this.altmap[40] = Key.Down; // DownArrow
+            this.altmap[39] = Key.Right; // RightArrow
+            this.altmap[81] = Key.A; // Q
+            this.altmap[90] = Key.A; // Z
+            this.altmap[88] = Key.B; // X
+            this.altmap[69] = Key.B; // E
+        }
+        setPlayerKeys(player, // player number is 1-based
+        up, down, left, right, A, B) {
+            // We only support four players
+            if (player < 1 || player > 4)
+                return;
+            const keyCodes = [up, down, left, right, A, B];
+            // Check for reserved key codes
+            // TODO: How to surface this runtime error to the user?
+            // TODO: Send message to UI: "Keyboard mapping contains a reserved key code"
+            const filtered = keyCodes.filter(keyCode => reservedKeyCodes.includes(keyCode));
+            if (filtered.length)
+                return;
+            // Clear existing mapped keys for player
+            const mapName = `player-${player}`;
+            this.clearMap(mapName);
+            // Clear altmap When explicitly setting the player keys
+            this.altmap = {};
+            // Map the new keys
+            const offset = (player - 1) * 7; // +7 for player 2's keys
+            this.keymap[up] = Key.Up + offset;
+            this.keymap[down] = Key.Down + offset;
+            this.keymap[left] = Key.Left + offset;
+            this.keymap[right] = Key.Right + offset;
+            this.keymap[A] = Key.A + offset;
+            this.keymap[B] = Key.B + offset;
+            // Remember this mapping
+            this.saveMap(mapName, keyCodes);
+        }
+        setSystemKeys(screenshot, gif, menu, reset) {
+            const mapName = "system";
+            // Clear existing mapped keys for system
+            this.clearMap(mapName);
+            this.keymap[screenshot] = Key.Screenshot;
+            this.keymap[gif] = Key.Gif;
+            this.keymap[menu] = Key.Menu;
+            this.keymap[reset] = Key.Reset;
+            // Remember this mapping
+            this.saveMap(mapName, [screenshot, gif, menu, reset]);
+        }
+        getKey(keyCode) {
+            return keyCode ? this.keymap[keyCode] || this.altmap[keyCode] || Key.None : Key.None;
+        }
+        saveMap(name, keyCodes) {
+            this.mappings[name] = keyCodes;
+        }
+        clearMap(name) {
+            const keyCodes = this.mappings[name];
+            keyCodes && keyCodes.forEach(keyCode => delete this.keymap[keyCode]);
+            delete this.mappings[name];
+        }
+    }
+    pxsim.KeymapState = KeymapState;
+})(pxsim || (pxsim = {}));
+var pxsim;
+(function (pxsim) {
+    var multiplayer;
+    (function (multiplayer) {
+        const throttledImgPost = pxsim.U.throttle((msg) => {
+            pxsim.getMultiplayerState().send(msg);
+        }, 50, true);
+        function postImage(im) {
+            if (pxsim.getMultiplayerState().origin !== "server")
+                return;
+            const asBuf = pxsim.image.toBuffer(im);
+            const sb = pxsim.board();
+            const screenState = sb && sb.screenState;
+            throttledImgPost({
+                content: "Image",
+                image: asBuf,
+                palette: screenState && screenState.paletteToUint8Array(),
+            });
+        }
+        multiplayer.postImage = postImage;
+        function postIcon(iconType, slot, im) {
+            if (im && (im._width * im._height > 64 * 64)) {
+                // setting 64x64 as max size for icon for now
+                return;
+            }
+            // treat empty icon as undefined
+            const asBuf = (im && im.data.some(pixel => pixel != 0))
+                ? pxsim.image.toBuffer(im) : undefined;
+            const sb = pxsim.board();
+            const screenState = sb && sb.screenState;
+            pxsim.getMultiplayerState().send({
+                content: "Icon",
+                slot: slot,
+                icon: asBuf,
+                iconType: iconType,
+                palette: screenState.paletteToUint8Array(),
+            });
+        }
+        multiplayer.postIcon = postIcon;
+        function getCurrentImage() {
+            return pxsim.getMultiplayerState().backgroundImage;
+        }
+        multiplayer.getCurrentImage = getCurrentImage;
+        function setOrigin(origin) {
+            pxsim.getMultiplayerState().origin = origin;
+        }
+        multiplayer.setOrigin = setOrigin;
+        function getOrigin() {
+            return pxsim.getMultiplayerState().origin;
+        }
+        multiplayer.getOrigin = getOrigin;
+    })(multiplayer = pxsim.multiplayer || (pxsim.multiplayer = {}));
+})(pxsim || (pxsim = {}));
+(function (pxsim) {
+    function getMultiplayerState() {
+        return pxsim.board().multiplayerState;
+    }
+    pxsim.getMultiplayerState = getMultiplayerState;
+    let IconType;
+    (function (IconType) {
+        IconType[IconType["Player"] = 0] = "Player";
+        IconType[IconType["Reaction"] = 1] = "Reaction";
+    })(IconType = pxsim.IconType || (pxsim.IconType = {}));
+    const MULTIPLAYER_PLAYER_JOINED_ID = 3241;
+    const MULTIPLAYER_PLAYER_LEFT_ID = 3242;
+    class MultiplayerState {
+        constructor() {
+            this.lastMessageId = 0;
+        }
+        send(msg) {
+            pxsim.Runtime.postMessage(Object.assign(Object.assign({}, msg), { broadcast: true, toParentIFrameOnly: true, type: "multiplayer", origin: this.origin, id: this.lastMessageId++ }));
+        }
+        init(origin) {
+            this.origin = origin;
+            pxsim.runtime.board.addMessageListener(msg => this.messageHandler(msg));
+            if (this.origin === "server") {
+                pxsim.AudioContextManager.soundEventCallback = (ev, data) => {
+                    this.send({
+                        content: "Audio",
+                        instruction: ev,
+                        soundbuf: data,
+                    });
+                };
+            }
+            else {
+                pxsim.AudioContextManager.soundEventCallback = undefined;
+            }
+        }
+        setButton(key, isPressed) {
+            if (this.origin === "client") {
+                this.send({
+                    content: "Button",
+                    button: key,
+                    state: isPressed ? "Pressed" : "Released"
+                });
+            }
+        }
+        registerConnectionState(player, connected) {
+            const evId = connected ? MULTIPLAYER_PLAYER_JOINED_ID : MULTIPLAYER_PLAYER_LEFT_ID;
+            const b = pxsim.board();
+            b.bus.queue(evId, player);
+        }
+        messageHandler(msg) {
+            if (!isMultiplayerMessage(msg)) {
+                return;
+            }
+            if (isImageMessage(msg)) {
+                if (this.origin === "client") {
+                    // HACK: peer js can convert Uint8Array into ArrayBuffer when transmitting; fix this.
+                    if (!ArrayBuffer.isView(msg.image.data)) {
+                        msg.image.data = new Uint8Array(msg.image.data);
+                    }
+                    this.backgroundImage = pxsim.image.ofBuffer(msg.image);
+                    if (msg.palette && msg.palette.length === 48) {
+                        const palBuffer = new pxsim.RefBuffer(msg.palette);
+                        pxsim.pxtcore.setPalette(palBuffer);
+                    }
+                }
+            }
+            else if (isButtonMessage(msg)) {
+                if (this.origin === "server") {
+                    pxsim.board().handleKeyEvent(msg.button + (7 * (msg.clientNumber || 1)), // + 7 to make it player 2 controls,
+                    msg.state === "Pressed" || msg.state === "Held");
+                }
+            }
+            else if (isAudioMessage(msg)) {
+                if (this.origin === "client") {
+                    if (msg.instruction === "playinstructions") {
+                        pxsim.AudioContextManager.playInstructionsAsync(msg.soundbuf);
+                    }
+                    else if (msg.instruction === "muteallchannels") {
+                        pxsim.AudioContextManager.muteAllChannels();
+                    }
+                }
+            }
+            else if (isConnectionMessage(msg)) {
+                this.registerConnectionState(msg.slot, msg.connected);
+            }
+        }
+    }
+    pxsim.MultiplayerState = MultiplayerState;
+    function isMultiplayerMessage(msg) {
+        return msg && msg.type === "multiplayer";
+    }
+    function isImageMessage(msg) {
+        return msg && msg.content === "Image";
+    }
+    function isButtonMessage(msg) {
+        return msg && msg.content === "Button";
+    }
+    function isAudioMessage(msg) {
+        return msg && msg.content === "Audio";
+    }
+    function isConnectionMessage(msg) {
+        return msg && msg.content === "Connection";
+    }
 })(pxsim || (pxsim = {}));
 var pxsim;
 (function (pxsim) {
@@ -2835,10 +3131,10 @@ var pxsim;
             let b = pxsim.lightSensorState();
             b.setUsed();
             switch (condition) {
-                case 1 /* SENSOR_THRESHOLD_LOW */:
+                case 1 /* DAL.SENSOR_THRESHOLD_LOW */:
                     b.setLowThreshold(value);
                     break;
-                case 2 /* SENSOR_THRESHOLD_HIGH */:
+                case 2 /* DAL.SENSOR_THRESHOLD_HIGH */:
                     b.setHighThreshold(value);
                     break;
             }
@@ -2870,7 +3166,7 @@ var pxsim;
             if (!b)
                 return;
             b.setUsed();
-            pxsim.pxtcore.registerWithDal(b.id, 2 /* LEVEL_THRESHOLD_HIGH */, body);
+            pxsim.pxtcore.registerWithDal(b.id, 2 /* DAL.LEVEL_THRESHOLD_HIGH */, body);
         }
         input.onLoudSound = onLoudSound;
         function setLoudSoundThreshold(value) {
@@ -2895,7 +3191,7 @@ var pxsim;
     var music;
     (function (music) {
         function playInstructions(b) {
-            return pxsim.AudioContextManager.playInstructionsAsync(b);
+            return pxsim.AudioContextManager.playInstructionsAsync(b.data);
         }
         music.playInstructions = playInstructions;
         function queuePlayInstructions(when, b) {
@@ -2904,10 +3200,108 @@ var pxsim;
         music.queuePlayInstructions = queuePlayInstructions;
         function stopPlaying() {
             pxsim.AudioContextManager.muteAllChannels();
+            if (sequencers) {
+                for (const seq of sequencers) {
+                    seq.sequencer.stop();
+                    seq.sequencer.dispose();
+                }
+            }
         }
         music.stopPlaying = stopPlaying;
         function forceOutput(mode) { }
         music.forceOutput = forceOutput;
+        music.SEQUENCER_STOP_MESSAGE = 3243;
+        music.SEQUENCER_TICK_MESSAGE = 3244;
+        music.SEQUENCER_STATE_CHANGE_MESSAGE = 3245;
+        music.SEQUENCER_LOOPED_MESSAGE = 3246;
+        let sequencers;
+        let nextSequencerId = 0;
+        async function _createSequencer() {
+            if (!sequencers) {
+                pxsim.AudioContextManager.onStopAll(() => {
+                    for (const seq of sequencers) {
+                        seq.sequencer.stop();
+                        seq.sequencer.dispose();
+                    }
+                    sequencers = [];
+                });
+                sequencers = [];
+            }
+            const res = {
+                id: nextSequencerId++,
+                sequencer: new music.Sequencer()
+            };
+            sequencers.push(res);
+            await res.sequencer.initAsync();
+            res.sequencer.addEventListener("stop", () => {
+                pxsim.board().bus.queue(music.SEQUENCER_STOP_MESSAGE, this.id);
+            });
+            res.sequencer.addEventListener("state-change", () => {
+                pxsim.board().bus.queue(music.SEQUENCER_STATE_CHANGE_MESSAGE, this.id);
+            });
+            res.sequencer.addEventListener("looped", () => {
+                pxsim.board().bus.queue(music.SEQUENCER_LOOPED_MESSAGE, this.id);
+            });
+            res.sequencer.addEventListener("tick", () => {
+                pxsim.board().bus.queue(music.SEQUENCER_TICK_MESSAGE, this.id);
+            });
+            return res.id;
+        }
+        music._createSequencer = _createSequencer;
+        function _sequencerState(id) {
+            var _a;
+            return (_a = lookupSequencer(id)) === null || _a === void 0 ? void 0 : _a.state();
+        }
+        music._sequencerState = _sequencerState;
+        function _sequencerCurrentTick(id) {
+            var _a;
+            return (_a = lookupSequencer(id)) === null || _a === void 0 ? void 0 : _a.currentTick();
+        }
+        music._sequencerCurrentTick = _sequencerCurrentTick;
+        function _sequencerPlaySong(id, song, loop) {
+            var _a;
+            const decoded = music.decodeSong(song.data);
+            (_a = lookupSequencer(id)) === null || _a === void 0 ? void 0 : _a.start(decoded, loop);
+        }
+        music._sequencerPlaySong = _sequencerPlaySong;
+        function _sequencerStop(id) {
+            var _a;
+            (_a = lookupSequencer(id)) === null || _a === void 0 ? void 0 : _a.stop();
+        }
+        music._sequencerStop = _sequencerStop;
+        function _sequencerSetVolume(id, volume) {
+            var _a;
+            (_a = lookupSequencer(id)) === null || _a === void 0 ? void 0 : _a.setVolume(volume);
+        }
+        music._sequencerSetVolume = _sequencerSetVolume;
+        function _sequencerSetVolumeForAll(volume) {
+            for (const seq of sequencers) {
+                seq.sequencer.setVolume(volume);
+            }
+        }
+        music._sequencerSetVolumeForAll = _sequencerSetVolumeForAll;
+        function _sequencerSetTrackVolume(id, trackIndex, volume) {
+            var _a;
+            (_a = lookupSequencer(id)) === null || _a === void 0 ? void 0 : _a.setTrackVolume(trackIndex, volume);
+        }
+        music._sequencerSetTrackVolume = _sequencerSetTrackVolume;
+        function _sequencerSetDrumTrackVolume(id, trackIndex, drumIndex, volume) {
+            var _a;
+            (_a = lookupSequencer(id)) === null || _a === void 0 ? void 0 : _a.setDrumTrackVolume(trackIndex, drumIndex, volume);
+        }
+        music._sequencerSetDrumTrackVolume = _sequencerSetDrumTrackVolume;
+        function _sequencerDispose(id) {
+            var _a;
+            (_a = lookupSequencer(id)) === null || _a === void 0 ? void 0 : _a.dispose();
+            sequencers = sequencers.filter(s => s.id !== id);
+        }
+        music._sequencerDispose = _sequencerDispose;
+        function lookupSequencer(id) {
+            for (const seq of sequencers)
+                if (seq.id === id)
+                    return seq.sequencer;
+            return undefined;
+        }
     })(music = pxsim.music || (pxsim.music = {}));
 })(pxsim || (pxsim = {}));
 var pxsim;
@@ -3119,11 +3513,13 @@ var pxsim;
         function sendRawPacket(buf) {
             let cb = pxsim.getResume();
             const state = pxsim.getRadioState();
-            state.datagram.send({
-                type: 0,
-                groupId: state.groupId,
-                bufferData: buf.data
-            });
+            if (state.enable) {
+                state.datagram.send({
+                    type: 0,
+                    groupId: state.groupId,
+                    bufferData: buf.data
+                });
+            }
             setTimeout(cb, 1);
         }
         radio.sendRawPacket = sendRawPacket;
@@ -3147,6 +3543,16 @@ var pxsim;
             state.datagram.onReceived(handler);
         }
         radio.onDataReceived = onDataReceived;
+        function off() {
+            const state = pxsim.getRadioState();
+            state.off();
+        }
+        radio.off = off;
+        function on() {
+            const state = pxsim.getRadioState();
+            state.on();
+        }
+        radio.on = on;
     })(radio = pxsim.radio || (pxsim.radio = {}));
 })(pxsim || (pxsim = {}));
 var pxsim;
@@ -3215,6 +3621,7 @@ var pxsim;
             this.power = 6; // default value
             this.groupId = 0;
             this.band = 7; // https://github.com/lancaster-university/microbit-dal/blob/master/inc/core/MicroBitConfig.h#L320
+            this.enable = true;
             this.board.addMessageListener(this.handleMessage.bind(this));
         }
         handleMessage(msg) {
@@ -3224,34 +3631,51 @@ var pxsim;
             }
         }
         setGroup(id) {
-            this.groupId = id & 0xff; // byte only
+            if (this.enable) {
+                this.groupId = id & 0xff; // byte only
+            }
         }
         setTransmitPower(power) {
-            power = power | 0;
-            this.power = Math.max(0, Math.min(7, power));
+            if (this.enable) {
+                power = power | 0;
+                this.power = Math.max(0, Math.min(7, power));
+            }
         }
         setTransmitSerialNumber(sn) {
             this.transmitSerialNumber = !!sn;
         }
         setFrequencyBand(band) {
-            band = band | 0;
-            if (band < 0 || band > 83)
-                return;
-            this.band = band;
+            if (this.enable) {
+                band = band | 0;
+                if (band < 0 || band > 83)
+                    return;
+                this.band = band;
+            }
+        }
+        off() {
+            this.enable = false;
+        }
+        on() {
+            this.enable = true;
         }
         raiseEvent(id, eventid) {
-            pxsim.Runtime.postMessage({
-                type: "eventbus",
-                broadcast: true,
-                id,
-                eventid,
-                power: this.power,
-                group: this.groupId
-            });
+            if (this.enable) {
+                pxsim.Runtime.postMessage({
+                    type: "eventbus",
+                    broadcast: true,
+                    id,
+                    eventid,
+                    power: this.power,
+                    group: this.groupId
+                });
+            }
         }
         receivePacket(packet) {
-            if (this.groupId == packet.payload.groupId)
-                this.datagram.queue(packet);
+            if (this.enable) {
+                if (this.groupId == packet.payload.groupId) {
+                    this.datagram.queue(packet);
+                }
+            }
         }
     }
     pxsim.RadioState = RadioState;
@@ -3445,7 +3869,7 @@ var pxsim;
             let hh = 0;
             while (len--) {
                 if (hh++ >= img._height) {
-                    hh = 0;
+                    hh = 1;
                     sp = ++x;
                 }
                 dst.data[dp++] = img.data[sp];
@@ -3463,7 +3887,7 @@ var pxsim;
             let hh = 0;
             while (len--) {
                 if (hh++ >= img._height) {
-                    hh = 0;
+                    hh = 1;
                     dp = ++x;
                 }
                 img.data[dp] = src.data[sp++];
@@ -3877,6 +4301,193 @@ var pxsim;
             fillCircle(img, XX(cxy), YY(cxy), r, c);
         }
         ImageMethods._fillCircle = _fillCircle;
+        function nextYRange_Low(x, line, yRange) {
+            while (line.x === x && line.x <= line.x1 && line.x < line.W) {
+                if (0 <= line.x) {
+                    if (line.y < yRange.min)
+                        yRange.min = line.y;
+                    if (line.y > yRange.max)
+                        yRange.max = line.y;
+                }
+                if (line.D > 0) {
+                    line.y += line.yi;
+                    line.D -= line.dx;
+                }
+                line.D += line.dy;
+                ++line.x;
+            }
+        }
+        function nextYRange_HighUp(x, line, yRange) {
+            while (line.x == x && line.y >= line.y1 && line.x < line.W) {
+                if (0 <= line.x) {
+                    if (line.y < yRange.min)
+                        yRange.min = line.y;
+                    if (line.y > yRange.max)
+                        yRange.max = line.y;
+                }
+                if (line.D > 0) {
+                    line.x += line.xi;
+                    line.D += line.dy;
+                }
+                line.D += line.dx;
+                --line.y;
+            }
+        }
+        function nextYRange_HighDown(x, line, yRange) {
+            while (line.x == x && line.y <= line.y1 && line.x < line.W) {
+                if (0 <= line.x) {
+                    if (line.y < yRange.min)
+                        yRange.min = line.y;
+                    if (line.y > yRange.max)
+                        yRange.max = line.y;
+                }
+                if (line.D > 0) {
+                    line.x += line.xi;
+                    line.D -= line.dy;
+                }
+                line.D += line.dx;
+                ++line.y;
+            }
+        }
+        function initYRangeGenerator(X0, Y0, X1, Y1) {
+            const line = {
+                x: X0,
+                y: Y0,
+                x0: X0,
+                y0: Y0,
+                x1: X1,
+                y1: Y1,
+                W: 0,
+                H: 0,
+                dx: X1 - X0,
+                dy: Y1 - Y0,
+                yi: 0,
+                xi: 0,
+                D: 0,
+                nextFuncIndex: 0,
+            };
+            if ((line.dy < 0 ? -line.dy : line.dy) < line.dx) {
+                line.yi = 1;
+                if (line.dy < 0) {
+                    line.yi = -1;
+                    line.dy = -line.dy;
+                }
+                line.D = 2 * line.dy - line.dx;
+                line.dx = line.dx << 1;
+                line.dy = line.dy << 1;
+                line.nextFuncIndex = 0;
+                return line;
+            }
+            else {
+                line.xi = 1;
+                if (line.dy < 0) {
+                    line.D = 2 * line.dx + line.dy;
+                    line.dx = line.dx << 1;
+                    line.dy = line.dy << 1;
+                    line.nextFuncIndex = 1;
+                    return line;
+                }
+                else {
+                    line.D = 2 * line.dx - line.dy;
+                    line.dx = line.dx << 1;
+                    line.dy = line.dy << 1;
+                    line.nextFuncIndex = 2;
+                    return line;
+                }
+            }
+        }
+        function fillTriangle(img, x0, y0, x1, y1, x2, y2, c) {
+            if (x1 < x0) {
+                [x1, x0] = [x0, x1];
+                [y1, y0] = [y0, y1];
+            }
+            if (x2 < x1) {
+                [x2, x1] = [x1, x2];
+                [y2, y1] = [y1, y2];
+            }
+            if (x1 < x0) {
+                [x1, x0] = [x0, x1];
+                [y1, y0] = [y0, y1];
+            }
+            const lines = [
+                initYRangeGenerator(x0, y0, x2, y2),
+                initYRangeGenerator(x0, y0, x1, y1),
+                initYRangeGenerator(x1, y1, x2, y2)
+            ];
+            lines[0].W = lines[1].W = lines[2].W = width(img);
+            lines[0].H = lines[1].H = lines[2].H = height(img);
+            const nextFuncList = [
+                nextYRange_Low,
+                nextYRange_HighUp,
+                nextYRange_HighDown
+            ];
+            const fpNext0 = nextFuncList[lines[0].nextFuncIndex];
+            const fpNext1 = nextFuncList[lines[1].nextFuncIndex];
+            const fpNext2 = nextFuncList[lines[2].nextFuncIndex];
+            const yRange = {
+                min: lines[0].H,
+                max: -1
+            };
+            for (let x = lines[1].x0; x <= lines[1].x1; x++) {
+                yRange.min = lines[0].H;
+                yRange.max = -1;
+                fpNext0(x, lines[0], yRange);
+                fpNext1(x, lines[1], yRange);
+                fillRect(img, x, yRange.min, 1, yRange.max - yRange.min + 1, c);
+            }
+            fpNext2(lines[2].x0, lines[2], yRange);
+            for (let x = lines[2].x0 + 1; x <= lines[2].x1; x++) {
+                yRange.min = lines[0].H;
+                yRange.max = -1;
+                fpNext0(x, lines[0], yRange);
+                fpNext2(x, lines[2], yRange);
+                fillRect(img, x, yRange.min, 1, yRange.max - yRange.min + 1, c);
+            }
+        }
+        ImageMethods.fillTriangle = fillTriangle;
+        function _fillTriangle(img, args) {
+            fillTriangle(img, args.getAt(0) | 0, args.getAt(1) | 0, args.getAt(2) | 0, args.getAt(3) | 0, args.getAt(4) | 0, args.getAt(5) | 0, args.getAt(6) | 0);
+        }
+        ImageMethods._fillTriangle = _fillTriangle;
+        function fillPolygon4(img, x0, y0, x1, y1, x2, y2, x3, y3, c) {
+            const lines = [
+                (x0 < x1) ? initYRangeGenerator(x0, y0, x1, y1) : initYRangeGenerator(x1, y1, x0, y0),
+                (x1 < x2) ? initYRangeGenerator(x1, y1, x2, y2) : initYRangeGenerator(x2, y2, x1, y1),
+                (x2 < x3) ? initYRangeGenerator(x2, y2, x3, y3) : initYRangeGenerator(x3, y3, x2, y2),
+                (x0 < x3) ? initYRangeGenerator(x0, y0, x3, y3) : initYRangeGenerator(x3, y3, x0, y0)
+            ];
+            lines[0].W = lines[1].W = lines[2].W = lines[3].W = width(img);
+            lines[0].H = lines[1].H = lines[2].H = lines[3].H = height(img);
+            let minX = Math.min(Math.min(x0, x1), Math.min(x2, x3));
+            let maxX = Math.min(Math.max(Math.max(x0, x1), Math.max(x2, x3)), lines[0].W - 1);
+            const nextFuncList = [
+                nextYRange_Low,
+                nextYRange_HighUp,
+                nextYRange_HighDown
+            ];
+            const fpNext0 = nextFuncList[lines[0].nextFuncIndex];
+            const fpNext1 = nextFuncList[lines[1].nextFuncIndex];
+            const fpNext2 = nextFuncList[lines[2].nextFuncIndex];
+            const fpNext3 = nextFuncList[lines[3].nextFuncIndex];
+            const yRange = {
+                min: lines[0].H,
+                max: -1
+            };
+            for (let x = minX; x <= maxX; x++) {
+                yRange.min = lines[0].H;
+                yRange.max = -1;
+                fpNext0(x, lines[0], yRange);
+                fpNext1(x, lines[1], yRange);
+                fpNext2(x, lines[2], yRange);
+                fpNext3(x, lines[3], yRange);
+                fillRect(img, x, yRange.min, 1, yRange.max - yRange.min + 1, c);
+            }
+        }
+        ImageMethods.fillPolygon4 = fillPolygon4;
+        function _fillPolygon4(img, args) {
+            fillPolygon4(img, args.getAt(0) | 0, args.getAt(1) | 0, args.getAt(2) | 0, args.getAt(3) | 0, args.getAt(4) | 0, args.getAt(5) | 0, args.getAt(6) | 0, args.getAt(7) | 0, args.getAt(8) | 0);
+        }
+        ImageMethods._fillPolygon4 = _fillPolygon4;
         function _blitRow(img, xy, from, xh) {
             blitRow(img, XX(xy), YY(xy), from, XX(xh), YY(xh));
         }
@@ -3905,7 +4516,7 @@ var pxsim;
         }
         ImageMethods.blitRow = blitRow;
         function _blit(img, src, args) {
-            blit(img, src, args);
+            return blit(img, src, args);
         }
         ImageMethods._blit = _blit;
         function blit(dst, src, args) {
@@ -3918,6 +4529,7 @@ var pxsim;
             const wSrc = args.getAt(6);
             const hSrc = args.getAt(7);
             const transparent = args.getAt(8);
+            const check = args.getAt(9);
             const xSrcStep = ((wSrc << 16) / wDst) | 0;
             const ySrcStep = ((hSrc << 16) / hDst) | 0;
             const xDstClip = Math.abs(Math.min(0, xDst));
@@ -3930,16 +4542,26 @@ var pxsim;
             const ySrcStart = Math.max(0, (ySrc << 16) + yDstClip * ySrcStep);
             const xSrcEnd = Math.min(src._width, xSrc + wSrc) << 16;
             const ySrcEnd = Math.min(src._height, ySrc + hSrc) << 16;
+            if (!check)
+                dst.makeWritable();
             for (let yDstCur = yDstStart, ySrcCur = ySrcStart; yDstCur < yDstEnd && ySrcCur < ySrcEnd; ++yDstCur, ySrcCur += ySrcStep) {
                 const ySrcCurI = ySrcCur >> 16;
                 for (let xDstCur = xDstStart, xSrcCur = xSrcStart; xDstCur < xDstEnd && xSrcCur < xSrcEnd; ++xDstCur, xSrcCur += xSrcStep) {
                     const xSrcCurI = xSrcCur >> 16;
                     const cSrc = getPixel(src, xSrcCurI, ySrcCurI);
+                    if (check && cSrc) {
+                        const cDst = getPixel(dst, xDstCur, yDstCur);
+                        if (cDst) {
+                            return true;
+                        }
+                        continue;
+                    }
                     if (!transparent || cSrc) {
                         setPixel(dst, xDstCur, yDstCur, cSrc);
                     }
                 }
             }
+            return false;
         }
         ImageMethods.blit = blit;
     })(ImageMethods = pxsim.ImageMethods || (pxsim.ImageMethods = {}));
@@ -3988,6 +4610,9 @@ var pxsim;
         }
         image.isValidImage = isValidImage;
         function create(w, h) {
+            // truncate decimal sizes
+            w |= 0;
+            h |= 0;
             return new pxsim.RefImage(w, h, pxsim.getScreenState().bpp());
         }
         image.create = create;
@@ -4147,7 +4772,6 @@ var pxsim;
 (function (pxsim) {
     function htmlColorToUint32(hexColor) {
         const ca = new Uint8ClampedArray(4);
-        const ui = new Uint32Array(ca.buffer);
         const v = parseInt(hexColor.replace(/#/, ""), 16);
         ca[0] = (v >> 16) & 0xff;
         ca[1] = (v >> 8) & 0xff;
@@ -4155,6 +4779,12 @@ var pxsim;
         ca[3] = 0xff; // alpha
         // convert to uint32 using target endian
         return new Uint32Array(ca.buffer)[0];
+    }
+    function UInt32ToRGB(col) {
+        const ui = new Uint32Array(1);
+        ui[0] = col;
+        const ca = new Uint8ClampedArray(ui.buffer);
+        return [ca[0], ca[1], ca[2]];
     }
     class ScreenState {
         constructor(paletteSrc, w = 0, h = 0) {
@@ -4167,9 +4797,7 @@ var pxsim;
             if (!paletteSrc)
                 paletteSrc = ["#000000", "#ffffff"];
             this.palette = new Uint32Array(paletteSrc.length);
-            for (let i = 0; i < this.palette.length; ++i) {
-                this.palette[i] = htmlColorToUint32(paletteSrc[i]);
-            }
+            this.setPaletteFromHtmlColors(paletteSrc);
             if (w) {
                 this.width = w;
                 this.height = h;
@@ -4180,12 +4808,28 @@ var pxsim;
         setScreenBrightness(b) {
             this.brightness = b | 0;
         }
+        paletteToUint8Array() {
+            const out = new Uint8Array(this.palette.length * 3);
+            for (let i = 0; i < this.palette.length; ++i) {
+                const [r, g, b] = UInt32ToRGB(this.palette[i]);
+                const s = 3 * i;
+                out[s] = r;
+                out[s + 1] = g;
+                out[s + 2] = b;
+            }
+            return out;
+        }
+        setPaletteFromHtmlColors(src) {
+            for (let i = 0; i < this.palette.length; ++i) {
+                this.palette[i] = htmlColorToUint32(src[i]);
+            }
+        }
         setPalette(buf) {
             const ca = new Uint8ClampedArray(4);
             const rd = new Uint32Array(ca.buffer);
             const src = buf.data;
             if (48 != src.length)
-                pxsim.pxtrt.panic(911 /* PANIC_SCREEN_ERROR */);
+                pxsim.pxtrt.panic(911 /* pxsim.PXT_PANIC.PANIC_SCREEN_ERROR */);
             this.palette = new Uint32Array((src.length / 3) | 0);
             for (let i = 0; i < this.palette.length; ++i) {
                 const p = i * 3;
@@ -4538,10 +5182,10 @@ var pxsim;
                 return;
             }
             else if (left) {
-                pxsim.board().bus.queue(SlideSwitchState.id, 2 /* DEVICE_BUTTON_EVT_UP */);
+                pxsim.board().bus.queue(SlideSwitchState.id, 2 /* DAL.DEVICE_BUTTON_EVT_UP */);
             }
             else {
-                pxsim.board().bus.queue(SlideSwitchState.id, 1 /* DEVICE_BUTTON_EVT_DOWN */);
+                pxsim.board().bus.queue(SlideSwitchState.id, 1 /* DAL.DEVICE_BUTTON_EVT_DOWN */);
             }
             this.left = left;
         }
@@ -4566,6 +5210,80 @@ var pxsim;
         }
         input.switchRight = switchRight;
     })(input = pxsim.input || (pxsim.input = {}));
+})(pxsim || (pxsim = {}));
+var pxsim;
+(function (pxsim) {
+    var tts;
+    (function (tts) {
+        function _getLanguageCode() {
+            return window.navigator.language;
+        }
+        tts._getLanguageCode = _getLanguageCode;
+        function _speakAsync(text, pitch, rate, volume, language, onStart, onBoundary) {
+            return new Promise((resolve, reject) => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.voice = getVoiceForLanguage(language || _getLanguageCode());
+                if (pitch != undefined)
+                    utterance.pitch = pitch;
+                if (rate != undefined)
+                    utterance.rate = rate;
+                if (volume != undefined)
+                    utterance.volume = volume;
+                utterance.onend = () => resolve();
+                utterance.onerror = reject;
+                if (onStart) {
+                    utterance.onstart = () => pxsim.runtime.runFiberAsync(onStart);
+                }
+                if (onBoundary) {
+                    utterance.onboundary = event => {
+                        const offset = event.charIndex;
+                        const nextWord = text.substring(offset).split(/\s/).shift();
+                        pxsim.runtime.runFiberAsync(onBoundary, offset, nextWord, text);
+                    };
+                }
+                speechSynthesis.speak(utterance);
+            });
+        }
+        tts._speakAsync = _speakAsync;
+        function _pause() {
+            speechSynthesis.pause();
+        }
+        tts._pause = _pause;
+        function _isPaused() {
+            return speechSynthesis.paused;
+        }
+        tts._isPaused = _isPaused;
+        function _resume() {
+            speechSynthesis.resume();
+        }
+        tts._resume = _resume;
+        function _cancel() {
+            speechSynthesis.cancel();
+        }
+        tts._cancel = _cancel;
+        function getVoiceForLanguage(language) {
+            language = language.toLowerCase();
+            const generalCode = language.substring(0, 2);
+            let bestMatch;
+            let bestNonlocalMatch;
+            for (const voice of speechSynthesis.getVoices()) {
+                const current = voice.lang.toLowerCase();
+                if (current === language) {
+                    if (voice.localService)
+                        return voice;
+                    else
+                        bestNonlocalMatch = voice;
+                }
+                else if (current.substring(0, 2) === generalCode) {
+                    if (!bestMatch && voice.localService)
+                        bestMatch = voice;
+                    if (!bestNonlocalMatch && !voice.localService)
+                        bestNonlocalMatch = voice;
+                }
+            }
+            return bestMatch || bestNonlocalMatch || (language !== "en-us" ? getVoiceForLanguage("en-US") : undefined);
+        }
+    })(tts = pxsim.tts || (pxsim.tts = {}));
 })(pxsim || (pxsim = {}));
 var pxsim;
 (function (pxsim) {
@@ -4605,7 +5323,7 @@ var pxsim;
             const t = unit == pxsim.TemperatureUnit.Celsius
                 ? temperature
                 : (((temperature - 32) * 10) / 18 >> 0);
-            if (condition === 2 /* LEVEL_THRESHOLD_HIGH */) {
+            if (condition === 2 /* DAL.LEVEL_THRESHOLD_HIGH */) {
                 b.setHighThreshold(t);
             }
             else {
@@ -4964,9 +5682,12 @@ var pxsim;
         }
         _wifi.eventID = eventID;
         function scanStart() {
-            _raiseEvent(1 /* ScanDone */);
+            _raiseEvent(1 /* WifiEvent.ScanDone */);
         }
         _wifi.scanStart = scanStart;
+        function startLoginServer() {
+        }
+        _wifi.startLoginServer = startLoginServer;
         function scanResults() {
             const b = new Uint8Array(7);
             b[0] = -20; // rssi
@@ -4976,7 +5697,7 @@ var pxsim;
         }
         _wifi.scanResults = scanResults;
         function connect(ssid, pass) {
-            _raiseEvent(2 /* GotIP */);
+            _raiseEvent(2 /* WifiEvent.GotIP */);
             return 0;
         }
         _wifi.connect = connect;
