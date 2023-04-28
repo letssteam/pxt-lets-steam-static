@@ -5,6 +5,7 @@
     "A distance sensor driver": "A distance sensor driver",
     "A hygrometer sensor driver": "A hygrometer sensor driver",
     "A soil hygrometer analog sensor": "A soil hygrometer analog sensor",
+    "A voltage and current sensor that communicates in I2C": "A voltage and current sensor that communicates in I2C",
     "About": "About",
     "Activités de programmation": "Activités de programmation",
     "An infrared CO2 sensor 0-5000 ppm": "An infrared CO2 sensor 0-5000 ppm",
