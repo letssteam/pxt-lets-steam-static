@@ -5,11 +5,12 @@
 /// <reference path="../node_modules/pxt-core/built/pxtlib.d.ts" />
 /// <reference path="../node_modules/pxt-core/built/pxteditor.d.ts" />
 Object.defineProperty(exports, "__esModule", { value: true });
+//import * as dialogs from "./dialogs";
 const flash = require("./stm_dap_flash");
 //import * as patch from "./patch";
 pxt.editor.initExtensionsAsync = function (opts) {
-    pxt.debug('loading STM target extensions...');
-    console.log('loading STM target extensions...');
+    pxt.debug("loading STM target extensions...");
+    console.log("loading STM target extensions...");
     let body = document.getElementsByTagName("body")[0];
     let container = document.createElement("div");
     let content = document.createElement("div");
@@ -30,14 +31,13 @@ pxt.editor.initExtensionsAsync = function (opts) {
     content.style.transform = "translate(-50%, -50%)";
     content.style.borderRadius = "5px";
     content.style.overflow = "hidden";
-    content.innerHTML =
-        `<div style="padding: 8px; background-color: #e9407f; color: #ffffff;">
+    content.innerHTML = `<div style="padding: 8px; background-color: #e9407f; color: #ffffff;">
             <h3>${lf("Uploading")}</h3>
         </div>
         <div style="padding: 16px; background-color: white;">
             <p>
                 ${lf("Your program is uploading to your target, please wait.")}<br/><br/>
-                <i>${lf("Do not unplugged your board, do not close this tab nor change tab during uploading.")}</i><br/>
+                <i>${lf("Do not unplug your board, do not close this tab nor change tab during uploading.")}</i><br/>
             </p>
             <div style="background-color: #cfcfcf; height: 20px; border-radius: 10px; overflow: hidden;">
                 <p id="upload_modal_value" style="float: left; width: 100%; height: 100%; text-align: center">0%</p>
@@ -60,13 +60,13 @@ pxt.editor.initExtensionsAsync = function (opts) {
             const bl = b & 0xffff;
             // the shift by 0 fixes the sign on the high part
             // the final |0 converts the unsigned value into a signed value
-            return ((al * bl) + (((ah * bl + al * bh) << 16) >>> 0) | 0);
+            return (al * bl + (((ah * bl + al * bh) << 16) >>> 0)) | 0;
         };
     const res = {
-        hexFileImporters: []
+        hexFileImporters: [],
     };
     res.deployAsync = async function (r) {
-        var wrapper = await pxt.packetio.initAsync();
+        var wrapper = (await pxt.packetio.initAsync());
         if (!r.success) {
             return Promise.reject();
         }
@@ -97,24 +97,30 @@ pxt.editor.initExtensionsAsync = function (opts) {
             document.getElementById("upload_modal_message").innerText = "";
             document.getElementById("upload_modal_button").style.display = "none";
             wrapper.onFlashProgress(0);
-            return wrapper.reflashAsync(r).catch(() => { console.error("Failed to upload..."); return pxt.commands.saveOnlyAsync(r); });
+            return wrapper.reflashAsync(r).catch(() => {
+                console.error("Failed to upload...");
+                return pxt.commands.saveOnlyAsync(r);
+            });
         }
         else {
             console.log("Target not ready or save only !");
             return pxt.commands.saveOnlyAsync(r);
         }
     };
-    pxt.usb.setFilters([{
-            vendorId: 0x0D28,
+    pxt.usb.setFilters([
+        {
+            vendorId: 0x0d28,
             productId: 0x0204,
             classCode: 0xff,
-            subclassCode: 0x03 // the ctrl pipe endpoint
-        }, {
-            vendorId: 0x0D28,
+            subclassCode: 0x03, // the ctrl pipe endpoint
+        },
+        {
+            vendorId: 0x0d28,
             productId: 0x0204,
             classCode: 0xff,
-            subclassCode: 0x00 // the custom CMSIS2 endpoint
-        }]);
+            subclassCode: 0x00, // the custom CMSIS2 endpoint
+        },
+    ]);
     res.mkPacketIOWrapper = flash.mkSTMDAPPacketIOWrapper;
     // res.blocklyPatch = patch.patchBlocks;
     // res.renderBrowserDownloadInstructions = dialogs.renderBrowserDownloadInstructions;

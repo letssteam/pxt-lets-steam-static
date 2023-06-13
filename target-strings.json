@@ -14,7 +14,6 @@
     "Boards": "Boards",
     "Button A and B drivers": "Button A and B drivers",
     "DISCO_L475VG_IOT - beta": "DISCO_L475VG_IOT - beta",
-    "Do not unplugged your board, do not close this tab nor change tab during uploading.": "Do not unplugged your board, do not close this tab nor change tab during uploading.",
     "Forum": "Forum",
     "GitHub": "GitHub",
     "Idées de projets": "Idées de projets",
@@ -23,7 +22,6 @@
     "Library for the HC-SR04 sensor": "Library for the HC-SR04 sensor",
     "MakeCode Let's STEAM": "MakeCode Let's STEAM",
     "MakeCode Let's STEAM - Blocks / Javascript editor": "MakeCode Let's STEAM - Blocks / Javascript editor",
-    "Ok": "Ok",
     "Radio service for mesh networking": "Radio service for mesh networking",
     "Reference": "Reference",
     "Support for I2C Characeter LCD display (not grove one)": "Support for I2C Characeter LCD display (not grove one)",
@@ -36,6 +34,5 @@
     "Tiny data serial logging framework": "Tiny data serial logging framework",
     "UART communication": "UART communication",
     "Uploading": "Uploading",
-    "Wifi support for the module ISM43362-M3G-L44": "Wifi support for the module ISM43362-M3G-L44",
-    "Your program is uploading to your target, please wait.": "Your program is uploading to your target, please wait."
+    "Wifi support for the module ISM43362-M3G-L44": "Wifi support for the module ISM43362-M3G-L44"
 }
