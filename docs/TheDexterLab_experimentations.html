@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="" xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#"
+	xmlns:fb="http://www.facebook.com/2008/fbml">
+
+<head>
+	<meta charset="UTF-8">
+	<title>MakeCode Let&#39;s STEAM - Blocks / Javascript editor</title>
+	<meta name="Description" content="A Blocks / JavaScript code editor for the Let&#39;s STEAM project" />
+
+	<!-- ifdef incontexttranslations endif -->
+	
+<!-- include meta.html -->
+<!-- This file is typically overriden by the target, with own Twitter
+     account etc. Most data is taken from the theme file though.  
+  -->
+
+<!-- include robotsmeta.html -->
+
+<!-- end include robotsmeta.html -->
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@msmakecode" />
+<meta name="twitter:title" content="MakeCode Let&#39;s STEAM - Blocks / Javascript editor" />
+<meta name="twitter:description" content="A Blocks / JavaScript code editor for the Let&#39;s STEAM project" />
+<meta name="twitter:image" content="" />
+
+<meta property="og:title" content="MakeCode Let&#39;s STEAM - Blocks / Javascript editor" />
+<meta property="og:site_name" content="Microsoft MakeCode" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="A Blocks / JavaScript code editor for the Let&#39;s STEAM project" />
+<meta property="fb:app_id" content="" />
+<meta property="og:image" content="" />
+
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" href="">
+<link rel="icon" type="image/png" href="">
+<link rel="shortcut icon" href="">
+<meta name="theme-color" content="#0089BF">
+
+<!-- end include meta.html -->
+
+	
+<!-- include head.html -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+
+<link rel="stylesheet" data-rtl="/blb/rtlsemantic.css" href="/semantic.css" />
+<link id="blocklycss"  data-rtl="/blb/rtlblockly.css" rel="stylesheet" href="/blockly.css" />
+<link rel="stylesheet" href="/docfiles/style.css" />
+<link rel="stylesheet" href="/docfiles/vs.css" />
+<link rel="stylesheet" href="/docfiles/target.css" />
+
+<script src="/jquery.js" type="text/javascript"></script>
+<script src="/semantic.js" type="text/javascript"></script>
+<script src="/docfiles/target.js" type="text/javascript"></script>
+<script src="/embed.js" type="text/javascript"></script>
+<script src="/docfiles/docs.js" type="text/javascript"></script>
+
+<style>
+    
+.ui.accent { color: #0089BF; }
+.ui.inverted.accent { background: #0089BF; }
+
+</style>
+
+<!-- end include head.html -->
+
+
+</head>
+
+<body id='root' class='root'>
+	<div id="accessibleMenu" class="ui accessibleMenu borderless fixed menu docs" role="menubar">
+		
+            <a href="#maincontent" class="ui item link" tabindex="0" role="menuitem">Skip to main content</a>
+        
+	</div>
+
+	
+<!-- include tocheader.html -->
+<div id="top-bar" class="ui fixed accent borderless lighttoc main menu hideprint docs" role="menubar">
+    <div>
+        
+            <a id="togglesidebar" class="launch icon item" tabindex="0" title="Side menu" aria-label="Side menu" role="menuitem" aria-expanded="false">
+                <i class="content icon"></i>
+            </a>
+        
+        <div class="item" role="menuitem">
+            <div class="header-org-logo">
+                <img src="/static/logo/Microsoft_logo_rgb_W-white_D.png" alt="Microsoft">
+            </div>
+            <div class="header-org-logo-sm">
+                <img src="/static/logo/Microsoft_logo_rgb_W-white_D-square.png" alt="Microsoft">
+            </div>
+            <div class="header-title"><span>MakeCode</span></div>
+        </div>
+    </div>
+    <div>
+        <div class="item">
+            <form id="tocsearch1" class="search" role="form" method="get" action="https://www.bing.com/search">
+                <div class="ui fluid icon input">
+                    <input type="hidden" name="q1" value="site:http://makecode.st.com/" />
+                    
+                <input type="search" name="q" placeholder="Search..." aria-label="Search Documentation">
+                <i onclick="document.getElementById('tocsearch1').submit();" tabindex="0" class="search link icon" aria-label="Search" role="button"></i>
+            
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="side-menu" class="ui vertical accent lighttoc sidebar menu left hideprint docs" role="menubar">
+    <!-- TOC Menu (tocheader.html) -->
+    <div class="menuContainer" role="menu">
+        
+    <a class="item " href="/docs/about.html" role="menuitem">About</a>
+
+
+    <a class="item " href="/docs/faq.html" role="menuitem">FAQ</a>
+
+
+    <a class="item " href="/docs/projects.html" role="menuitem">Projects</a>
+
+
+    <a class="item " href="/docs/github.html" role="menuitem">GitHub</a>
+
+
+    <div class="ui  accordion item visible" role="tree" title="">
+        <div class=" title">
+            <i class="right chevron icon"></i>
+            <a class="header" role="treeitem" aria-expanded="false" href="/docs/blocks.html">Blocks</a>
+        </div>
+        <div class=" content">
+            
+    <a class="item " href="/docs/blocks/on-start.html" role="menuitem">On Start</a>
+
+
+    <div class="ui  accordion item visible" role="tree" title="">
+        <div class=" title">
+            <i class="right chevron icon"></i>
+            <a class="header" role="treeitem" aria-expanded="false" href="/docs/blocks/loops.html">Loops</a>
+        </div>
+        <div class=" content">
+            
+    <a class="item " href="/docs/blocks/loops/repeat.html" role="menuitem">repeat</a>
+
+
+    <a class="item " href="/docs/blocks/loops/for.html" role="menuitem">for</a>
+
+
+    <a class="item " href="/docs/blocks/loops/while.html" role="menuitem">while</a>
+
+
+    <a class="item " href="/docs/blocks/loops/for-of.html" role="menuitem">for of</a>
+
+        </div>
+    </div>
+
+
+    <div class="ui  accordion item visible" role="tree" title="">
+        <div class=" title">
+            <i class="right chevron icon"></i>
+            <a class="header" role="treeitem" aria-expanded="false" href="/docs/blocks/logic.html">Logic</a>
+        </div>
+        <div class=" content">
+            
+    <a class="item " href="/docs/blocks/logic/if.html" role="menuitem">if</a>
+
+
+    <a class="item " href="/docs/blocks/logic/boolean.html" role="menuitem">Boolean</a>
+
+        </div>
+    </div>
+
+
+    <div class="ui  accordion item visible" role="tree" title="">
+        <div class=" title">
+            <i class="right chevron icon"></i>
+            <a class="header" role="treeitem" aria-expanded="false" href="/docs/blocks/variables.html">Variables</a>
+        </div>
+        <div class=" content">
+            
+    <a class="item " href="/docs/blocks/variables/assign.html" role="menuitem">assign</a>
+
+
+    <a class="item " href="/docs/blocks/variables/change.html" role="menuitem">change var</a>
+
+
+    <a class="item " href="/docs/blocks/variables/var.html" role="menuitem">var</a>
+
+        </div>
+    </div>
+
+
+    <a class="item " href="/docs/blocks/math.html" role="menuitem">Math</a>
+
+
+    <a class="item " href="/docs/blocks/javascript-blocks.html" role="menuitem">JavaScript blocks</a>
+
+
+    <a class="item " href="/docs/blocks/custom.html" role="menuitem">Custom blocks</a>
+
+        </div>
+    </div>
+
+
+    <div class="ui  accordion item visible" role="tree" title="">
+        <div class=" title">
+            <i class="right chevron icon"></i>
+            <a class="header" role="treeitem" aria-expanded="false" href="/docs/python.html">Python</a>
+        </div>
+        <div class=" content">
+            
+    <a class="item " href="/docs/python/call.html" role="menuitem">Calling</a>
+
+
+    <a class="item " href="/docs/python/sequence.html" role="menuitem">Sequencing</a>
+
+
+    <a class="item " href="/docs/python/variables.html" role="menuitem">Variables</a>
+
+
+    <a class="item " href="/docs/python/operators.html" role="menuitem">Operators</a>
+
+
+    <a class="item " href="/docs/python/statements.html" role="menuitem">Statements</a>
+
+
+    <a class="item " href="/docs/python/functions.html" role="menuitem">Functions</a>
+
+
+    <a class="item " href="/docs/python/classes.html" role="menuitem">Classes</a>
+
+        </div>
+    </div>
+
+
+    <div class="ui  accordion item visible" role="tree" title="">
+        <div class=" title">
+            <i class="right chevron icon"></i>
+            <a class="header" role="treeitem" aria-expanded="false" href="/docs/javascript.html">JavaScript</a>
+        </div>
+        <div class=" content">
+            
+    <a class="item " href="/docs/javascript/call.html" role="menuitem">Calling</a>
+
+
+    <a class="item " href="/docs/javascript/sequence.html" role="menuitem">Sequencing</a>
+
+
+    <a class="item " href="/docs/javascript/variables.html" role="menuitem">Variables</a>
+
+
+    <a class="item " href="/docs/javascript/operators.html" role="menuitem">Operators</a>
+
+
+    <a class="item " href="/docs/javascript/statements.html" role="menuitem">Statements</a>
+
+
+    <a class="item " href="/docs/javascript/functions.html" role="menuitem">Functions</a>
+
+
+    <a class="item " href="/docs/javascript/types.html" role="menuitem">Types</a>
+
+
+    <a class="item " href="/docs/javascript/classes.html" role="menuitem">Classes</a>
+
+
+    <a class="item " href="/docs/javascript/interfaces.html" role="menuitem">Interfaces</a>
+
+
+    <a class="item " href="/docs/javascript/generics.html" role="menuitem">Generics</a>
+
+        </div>
+    </div>
+
+
+    <div class="ui  accordion item visible" role="tree" title="">
+        <div class=" title">
+            <i class="right chevron icon"></i>
+            <a class="header" role="treeitem" aria-expanded="false" href="/docs/types.html">Types</a>
+        </div>
+        <div class=" content">
+            
+    <a class="item " href="/docs/types/number.html" role="menuitem">Number</a>
+
+
+    <a class="item " href="/docs/types/string.html" role="menuitem">String</a>
+
+
+    <a class="item " href="/docs/types/boolean.html" role="menuitem">Boolean</a>
+
+
+    <a class="item " href="/docs/types/array.html" role="menuitem">Array</a>
+
+
+    <a class="item " href="/docs/types/function.html" role="menuitem">Function</a>
+
+        </div>
+    </div>
+
+
+    <div class="ui  accordion item visible" role="tree" title="">
+        <div class=" title">
+            <i class="right chevron icon"></i>
+            <a class="header" role="treeitem" aria-expanded="false" href="">Miscellaneous</a>
+        </div>
+        <div class=" content">
+            
+    <a class="item " href="/docs/about.html" role="menuitem">About</a>
+
+
+    <a class="item " href="/docs/support.html" role="menuitem">Support</a>
+
+
+    <a class="item " href="/docs/translate.html" role="menuitem">Translate</a>
+
+
+    <a class="item " href="/docs/share.html" role="menuitem">Sharing projects</a>
+
+
+    <a class="item " href="/docs/offline.html" role="menuitem">Offline support</a>
+
+
+    <a class="item " href="/docs/save.html" role="menuitem">Save</a>
+
+        </div>
+    </div>
+
+
+    <div class="ui  accordion item visible" role="tree" title="">
+        <div class=" title">
+            <i class="right chevron icon"></i>
+            <a class="header" role="treeitem" aria-expanded="false" href="">Developers</a>
+        </div>
+        <div class=" content">
+            
+    <a class="item " href="/docs/cli.html" role="menuitem">Command Line Interface</a>
+
+
+    <a class="item " href="/docs/code.html" role="menuitem">Visual Studio Code support</a>
+
+
+    <a class="item " href="/docs/blocks-embed.html" role="menuitem">Blocks Embed</a>
+
+        </div>
+    </div>
+
+    </div>
+</div>
+<!-- end include tocheader.html -->
+
+
+	<div id="docs" class="pusher">
+
+		<div class="article" id="maincontent">
+			<div class="article-inner">
+
+				
+<!-- include header.html -->
+<div class="ui one column padded grid hideprint">
+    <div class="column ui container">
+        
+    </div>
+</div>
+<!-- end include header.html -->
+
+
+				<div class="main ui container fluid mainbody">
+					<button id="printbtn" class="circular ui icon right floated button hideprint hidemobile"
+						title="Print" aria-label="Print">
+						<i class="icon print"></i>
+					</button>
+					
+    <div class="ui text">
+        <p>[
+{
+  “name”: “Est-il encore permis d’avoir un beau jardin au 21ième siècle ?”,
+  “description” : “Comment irriguer automatiquement une plante ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Est-il-encore-permis-d-avoir-un-beau-jardin-au-21i-me-si-cle-6dc786e70d5e423e86ae5d7ad61fc97a&quot;">https://thedexterlabwiki.notion.site/Est-il-encore-permis-d-avoir-un-beau-jardin-au-21i-me-si-cle-6dc786e70d5e423e86ae5d7ad61fc97a&quot;</a>,
+  “imageUrl” : “/docs/static/activities/1TDL.png”,
+},
+{
+  “name” : “Pourquoi l’océan est-il salé ?”,
+  “description” : “Comment séparer le sel et l’eau et contrôler le résultat ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Pourquoi-l-oc-an-est-il-sal-223cdf893b5842f58ee86a0f1cfebdbd&quot;">https://thedexterlabwiki.notion.site/Pourquoi-l-oc-an-est-il-sal-223cdf893b5842f58ee86a0f1cfebdbd&quot;</a>,
+  “imageUrl” : “/docs/static/activities/2TDL.png”,
+},
+{
+  “name” : “La lumière a-t-elle de l’énergie ?”,
+  “description” : “Comment récolter de l’énergie pour produire de l’électricité à partir de sources renouvelables ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/La-lumi-re-a-t-elle-de-l-nergie-7ddb378d59984a99969f7603ba242772&quot;">https://thedexterlabwiki.notion.site/La-lumi-re-a-t-elle-de-l-nergie-7ddb378d59984a99969f7603ba242772&quot;</a>,
+  “imageUrl” : “/docs/static/activities/3TDL.png”,
+},
+{
+  “name”: “Le vent et les chutes d’eau ont-ils de l’énergie ?”,
+  “description” : “Comment récolter de l’énergie pour produire de l’électricité à partir de sources renouvelables ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Le-vent-et-les-chutes-d-eau-ont-ils-de-l-nergie-cf39a876a9a148fba75c59135f2c631a&quot;">https://thedexterlabwiki.notion.site/Le-vent-et-les-chutes-d-eau-ont-ils-de-l-nergie-cf39a876a9a148fba75c59135f2c631a&quot;</a>,
+  “imageUrl” : “/docs/static/activities/4TDL.png”,
+},
+{
+  “name”: “Comment pouvons-nous réduire la quantité d’énergie que nous utilisons ?”,
+  “description” : “Comment détecter et mesurer les économies d’énergie ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Comment-pouvons-nous-r-duire-la-quantit-d-nergie-que-nous-utilisons-60dff23ace3b46a98d487e65ac55d9f3&quot;">https://thedexterlabwiki.notion.site/Comment-pouvons-nous-r-duire-la-quantit-d-nergie-que-nous-utilisons-60dff23ace3b46a98d487e65ac55d9f3&quot;</a>,
+  “imageUrl” : “/docs/static/activities/5TDL.png”,
+},
+{
+  “name”: “L’énergie fournie par un panneau solaire est-elle toujours la même tout au long de la journée ?”,
+  “description” : “Comment maximiser l’apport en énergie solaire ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/L-nergie-fournie-par-un-panneau-solaire-est-elle-toujours-la-m-me-tout-au-long-de-la-journ-e-c89f9f36b73245678504fdea74cc6531&quot;">https://thedexterlabwiki.notion.site/L-nergie-fournie-par-un-panneau-solaire-est-elle-toujours-la-m-me-tout-au-long-de-la-journ-e-c89f9f36b73245678504fdea74cc6531&quot;</a>,
+  “imageUrl” : “/docs/static/activities/6TDL.png”,
+},
+{
+  “name”: “Comment maximiser l’apport en énergie solaire et créer des panneaux auto-orientables ?”,
+  “description” : “Comment maximiser l’apport en énergie solaire ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Comment-maximiser-l-apport-en-nergie-solaire-et-cr-er-des-panneaux-auto-orientables-ef4207e8d25744a3abcf64ba472582b9&quot;">https://thedexterlabwiki.notion.site/Comment-maximiser-l-apport-en-nergie-solaire-et-cr-er-des-panneaux-auto-orientables-ef4207e8d25744a3abcf64ba472582b9&quot;</a>,
+  “imageUrl” : “/docs/static/activities/7TDL.png”,
+},
+{
+  “name”: “Une plante consomme-t-elle plus de CO2 qu’elle n’en rejette ?”,
+  “description” : “Comment améliorer la qualité de l’air ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Une-plante-consomme-t-elle-plus-de-CO2-qu-elle-n-en-rejette-6390fd4c5ad848f7a2d037263e219518&quot;">https://thedexterlabwiki.notion.site/Une-plante-consomme-t-elle-plus-de-CO2-qu-elle-n-en-rejette-6390fd4c5ad848f7a2d037263e219518&quot;</a>,
+  “imageUrl” : “/docs/static/activities/8TDL.png”,
+},
+{
+  “name”: “La qualité de l’air diminue-t-elle lorsque le nombre de personnes présentes dans une pièce augmente ?”,
+  “description” : “Comment améliorer la qualité de l’air en milieu fermé ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/La-qualit-de-l-air-diminue-t-elle-lorsque-le-nombre-de-personnes-pr-sentes-dans-une-pi-ce-augmente-fe29b819beb8461abf3d634a4e020a35&quot;">https://thedexterlabwiki.notion.site/La-qualit-de-l-air-diminue-t-elle-lorsque-le-nombre-de-personnes-pr-sentes-dans-une-pi-ce-augmente-fe29b819beb8461abf3d634a4e020a35&quot;</a>,
+  “imageUrl” : “/docs/static/activities/9TDL.png”,
+},
+{
+  “name”: “Est-ce que notre corps ou ses parties sont accélérés de plus de 1 g même si nous dansons comme des fous ? “,
+  “description” : “Quelle force notre corps ou ses parties subissent-ils lorsque nous bougeons, courons ou dansons ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Est-ce-que-notre-corps-ou-ses-parties-sont-acc-l-r-s-de-plus-de-1-g-m-me-si-nous-dansons-comme-des-f-8d16e11854d84009b65a27a9905a286b&quot;">https://thedexterlabwiki.notion.site/Est-ce-que-notre-corps-ou-ses-parties-sont-acc-l-r-s-de-plus-de-1-g-m-me-si-nous-dansons-comme-des-f-8d16e11854d84009b65a27a9905a286b&quot;</a>,
+  “imageUrl” : “/docs/static/activities/10TDL.png”,
+},
+{
+  “name”: “La température modifie-t-elle la vitesse du son ?”,
+  “description” : “Est-il possible de mesurer la variation de la vitesse du son en fonction de la température ambiante ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/La-temp-rature-modifie-t-elle-la-vitesse-du-son-32006d6db766491ba662abe49c3d11b6&quot;">https://thedexterlabwiki.notion.site/La-temp-rature-modifie-t-elle-la-vitesse-du-son-32006d6db766491ba662abe49c3d11b6&quot;</a>,
+  “imageUrl” : “/docs/static/activities/11TDL.png”,
+},
+{
+  “name”: “Le son se déplace-t-il de plus de 100 mètres en 1 seconde ?”,
+  “description” : “A quelle vitesse le son voyage-t-il ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Le-son-se-d-place-t-il-de-plus-de-100-m-tres-en-1-seconde-ea4606d1769a4667a0917b93f49526cc&quot;">https://thedexterlabwiki.notion.site/Le-son-se-d-place-t-il-de-plus-de-100-m-tres-en-1-seconde-ea4606d1769a4667a0917b93f49526cc&quot;</a>,
+  “imageUrl” : “/docs/static/activities/12TDL.png”,
+},
+{
+  “name”: “Votre temps de réaction est-il inférieur à une demi-seconde ?”,
+  “description” : “Comment évaluer le temps de réaction d’un cycliste ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Votre-temps-de-r-action-est-il-inf-rieur-une-demi-seconde-f8b85cfb3d854ffd9831ef8ae334a11b&quot;">https://thedexterlabwiki.notion.site/Votre-temps-de-r-action-est-il-inf-rieur-une-demi-seconde-f8b85cfb3d854ffd9831ef8ae334a11b&quot;</a>,
+  “imageUrl” : “/docs/static/activities/13TDL.png”,
+},
+{
+  “name”: “La distraction peut-elle modifier votre temps de réaction ?”,
+  “description” : “Comment évaluer le temps de réaction d’un cycliste ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/La-distraction-peut-elle-modifier-votre-temps-de-r-action-e2ca8b3413424c7b8c1a58cd93fc6d83&quot;">https://thedexterlabwiki.notion.site/La-distraction-peut-elle-modifier-votre-temps-de-r-action-e2ca8b3413424c7b8c1a58cd93fc6d83&quot;</a>,
+  “imageUrl” : “/docs/static/activities/14TDL.png”,
+},
+{
+  “name”: “Peut-on construire une machine qui utilise le vent pour soulever un poids de 50 g ?”,
+  “description” : “Peut-on utiliser le vent comme source d’énergie mécanique ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Peut-on-construire-une-machine-qui-utilise-le-vent-pour-soulever-un-poids-de-50-g-3688455d403d438db621cac4115a1e6f&quot;">https://thedexterlabwiki.notion.site/Peut-on-construire-une-machine-qui-utilise-le-vent-pour-soulever-un-poids-de-50-g-3688455d403d438db621cac4115a1e6f&quot;</a>,
+  “imageUrl” : “/docs/static/activities/15TDL.png”,
+},
+{
+  “name”: “Pouvons-nous construire une solution pour accéder aux informations météorologiques ?”,
+  “description” : “Peut-on construire une station météorologique mesurant la température, l’humidité, la pression, le vent, la pluie ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Pouvons-nous-construire-une-solution-pour-acc-der-aux-informations-m-t-orologiques-b79017aece6642ef85d9a9dcc7156c5c&quot;">https://thedexterlabwiki.notion.site/Pouvons-nous-construire-une-solution-pour-acc-der-aux-informations-m-t-orologiques-b79017aece6642ef85d9a9dcc7156c5c&quot;</a>,
+  “imageUrl” : “/docs/static/activities/16TDL.png”,
+},
+{
+  “name”: “L’IA peut-elle être un outil de sécurité sans faille ?”,
+  “description” : “Comment détecter des visages ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/L-IA-peut-elle-tre-un-outil-de-s-curit-sans-faille-bce3b66c9c8d4741a3d3aab44cc3ba31&quot;">https://thedexterlabwiki.notion.site/L-IA-peut-elle-tre-un-outil-de-s-curit-sans-faille-bce3b66c9c8d4741a3d3aab44cc3ba31&quot;</a>,
+  “imageUrl” : “/docs/static/activities/17TDL.png”,
+},
+{
+  “name”: “La consommation de CO2 par les plantes a-t-elle un impact sur le pH ?”,
+  “description” : “Comment fonctionne la photosynthèse ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/La-consommation-de-CO2-par-les-plantes-a-t-elle-un-impact-sur-le-pH-44097cef72404d189e4212cd89de1c3a&quot;">https://thedexterlabwiki.notion.site/La-consommation-de-CO2-par-les-plantes-a-t-elle-un-impact-sur-le-pH-44097cef72404d189e4212cd89de1c3a&quot;</a>,
+  “imageUrl” : “/docs/static/activities/18TDL.png”,
+},
+{
+  “name”: “Peut-on mesurer l’atténuation du son par un matériau ?”,
+  “description” : “Quels sont les matériaux habituels qui peuvent atténuer le son ?”,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Peut-on-mesurer-l-att-nuation-du-son-par-un-mat-riau-179504d5b5b74224b7163463442e1985&quot;">https://thedexterlabwiki.notion.site/Peut-on-mesurer-l-att-nuation-du-son-par-un-mat-riau-179504d5b5b74224b7163463442e1985&quot;</a>,
+  “imageUrl” : “/docs/static/activities/19TDL.png”,
+},
+{
+  “name”: “Puis-je mesurer le temps en faisant osciller un pendule ?”,
+  “description” : “Comment mesurer le temps ? “,
+  “url” : “<a target="_blank" rel="nofollow noopener" href="https://thedexterlabwiki.notion.site/Puis-je-mesurer-le-temps-en-faisant-osciller-un-pendule-d2572d451b52472da87f5a34d172c9de&quot;">https://thedexterlabwiki.notion.site/Puis-je-mesurer-le-temps-en-faisant-osciller-un-pendule-d2572d451b52472da87f5a34d172c9de&quot;</a>,
+  “imageUrl” : “/docs/static/activities/20TDL.png”,
+},
+]</p>
+
+    </div>
+
+					<div class="hideprint"></div>
+				</div>
+
+			</div>
+
+			
+<!-- include footer.html -->
+<footer class="ui vertical footer segment hideprint docs lighttoc" aria-hidden="false">
+    <div class="ui center aligned container">
+        <div class="ui horizontal link list">
+            <a
+                class="item"
+                href="https://twitter.com/intent/follow?screen_name=MsMakeCode"
+                title="Follow us on Twitter"
+                target="_blank"
+                rel="noopener">
+                <i class="huge icon twitter"></i>
+            </a>
+            <a class="item" href="https://www.youtube.com/channel/UCye7YlvFUUQ1dSy0WZZ1T_Q" title="Subscribe to our YouTube channel"
+                target="_blank" rel="noopened">
+                <i class="huge icon youtube"></i>
+            </a>
+            <a class="item" href="mailto:makecode@microsoft.com" title="Send us an Email"
+                target="_blank" rel="noopened">
+                <i class="huge icon mail"></i>
+            </a>
+        </div>
+        <div class="ui section divider"></div>
+        <div class="ui container horizontal small divided link list">
+            <a id="langpicker" tabindex="0" class="ui item" rel="noopener">
+                <i class="icon xicon globe" aria-hidden="true" role="presentation"></i>Language
+            </a>
+            <a class="item" href="https://makecode.com/privacy" target="_blank" rel="noopener">Privacy &amp; Cookies</a>
+            <a class="item" href="https://makecode.com/termsofuse" target="_blank" rel="noopener">Terms Of Use</a>
+            <a class="item" href="https://makecode.com/trademarks" target="_blank" rel="noopener">Trademarks</a>
+            <span class="item">© 2022 Microsoft</span>
+        </div>
+        <div class="ui container horizontal small link list poweredBy">
+            <span class="item">Powered by</span>
+            <a class="middle aligned" href="https://makecode.com/" title="Microsoft MakeCode"
+                target="_blank" rel="noopener">
+                <img width="100" src="/static/logo/Microsoft-logo_rgb_c-gray.png" alt="Microsoft">
+            </a>
+        </div>
+    </div>
+</footer>
+
+<!-- end include footer.html -->
+
+
+		</div>
+
+	</div>
+
+    
+<!-- include langpicker.html -->
+<div id="langmodal" class="ui modal docs" role="dialog" aria-modal="true" aria-describedby="langmodalheader" tabindex="-1">
+    <h2 id="langmodalheader" class="header">Select Language</h2>
+    <div role="button" class="closeIcon" tabindex="0" aria-label="Close">
+        <i class="icon close remove circle" aria-hidden="true"></i>
+    </div>
+
+	<div class="content">
+	    <div class="group">
+            <div id="availablelocales" class="ui cards centered" role="listbox" aria-label="List of available locales"></div>
+        </div>
+        <div class="ui" id="langmodalfooter">
+            <a class="ui" href="/docs/translate.html" target="_blank" rel="noopener noreferrer">
+                How do I add a new language?
+            </a>
+
+            <a id="translatebtn" class="ui button" role="button" tabindex="0">
+                Translate this page
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- end include langpicker.html -->
+
+	
+<!-- include macros.html -->
+<!-- macro button -->
+
+<!-- macro vimeo -->
+
+<!-- macro youtube -->
+
+<!-- macro section -->
+
+<!-- macro hide -->
+
+<!-- macro avatar -->
+
+<!-- macro hint -->
+
+<!-- macro codecard -->
+
+<!-- macro tutorialhint -->
+
+<!-- macro reminder -->
+
+<!-- macro alert -->
+
+<!-- macro tip -->
+
+<!-- wrapped around ordinary content -->
+<!-- macro main-container -->
+
+<!-- used for 'column' box - they are collected and wrapped in 'column-container' -->
+<!-- macro column -->
+<!-- macro column-container -->
+
+
+<!-- Menu on the top of the page -->
+<!-- macro item -->
+
+<!-- macro divider -->
+
+<!-- TOC in the sidebar -->
+<!-- macro item -->
+
+<!-- macro divider -->
+
+<!-- macro toc-dropdown -->
+
+<!-- macro toc-dropdown-noLink -->
+
+<!-- macro toc-dropdown-noHeading -->
+
+<!-- TODO: duplicates of above for compatability with docsrender.ts;
+    remove with pxtlib/docsrender.ts TOC TODOs after cloud bump. -->
+<!-- macro top-dropdown -->
+
+<!-- macro top-dropdown-noHeading -->
+
+<!-- macro inner-dropdown -->
+
+<!-- macro nested-dropdown -->
+<!-- end include macros.html -->
+
+	
+<!-- include tracking.html -->
+<script type="text/javascript" src="/pxtweb.js"></script>
+<script type="text/javascript">
+    window.loadAppInsights = function (includeCookie) {
+        //Backend will patch / + doccdn + / with CDN url and the check that URL ends with the sha would pass
+        var isProduction = includeCookie && (/[0-9a-f]{40}\/ai\.0\.js$/.test("/ai.0.js"));
+        var appInsights=window.appInsights||function(config){
+            function i(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s="AuthenticatedUserContext",h="start",c="stop",l="Track",a=l+"Event",v=l+"Page",y=u.createElement(o),r,f;y.src=config.url||"https://az416426.vo.msecnd.net/scripts/a/ai.0.js";u.getElementsByTagName(o)[0].parentNode.appendChild(y);try{t.cookie=u.cookie}catch(p){}for(t.queue=[],t.version="1.0",r=["Event","Exception","Metric","PageView","Trace","Dependency"];r.length;)i("track"+r.pop());return i("set"+s),i("clear"+s),i(h+a),i(c+a),i(h+v),i(c+v),i("flush"),config.disableExceptionTracking||(r="onerror",i("_"+r),f=e[r],e[r]=function(config,i,u,e,o){var s=f&&f(config,i,u,e,o);return s!==!0&&t["_"+r](config,i,u,e,o),s}),t
+        }({
+            instrumentationKey:"9801ed01-c40f-46ec-aa40-2a1742a9e71c",
+            disableAjaxTracking: true,
+            overridePageViewDuration: false,
+            disableExceptionTracking: true,
+            isCookieUseDisabled: !isProduction,
+            isStorageUseDisabled: !isProduction,
+            url: "/ai.0.js"
+        });
+        window.appInsights=appInsights;
+        appInsights.queue.push(function () {
+            appInsights.context.addTelemetryInitializer(function (envelope) {
+                var telemetryItem = envelope.data.baseData;
+                telemetryItem.properties = telemetryItem.properties || {};
+                telemetryItem.properties["cookie"] = isProduction;
+                if (typeof pxtConfig === "undefined" || !pxtConfig || !pxtConfig.targetId) {
+                    telemetryItem.properties["target"] = "stm32iotnode";
+                    return;
+                }
+                telemetryItem.properties["target"] = pxtConfig.targetId;
+                telemetryItem.properties["stage"] = (pxtConfig.relprefix || "/--").replace(/[^a-z]/ig, '')
+                if (typeof Windows !== "undefined")
+                    telemetryItem.properties["WindowsApp"] = 1;
+                var userAgent = navigator.userAgent.toLowerCase();
+                var userAgentRegexResult = /\belectron\/(\d+\.\d+\.\d+.*?)(?: |$)/i.exec(userAgent); // Example navigator.userAgent: "Mozilla/5.0 Chrome/61.0.3163.100 Electron/2.0.0 Safari/537.36"
+                if (userAgentRegexResult) {
+                    telemetryItem.properties["Electron"] = 1;
+                    telemetryItem.properties["ElectronVersion"] = userAgentRegexResult[1];
+                }
+                if (typeof pxtElectron !== "undefined") {
+                    telemetryItem.properties["PxtElectron"] = 1;
+                    telemetryItem.properties["ElectronVersion"] = pxtElectron.versions.electronVersion;
+                    telemetryItem.properties["ChromiumVersion"] = pxtElectron.versions.chromiumVersion;
+                    telemetryItem.properties["NodeVersion"] = pxtElectron.versions.nodeVersion;
+                    telemetryItem.properties["PxtElectronVersion"] = pxtElectron.versions.pxtElectronVersion;
+                    telemetryItem.properties["PxtCoreVersion"] = pxtElectron.versions.pxtCoreVersion;
+                    telemetryItem.properties["PxtTargetVersion"] = pxtElectron.versions.pxtTargetVersion;
+                    telemetryItem.properties["PxtElectronIsProd"] = pxtElectron.versions.isProd;
+                }
+            });
+        });
+        var location = window.location.toString();
+        // Use generic title for script share page, otherwise use current page title
+        var pageTitle = isScriptPage(location) ? "Share Page" : null;
+        appInsights.trackPageView(pageTitle, scrubUrl(location), {urlReferrer: scrubUrl(document.referrer.toString())});
+
+        var scriptIdRegex = /(?:S?\d{5}-\d{5}-\d{5}-\d{5})|(?:_[0-9a-zA-Z]{12})/g;
+        // Check if the current page contains a share URL
+        function isScriptPage(url) {
+            return !!url.match(scriptIdRegex);
+        }
+        // Scrub the key (if any) from the URL.
+        function scrubUrl(url) {
+            return url.replace(scriptIdRegex, "xxxxx-xxxxx-xxxxx-xxxxx");
+        }
+
+        return isProduction;
+    }
+    pxt.initAnalyticsAsync();
+</script>
+
+<!-- end include tracking.html -->
+
+
+</body>
+
+</html>
