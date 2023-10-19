@@ -7,7 +7,7 @@
     <link rel="stylesheet" data-rtl="/rtlsemantic.css" href="/semantic.css">
     <link rel="stylesheet" href="/icons.css">
     <link rel="stylesheet" href="/react-common-skillmap.css">
-  <script defer="defer" src="/skillmap/js/main.ec9edc3c.js"></script><link href="/skillmap/css/main.33813779.css" rel="stylesheet"></head>
+  <script defer="defer" src="/skillmap/js/main.51024e60.js"></script><link href="/skillmap/css/main.3c703680.css" rel="stylesheet"></head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
@@ -24,8 +24,24 @@
                 sdk.addTelemetryInitializer(function (envelope) {
                     // App Insights automatically sends a page view event on setup, but we send our own later with additional properties.
                     // This stops the automatic event from firing, so we don't end up with duplicate page view events.
-                    if(envelope.baseType == "PageviewData" && !envelope.baseData.properties) {
+                    if (envelope.baseType == "PageviewData" && !envelope.baseData.properties) {
                         return false;
+                    }
+
+                    if (envelope.baseType == "PageviewPerformanceData") {
+                        var pageName = envelope.baseData.name;
+                        envelope.baseData.name = window.location.origin;
+                        if (!envelope.baseData.properties) {
+                            envelope.baseData.properties = {};
+                        }
+                        envelope.baseData.properties.pageName = pageName;
+                        var scrubbedUrl = scrubUrl(envelope.baseData.uri);
+                        envelope.baseData.uri = scrubbedUrl;
+                        var toUrl = new URL(scrubbedUrl);
+                        envelope.baseData.properties.pathName = toUrl ? toUrl.pathname : "";
+                        if (envelope.ext && envelope.ext.trace) {
+                            envelope.ext.trace.name = toUrl ? toUrl.pathname : "";
+                        }
                     }
 
                     var telemetryItem = envelope.baseData;

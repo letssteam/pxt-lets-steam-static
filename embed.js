@@ -10,7 +10,7 @@
     "gifworkerjs": "/gifjs/gif.worker.js",
     "serviceworkerjs": "/serviceworker.js",
     "typeScriptWorkerJs": "/tsworker.js",
-    "pxtVersion": "8.6.34",
+    "pxtVersion": "9.1.11",
     "pxtRelId": "localDirRelId",
     "pxtCdnUrl": "/",
     "commitCdnUrl": "/",
@@ -31,6 +31,7 @@
     "skillmapUrl": "/skillmap.html",
     "authcodeUrl": "/authcode.html",
     "multiplayerUrl": "/multiplayer.html",
+    "kioskUrl": "/kiosk.html",
     "isStatic": true
 };
 

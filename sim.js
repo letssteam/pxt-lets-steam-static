@@ -31,7 +31,8 @@ var pxsim;
                 return null;
             }
             pxsim.pinIds = {};
-            for (let block of boardDefinition.visual.pinBlocks) {
+            for (let block of boardDefinition.visual
+                .pinBlocks) {
                 // scan labels
                 for (let lbl of block.labels) {
                     for (let sublbl of lbl.split(/[\/,]/)) {
@@ -60,7 +61,7 @@ var pxsim;
                 }
             }
             this.lightState = {};
-            this.microphoneState = new pxsim.AnalogSensorState(3001 /* DEVICE_ID_MICROPHONE */, 52, 120, 75, 96);
+            this.microphoneState = new pxsim.MicrophoneState(3001 /* DEVICE_ID_MICROPHONE */, 52, 120, 75, 96);
             this.storageState = new pxsim.StorageState();
             this.lightSensorState = new pxsim.AnalogSensorState(17 /* DEVICE_ID_LIGHT_SENSOR */, 0, 255, 128 / 4, 896 / 4);
             this.thermometerState = new pxsim.AnalogSensorState(8 /* DEVICE_ID_THERMOMETER */, -20, 50, 10, 30);
@@ -89,27 +90,34 @@ var pxsim;
             // this should be probably merged with buttonpair somehow
             this.builtinParts["radio"] = this.radioState = new pxsim.RadioState(pxsim.runtime, this, {
                 ID_RADIO: 9 /* DEVICE_ID_RADIO */,
-                RADIO_EVT_DATAGRAM: 1 /*DAL.DEVICE_RADIO_EVT_DATAGRAM*/
+                RADIO_EVT_DATAGRAM: 1 /*DAL.DEVICE_RADIO_EVT_DATAGRAM*/,
             });
-            this.builtinParts["pinbuttons"] = this.builtinParts["buttons"]
-                = this.buttonState = new pxsim.CommonButtonState();
+            this.builtinParts["pinbuttons"] =
+                this.builtinParts["buttons"] =
+                    this.buttonState =
+                        new pxsim.CommonButtonState();
             this.builtinParts["touch"] = this.touchButtonState = new pxsim.TouchButtonState(pinList);
             // components
             this.builtinParts["audio"] = this.audioState = new pxsim.AudioState();
-            this.builtinParts["edgeconnector"] = this.edgeConnectorState = new pxsim.EdgeConnectorState({
-                pins: pinList,
-                servos
-            });
+            this.builtinParts["edgeconnector"] = this.edgeConnectorState =
+                new pxsim.EdgeConnectorState({
+                    pins: pinList,
+                    servos,
+                });
             this.builtinParts["microservo"] = this.edgeConnectorState;
-            this.builtinParts["accelerometer"] = this.accelerometerState = new pxsim.AccelerometerState(pxsim.runtime);
-            ;
+            this.builtinParts["accelerometer"] = this.accelerometerState =
+                new pxsim.AccelerometerState(pxsim.runtime);
             this.builtinParts["screen"] = this.screenState = new pxsim.ScreenState([], pxsim.getConfig(37 /* CFG_DISPLAY_WIDTH */) || 160, pxsim.getConfig(38 /* CFG_DISPLAY_HEIGHT */) || 128);
             this.builtinVisuals["buttons"] = () => new pxsim.visuals.ButtonView();
             this.builtinVisuals["microservo"] = () => new pxsim.visuals.MicroServoView();
-            this.builtinParts["neopixel"] = (pin) => { return this.neopixelState(pin.id); };
+            this.builtinParts["neopixel"] = (pin) => {
+                return this.neopixelState(pin.id);
+            };
             this.builtinVisuals["neopixel"] = () => new pxsim.visuals.NeoPixelView(parsePinString);
             this.builtinPartVisuals["neopixel"] = (xy) => pxsim.visuals.mkNeoPixelPart(xy);
-            this.builtinParts["dotstar"] = (pin) => { return this.neopixelState(pin.id); };
+            this.builtinParts["dotstar"] = (pin) => {
+                return this.neopixelState(pin.id);
+            };
             this.builtinVisuals["dotstar"] = () => new pxsim.visuals.NeoPixelView(parsePinString);
             this.builtinPartVisuals["dotstar"] = (xy) => pxsim.visuals.mkNeoPixelPart(xy);
             this.builtinParts["lcd"] = this.lcdState;
@@ -127,11 +135,14 @@ var pxsim;
             this.builtinPartVisuals["photocell"] = (xy) => pxsim.visuals.mkPhotoCellPart(xy);
             this.builtinVisuals["screen"] = () => new pxsim.visuals.ScreenView();
             this.builtinPartVisuals["screen"] = (xy) => pxsim.visuals.mkScreenPart(xy);
-            this.neopixelPin = this.edgeConnectorState.getPin(pxsim.getConfig(220 /* CFG_PIN_ONBOARD_DOTSTAR_DATA */))
-                || this.edgeConnectorState.getPin(pxsim.getConfig(222 /* CFG_PIN_ONBOARD_NEOPIXEL */))
-                || this.edgeConnectorState.getPin(pxsim.getConfig(8 /* CFG_PIN_DOTSTAR_DATA */))
-                || this.edgeConnectorState.getPin(pxsim.getConfig(20 /* CFG_PIN_NEOPIXEL */));
-            this.builtinParts["pixels"] = (pin) => { return this.neopixelState(!!this.neopixelPin && this.neopixelPin.id); };
+            this.neopixelPin =
+                this.edgeConnectorState.getPin(pxsim.getConfig(220 /* CFG_PIN_ONBOARD_DOTSTAR_DATA */)) ||
+                    this.edgeConnectorState.getPin(pxsim.getConfig(222 /* CFG_PIN_ONBOARD_NEOPIXEL */)) ||
+                    this.edgeConnectorState.getPin(pxsim.getConfig(8 /* CFG_PIN_DOTSTAR_DATA */)) ||
+                    this.edgeConnectorState.getPin(pxsim.getConfig(20 /* CFG_PIN_NEOPIXEL */));
+            this.builtinParts["pixels"] = (pin) => {
+                return this.neopixelState(!!this.neopixelPin && this.neopixelPin.id);
+            };
             this.builtinVisuals["pixels"] = () => new pxsim.visuals.NeoPixelView(parsePinString);
             this.builtinPartVisuals["pixels"] = (xy) => pxsim.visuals.mkNeoPixelPart(xy);
             this.builtinParts["distance"] = () => new pxsim.DistanceState(this.distanceState, this.distanceUnitState);
@@ -195,14 +206,14 @@ var pxsim;
                 maxWidth: "100%",
                 maxHeight: "100%",
                 forceBreadboardLayout: true,
-                forceBreadboardRender: true
+                forceBreadboardRender: true,
             };
             this.viewHost = new pxsim.visuals.BoardHost(pxsim.visuals.mkBoardView({
                 visual: boardDef.visual,
-                boardDef
+                boardDef,
             }), opts);
             document.body.innerHTML = ""; // clear children
-            document.body.appendChild(this.view = this.viewHost.getView());
+            document.body.appendChild((this.view = this.viewHost.getView()));
             this.accelerometerState.attachEvents(this.view);
             return Promise.resolve();
         }
