@@ -60,12 +60,9 @@ CACHE:
 /worker.js
 /monacoworker.js
 
-# ver Tue Sep 12 2023 13:27:40 GMT+0000 (Coordinated Universal Time)
+# ver Thu Oct 19 2023 16:06:47 GMT+0000 (Coordinated Universal Time)
 
 # target
-/docs/static/logo.svg
-/docs/static/logo.svg
-/docs/static/logo.svg
 /docs/static/logo.svg
 /docs/static/Microsoft-logo_rgb_c-gray-square.png
 /docs/static/Microsoft-logo_rgb_c-white.png
